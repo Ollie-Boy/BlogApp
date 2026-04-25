@@ -45,10 +45,25 @@ Under `[params.comichero]` you can set `heroTitle`, `heroSubtitle`, `heroSfx`, `
 
 ## Shortcodes
 
-- `{{< sfx text="POW!" >}}` — inline sound-effect badge  
-- `{{< burst text="BAM!" >}}` — centered burst  
-- `{{< panel title="Note" >}}` ... `{{< /panel >}}` — bordered panel  
-- `{{< speech from="Name" >}}` ... `{{< /speech >}}` — labeled speech bubble (optional `from`)
+Examples (copy from this block; fenced so Hugo does not run them here):
+
+```text
+{{< sfx text="POW!" >}}
+{{< burst text="BAM!" >}}
+{{< panel title="Note" >}}...{{< /panel >}}
+{{< speech from="Name" >}}...{{< /speech >}}
+{{< thought from="Name" >}}...{{< /thought >}}
+{{< stamp color="accent" >}}NEW!{{< /stamp >}}
+{{< divider label="Act II" style="gutter" >}}
+```
+
+- **sfx** — inline sound-effect badge  
+- **burst** — centered burst  
+- **panel** — bordered panel (paired)  
+- **speech** — labeled dialogue bubble (paired; optional `from`)  
+- **thought** — thought cloud + dot trail (paired; optional `from`)  
+- **stamp** — inline seal; inner text or `text="..."`; `color`: `accent`, `warn`, `info`  
+- **divider** — panel break; optional `label`; `style`: `gutter` (default), `zap`, `burst`
 
 ## Next
 

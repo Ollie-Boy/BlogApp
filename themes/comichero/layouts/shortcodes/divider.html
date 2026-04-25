@@ -1,0 +1,5 @@
+{{ $label := .Get "label" | default "" }}
+{{ $style := .Get "style" | default "gutter" }}
+<div class="comic-divider comic-divider--{{ $style }}" role="separator">
+  {{ if $label }}<span class="comic-divider__label">{{ $label }}</span>{{ end }}
+</div>

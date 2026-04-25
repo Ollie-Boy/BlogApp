@@ -8,7 +8,7 @@ American comic book style Hugo theme: halftone textures, hard shadows, Bangers-s
 - Section cards + post grid with staggered “bounce in” animation
 - Light/dark `data-theme` with `localStorage` and no-flash boot script
 - **Docs** content type uses `layouts/docs/single.html` with table of contents
-- Shortcodes: `panel`, `sfx`, `burst`, `speech` (caption + dialogue bubble)
+- Shortcodes: `panel`, `sfx`, `burst`, `speech`, `thought` (thought bubble), `stamp` (inline seal, inner text or `text` param), `divider` (panel break)
 - Fonts: `@font-face` from theme `static/fonts/` plus optional Google Fonts link in config
 
 ## Use in your site

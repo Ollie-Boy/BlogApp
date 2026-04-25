@@ -1,0 +1,11 @@
+{{ $from := .Get "from" | default "" }}
+{{ $class := .Get "class" | default "" }}
+<aside class="comic-thought {{ $class }}"{{ if $from }} data-from="{{ $from }}"{{ end }}>
+  {{ if $from }}<span class="comic-thought__label">{{ $from }}</span>{{ end }}
+  <div class="comic-thought__cloud">
+    <div class="comic-thought__inner">{{ .Inner | markdownify }}</div>
+    <span class="comic-thought__dot comic-thought__dot--a" aria-hidden="true"></span>
+    <span class="comic-thought__dot comic-thought__dot--b" aria-hidden="true"></span>
+    <span class="comic-thought__dot comic-thought__dot--c" aria-hidden="true"></span>
+  </div>
+</aside>

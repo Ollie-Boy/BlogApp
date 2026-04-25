@@ -1,0 +1,5 @@
+{{ $inner := trim (string .Inner) " \n\r\t" }}
+{{ $text := .Get "text" | default $inner | default "NEW!" }}
+{{ $color := .Get "color" | default "accent" }}
+{{ $class := .Get "class" | default "" }}
+<span class="comic-stamp comic-stamp--{{ $color }} {{ $class }}" role="img" aria-label="{{ $text }}">{{ $text }}</span>

@@ -1088,6 +1088,209 @@ body.comichero-body.site-shell::before {
   z-index: 1;
 }
 
+/* Stamp — editorial seal / corner badge (inline-friendly) */
+.comic-stamp {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.55rem;
+  border: var(--stroke) solid var(--line);
+  color: var(--line);
+  transform: rotate(-8deg);
+  box-shadow: 4px 4px 0 var(--line);
+  vertical-align: middle;
+  margin: 0 0.15rem;
+  animation: stampWobble 4s ease-in-out infinite;
+}
+
+.comic-stamp--accent {
+  background: var(--accent);
+  color: #fff;
+}
+
+.comic-stamp--warn {
+  background: #ffeb3b;
+  color: var(--line);
+}
+
+.comic-stamp--info {
+  background: var(--accent-2);
+  color: #fff;
+}
+
+@keyframes stampWobble {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(-5deg) scale(1.02);
+  }
+}
+
+/* Thought bubble — cloud + trail of dots */
+.comic-thought {
+  margin: 2rem 0;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: 0;
+  text-align: left;
+  font-family: var(--font-body);
+  animation: thoughtFloat 5s ease-in-out infinite;
+}
+
+.comic-thought__label {
+  display: block;
+  font-weight: 800;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+  text-align: right;
+}
+
+.comic-thought__cloud {
+  position: relative;
+  padding: 1.1rem 1.35rem 1.5rem;
+  border: var(--stroke) solid var(--line);
+  background: var(--panel);
+  border-radius: 46% 54% 52% 48% / 48% 46% 54% 52%;
+  box-shadow: 6px 6px 0 var(--line), inset 0 0 0 1px color-mix(in srgb, var(--line) 8%, transparent);
+}
+
+.comic-thought__inner > *:first-child {
+  margin-top: 0;
+}
+
+.comic-thought__inner > *:last-child {
+  margin-bottom: 0;
+}
+
+.comic-thought__dot {
+  position: absolute;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  border-radius: 50%;
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+.comic-thought__dot--a {
+  width: 14px;
+  height: 14px;
+  left: 18%;
+  bottom: -22px;
+}
+
+.comic-thought__dot--b {
+  width: 10px;
+  height: 10px;
+  left: 12%;
+  bottom: -38px;
+}
+
+.comic-thought__dot--c {
+  width: 6px;
+  height: 6px;
+  left: 8%;
+  bottom: -50px;
+}
+
+@keyframes thoughtFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Panel break / chapter divider */
+.comic-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2.5rem 0;
+  min-height: 1.25rem;
+  font-family: var(--font-body);
+}
+
+.comic-divider__label {
+  flex-shrink: 0;
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.55rem;
+  border: 2px solid var(--line);
+  background: #ffeb3b;
+  color: var(--line);
+  transform: rotate(-2deg);
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+[data-theme="dark"] .comic-divider__label {
+  background: #ffd43b;
+}
+
+.comic-divider::before,
+.comic-divider::after {
+  content: "";
+  flex: 1;
+  height: var(--stroke);
+  background: var(--line);
+  opacity: 0.9;
+}
+
+.comic-divider--gutter::before,
+.comic-divider--gutter::after {
+  height: 10px;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--line) 0,
+    var(--line) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+  opacity: 0.35;
+  border: var(--stroke) solid var(--line);
+  box-shadow: inset 0 0 0 2px var(--panel);
+}
+
+.comic-divider--zap::before,
+.comic-divider--zap::after {
+  height: 14px;
+  background: linear-gradient(135deg, var(--line) 25%, transparent 25%) 0 0 / 12px 12px,
+    linear-gradient(-135deg, var(--line) 25%, transparent 25%) 0 0 / 12px 12px;
+  background-color: transparent;
+  opacity: 0.55;
+  border: 0;
+}
+
+.comic-divider--burst {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.comic-divider--burst::before,
+.comic-divider--burst::after {
+  flex: unset;
+  width: min(100%, 420px);
+  height: var(--stroke);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--line),
+    var(--line) 6px,
+    transparent 6px,
+    transparent 11px
+  );
+}
+
 .burst {
   display: grid;
   place-items: center;
@@ -1170,6 +1373,14 @@ body.comichero-body.site-shell::before {
   }
 
   .hero__burst {
+    animation: none;
+  }
+
+  .comic-stamp {
+    animation: none;
+  }
+
+  .comic-thought {
     animation: none;
   }
 }
