@@ -24,10 +24,10 @@
   </script>
   {{ block "head" . }}{{ end }}
 </head>
-<body class="comichero-body page-enter">
+<body class="comichero-body page-enter site-shell">
   <a class="skip-link" href="#main">{{ i18n "skip_to_content" | default "Skip to content" }}</a>
   {{ partial "header.html" . }}
-  <main id="main" class="main" tabindex="-1">
+  <main id="main" class="main main-grow" tabindex="-1">
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}

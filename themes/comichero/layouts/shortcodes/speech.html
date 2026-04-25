@@ -1,0 +1,6 @@
+{{ $from := .Get "from" | default "" }}
+{{ $class := .Get "class" | default "" }}
+<aside class="comic-speech {{ $class }}"{{ if $from }} data-from="{{ $from }}"{{ end }}>
+  {{ if $from }}<span class="comic-speech__label">{{ $from }}</span>{{ end }}
+  <div class="comic-speech__bubble">{{ .Inner | markdownify }}</div>
+</aside>

@@ -27,6 +27,8 @@
 :root {
   --font-display: "Bangers", "Comic Neue", system-ui, sans-serif;
   --font-body: "Comic Neue", system-ui, sans-serif;
+  /* Monospace only inside pre/code blocks for alignment */
+  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
   --ink: #0a0a0f;
   --paper: #fff8e7;
   --panel: #ffffff;
@@ -40,6 +42,9 @@
   --stroke: 3px;
   --motion-duration: 0.45s;
   --motion-stagger: 0.07s;
+  /* Softer page texture (was dense 10px dots) */
+  --page-dot-opacity: 0.045;
+  --page-line-opacity: 0.07;
 }
 
 [data-theme="dark"] {
@@ -52,6 +57,8 @@
   --muted: #a8a8bc;
   --shadow: rgba(0, 0, 0, 0.45);
   --halftone-opacity: 0.08;
+  --page-dot-opacity: 0.035;
+  --page-line-opacity: 0.055;
 }
 
 *,
@@ -62,6 +69,7 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 html.theme-transition,
@@ -69,20 +77,57 @@ html.theme-transition body {
   transition: background-color 0.28s ease, color 0.28s ease;
 }
 
-body.comichero-body {
+/* Sticky footer: main grows so the bar sits flush with the viewport bottom */
+body.comichero-body.site-shell {
   margin: 0;
+  min-height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-body);
   font-size: 1.125rem;
   line-height: 1.65;
   color: var(--ink);
   background-color: var(--paper);
-  background-image: radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0);
-  background-size: 10px 10px;
-  min-height: 100vh;
+  /* Paper + light ink lines + very sparse dots (easier on the eyes than full halftone) */
+  background-image: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--line) var(--page-line-opacity), transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      color-mix(in srgb, var(--line) var(--page-line-opacity), transparent) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--line) var(--page-dot-opacity), transparent) 1px,
+      transparent 1.5px
+    );
+  background-size: 28px 28px, 28px 28px, 24px 24px;
   position: relative;
 }
 
-body.comichero-body::before {
+.main-grow {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+/* Inline semantics use the same face as body copy */
+.comichero-body :is(strong, b, em, i, u, mark, del, ins, small, sub, sup) {
+  font-family: inherit;
+}
+
+.comichero-body :is(strong, b) {
+  font-weight: 700;
+}
+
+.comichero-body em,
+.comichero-body i {
+  font-style: italic;
+}
+
+body.comichero-body.site-shell::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -94,7 +139,7 @@ body.comichero-body::before {
   z-index: 0;
 }
 
-[data-theme="dark"] body.comichero-body::before {
+[data-theme="dark"] body.comichero-body.site-shell::before {
   mix-blend-mode: screen;
   opacity: 0.06;
 }
@@ -416,6 +461,16 @@ body.comichero-body::before {
   position: relative;
 }
 
+/* Optional ink panel lines (comic gutters) */
+.comic-panel--lined::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 2px dashed color-mix(in srgb, var(--line) 22%, transparent);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
 .comic-panel--hero {
   transform: rotate(-0.5deg);
 }
@@ -735,12 +790,16 @@ body.comichero-body::before {
 }
 
 .prose blockquote {
-  margin: 1.5rem 0;
-  padding: 1rem 1.25rem;
+  margin: 1.75rem 0 2.25rem;
+  padding: 1.1rem 1.35rem 1.35rem;
   border: var(--stroke) solid var(--line);
+  outline: 2px dashed color-mix(in srgb, var(--accent-2) 55%, transparent);
+  outline-offset: 4px;
+  border-radius: 2px 18px 18px 18px;
   background: #fffef5;
-  box-shadow: 6px 6px 0 var(--line);
+  box-shadow: 6px 6px 0 var(--line), inset 0 0 0 1px color-mix(in srgb, var(--line) 12%, transparent);
   position: relative;
+  font-family: var(--font-body);
   font-style: italic;
 }
 
@@ -748,19 +807,37 @@ body.comichero-body::before {
   background: #252530;
 }
 
+/* Speech-bubble tail */
+.prose blockquote::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  left: clamp(1.5rem, 8vw, 3rem);
+  width: 0;
+  height: 0;
+  border: 14px solid transparent;
+  border-top-color: var(--line);
+  border-bottom: 0;
+  filter: drop-shadow(2px 2px 0 var(--line));
+}
+
 .prose blockquote::before {
   content: "";
   position: absolute;
-  bottom: -14px;
-  left: 24px;
-  width: 24px;
-  height: 24px;
-  background: inherit;
-  border-right: var(--stroke) solid var(--line);
-  border-bottom: var(--stroke) solid var(--line);
-  transform: rotate(45deg);
-  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  bottom: -11px;
+  left: calc(clamp(1.5rem, 8vw, 3rem) + 3px);
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: #fffef5;
+  border-bottom: 0;
+  z-index: 1;
 }
+
+[data-theme="dark"] .prose blockquote::before {
+  border-top-color: #252530;
+}
+
 
 .prose pre {
   border: var(--stroke) solid var(--line);
@@ -769,20 +846,61 @@ body.comichero-body::before {
   overflow-x: auto;
   background: #0d1117;
   color: #e6edf3;
+  font-family: var(--font-mono);
 }
 
+/* Inline code matches body typeface; blocks stay monospace for alignment */
 .prose code {
+  font-family: inherit;
   font-size: 0.95em;
   padding: 0.1em 0.35em;
   border: 2px solid var(--line);
   background: var(--paper);
+  font-weight: 600;
 }
 
 .prose pre code {
+  font-family: var(--font-mono);
+  font-weight: 400;
   border: 0;
   padding: 0;
   background: transparent;
   color: inherit;
+}
+
+.prose kbd,
+.prose samp {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.9em;
+  padding: 0.08em 0.4em;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+.prose hr {
+  margin: 2.5rem 0;
+  border: 0;
+  height: var(--stroke);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--line),
+    var(--line) 8px,
+    transparent 8px,
+    transparent 14px
+  );
+  opacity: 0.85;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.35rem;
+}
+
+.prose li::marker {
+  font-weight: 800;
+  color: var(--accent);
 }
 
 /* Pagination & article nav */
@@ -900,6 +1018,76 @@ body.comichero-body::before {
   margin: 0 0.15rem;
 }
 
+/* Optional speech shortcode: caption + bubble */
+.comic-speech {
+  margin: 2rem 0;
+  max-width: 42rem;
+  font-family: var(--font-body);
+}
+
+.comic-speech__label {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+  padding: 0.15rem 0.45rem;
+  border: 2px solid var(--line);
+  background: #ffeb3b;
+  color: var(--line);
+  transform: rotate(-2deg);
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+[data-theme="dark"] .comic-speech__label {
+  background: #ffd43b;
+}
+
+.comic-speech__bubble {
+  position: relative;
+  padding: 1rem 1.2rem 1.3rem;
+  border: var(--stroke) solid var(--line);
+  border-radius: 4px 20px 20px 20px;
+  background: var(--panel);
+  box-shadow: 6px 6px 0 var(--line), inset 0 0 0 1px color-mix(in srgb, var(--line) 10%, transparent);
+  outline: 2px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  outline-offset: 3px;
+}
+
+.comic-speech__bubble > *:first-child {
+  margin-top: 0;
+}
+
+.comic-speech__bubble > *:last-child {
+  margin-bottom: 0;
+}
+
+.comic-speech__bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -16px;
+  left: 1.75rem;
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  border-top-color: var(--line);
+  border-bottom: 0;
+}
+
+.comic-speech__bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: calc(1.75rem + 3px);
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-top-color: var(--panel);
+  border-bottom: 0;
+  z-index: 1;
+}
+
 .burst {
   display: grid;
   place-items: center;
@@ -929,12 +1117,15 @@ body.comichero-body::before {
   margin-bottom: 0.5rem;
 }
 
-/* Footer */
+/* Footer — no extra top margin so flex layout keeps bar at viewport bottom */
 .site-footer {
+  flex-shrink: 0;
+  width: 100%;
+  margin-top: 0;
   border-top: var(--stroke) solid var(--line);
-  margin-top: 3rem;
-  padding-block: 2rem;
+  padding-block: 1.5rem;
   background: var(--panel);
+  box-shadow: 0 -6px 0 var(--shadow);
 }
 
 .site-footer__inner {

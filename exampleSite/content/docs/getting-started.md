@@ -48,6 +48,7 @@ Under `[params.comichero]` you can set `heroTitle`, `heroSubtitle`, `heroSfx`, `
 - `{{< sfx text="POW!" >}}` — inline sound-effect badge  
 - `{{< burst text="BAM!" >}}` — centered burst  
 - `{{< panel title="Note" >}}` ... `{{< /panel >}}` — bordered panel  
+- `{{< speech from="Name" >}}` ... `{{< /speech >}}` — labeled speech bubble (optional `from`)
 
 ## Next
 

@@ -3,7 +3,13 @@ title: "About"
 description: "Colophon and demo notes for the ComicHero theme."
 ---
 
-This demo mixes **blog posts**, **portfolio pieces**, and **documentation** so you can see how one visual system carries all three.
+This demo mixes **blog posts**, _portfolio pieces_, and **documentation** so you can see how one visual system carries all three.
+
+{{< speech from="Narrator" >}}
+Inline **bold** and _italic_ stay in **Comic Neue** so they match the paragraph voice.
+{{< /speech >}}
+
+---
 
 ## Privacy {#privacy}
 
