@@ -69,10 +69,9 @@ Hugo runs **all** shortcode tags (the usual Go-template style with double braces
 - **codesnippet** — escaped source from a `path` (site-relative) or from percent-delimited inner content; includes a **Copy** button  
 - **cast** — character card: `name`, `img` or `src`, inner line (Markdown)  
 - **soundboard** — inner lines `WORD` or `WORD|hz`; Web Audio beep; long-press first button to mute  
-- **chapter** — big issue title: `label` or `title`, optional `volume`, `subtitle`  
-- **inset** — full-bleed image: `src`, optional `alt`, `caption`
+- **chapter** — big issue title: `label` or `title`, optional `volume`, `subtitle`
 
-**Theme / site:** Header **reading progress** bar, **halftone** and **motion** controls (stored in `localStorage`), **Open Graph / Twitter** + **JSON-LD** via `layouts/partials/head-meta.html` (use `params.og_image` or `params.comichero.og_image`, or per-page `og_image` / `image`). **Series** taxonomy: add `series` and optional `issue` in front matter; list at `/series/`; blog posts show **next / previous / random** cards when `series` is set.
+**Theme / site:** Header **reading progress** bar, **motion** on/off (stored in `localStorage`), **back to top** with optional lightning stripe when motion is on, **Open Graph / Twitter** + **JSON-LD** via `layouts/partials/head-meta.html` (use `params.og_image` or `params.comichero.og_image`, or per-page `og_image` / `image`). **Series** taxonomy: add `series` and optional `issue` in front matter; list at `/series/`; blog posts show **next / previous / random** cards when `series` is set.
 
 Avoid self-closing shortcode tags when Hugo reports parse errors; prefer explicit closing tags. Copy-paste examples live in the **Shortcode gallery** blog post and under `assets/snippets/`, not as inline backticks here.
 

@@ -1,6 +1,6 @@
 # ComicHero
 
-American comic book style Hugo theme: halftone textures, hard shadows, Bangers-style headlines, and bold CSS motion. Suited for **blogs**, **portfolios**, and **docs** in one site.
+American comic book style Hugo theme: hard shadows, Bangers-style headlines, and bold CSS motion. Suited for **blogs**, **portfolios**, and **docs** in one site.
 
 ## Features
 
@@ -8,9 +8,9 @@ American comic book style Hugo theme: halftone textures, hard shadows, Bangers-s
 - Section cards + post grid with staggered “bounce in” animation
 - Light/dark `data-theme` with `localStorage` and no-flash boot script
 - **Docs** content type uses `layouts/docs/single.html` with table of contents
-- Shortcodes: `panel`, `sfx`, `burst`, `speech`, `thought`, `stamp`, `divider`, `aside`, `figure`, `grid`, `spoiler`, `note`, `video`, `pullquote`, `steps`, `compare`, `file`, `button`, `toc`, `codesnippet`, `cast`, `soundboard`, `chapter`, `inset` (see Shortcode gallery; avoid putting `{{< … >}}` inside Markdown code fences — Hugo still runs them)
+- Shortcodes: `panel`, `sfx`, `burst`, `speech`, `thought`, `stamp`, `divider`, `aside`, `figure`, `grid`, `spoiler`, `note`, `video`, `pullquote`, `steps`, `compare`, `file`, `button`, `toc`, `codesnippet`, `cast`, `soundboard`, `chapter` (see Shortcode gallery; avoid putting `{{< … >}}` inside Markdown code fences — Hugo still runs them)
 - **Series** taxonomy + `/series/` term pages; blog footer **next / prev / random** when `series` is set in front matter
-- **Header:** reading **progress** bar; **print controls** (halftone strength + motion on/off) in `localStorage`
+- **Header:** reading **progress** bar; **motion** toggle; **back to top** with lightning flash overlay when scrolling up (respects motion off)
 - **SEO / share:** `partials/head-meta.html` — Open Graph, Twitter card, JSON-LD (`BlogPosting` / `WebSite`); set `params.og_image` or `params.comichero.og_image`, or per-page `image` / `og_image`
 - Fonts: `@font-face` from theme `static/fonts/` plus optional Google Fonts link in config
 

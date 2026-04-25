@@ -1,7 +1,7 @@
 ---
 title: "Project Beta — motion study"
 date: 2026-02-15
-description: "Exploring halftone shaders and print-inspired UI."
+description: "Exploring print-inspired UI and bold panel layouts."
 image: "/images/placeholder-comic.svg"
 ---
 

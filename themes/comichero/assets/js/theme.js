@@ -1,6 +1,5 @@
 (function () {
   var THEME_KEY = "comichero-theme";
-  var DOTS_KEY = "comichero-dots";
   var MOTION_KEY = "comichero-motion";
   var SFX_MUTE_KEY = "comichero-sfx-muted";
   var root = document.documentElement;
@@ -37,11 +36,6 @@
     setStored(THEME_KEY, next);
   }
 
-  function applyDots(level) {
-    root.setAttribute("data-dots", level);
-    setStored(DOTS_KEY, level);
-  }
-
   function applyMotion(on) {
     root.setAttribute("data-motion", on ? "on" : "off");
     setStored(MOTION_KEY, on ? "on" : "off");
@@ -68,21 +62,6 @@
       applyTheme(e.matches ? "dark" : "light");
     }
   });
-
-  /* Print controls: halftone + motion */
-  var dotsSel = document.querySelector("[data-dots-select]");
-  if (dotsSel) {
-    var d = getStored(DOTS_KEY);
-    if (d === "low" || d === "med" || d === "high") {
-      dotsSel.value = d;
-      applyDots(d);
-    } else {
-      dotsSel.value = "med";
-    }
-    dotsSel.addEventListener("change", function () {
-      applyDots(dotsSel.value);
-    });
-  }
 
   var motionBtn = document.querySelector("[data-motion-toggle]");
   if (motionBtn) {
@@ -117,6 +96,32 @@
   window.addEventListener("scroll", updateReadProgress, { passive: true });
   window.addEventListener("resize", updateReadProgress);
   updateReadProgress();
+
+  /* Back to top + lightning stripe overlay */
+  var btt = document.querySelector("[data-back-to-top]");
+  var zap = document.querySelector("[data-scroll-zap-overlay]");
+  function toggleBtt() {
+    if (!btt) return;
+    var show = (window.scrollY || document.documentElement.scrollTop) > 380;
+    btt.hidden = !show;
+  }
+  window.addEventListener("scroll", toggleBtt, { passive: true });
+  toggleBtt();
+
+  if (btt) {
+    btt.addEventListener("click", function () {
+      var motionOn = root.getAttribute("data-motion") !== "off";
+      if (motionOn && zap) {
+        zap.hidden = false;
+        zap.classList.add("is-active");
+        window.setTimeout(function () {
+          zap.classList.remove("is-active");
+          zap.hidden = true;
+        }, 700);
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 
   /* Before/after slider — clip-path on front image */
   document.querySelectorAll("[data-comic-compare]").forEach(function (wrap) {
@@ -204,7 +209,7 @@
     var first = board.querySelector("[data-sfx-btn]");
     var pressTimer = null;
     board.querySelectorAll("[data-sfx-btn]").forEach(function (btn) {
-      btn.addEventListener("click", function (e) {
+      btn.addEventListener("click", function () {
         if (pressTimer) {
           clearTimeout(pressTimer);
           pressTimer = null;

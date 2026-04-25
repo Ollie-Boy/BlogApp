@@ -337,16 +337,6 @@ Params: `label` (or `title`), `volume`, `subtitle`, `class`.
 
 ---
 
-## `inset` — full-bleed “spread” image
-
-{{< inset src="/images/placeholder-comic.svg" alt="Demo spread" caption="Breaks out of the article column — **full viewport width**." >}}
-
-{{< codesnippet path="assets/snippets/inset.txt" />}}
-
-Params: `src` (required), `alt`, `caption`, `class`.
-
----
-
 ## Quick reference table
 
 | Shortcode      | Role |
@@ -374,7 +364,6 @@ Params: `src` (required), `alt`, `caption`, `class`.
 | `cast`         | Avatar + nameplate + dialogue line |
 | `soundboard`   | Tap SFX buttons (Web Audio) |
 | `chapter`      | Large chapter / issue heading |
-| `inset`        | Full-bleed spread image |
 
 **One file with every call (for bulk copy):**
 

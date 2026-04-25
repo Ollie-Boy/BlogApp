@@ -22,9 +22,6 @@
           document.documentElement.setAttribute("data-theme", "dark");
       } catch (e) {}
       try {
-        var d = localStorage.getItem("comichero-dots");
-        if (d === "low" || d === "med" || d === "high") document.documentElement.setAttribute("data-dots", d);
-        else document.documentElement.setAttribute("data-dots", "med");
         var m = localStorage.getItem("comichero-motion");
         if (m === "off" || m === "on") document.documentElement.setAttribute("data-motion", m);
         else document.documentElement.setAttribute("data-motion", "on");
@@ -40,6 +37,11 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
+  <div class="scroll-zap-overlay" data-scroll-zap-overlay hidden aria-hidden="true"></div>
+  <button type="button" class="back-to-top" data-back-to-top hidden aria-label="{{ i18n "back_to_top" | default "Back to top" }}">
+    <span class="back-to-top__icon" aria-hidden="true">↑</span>
+    <span class="back-to-top__zap" aria-hidden="true"></span>
+  </button>
   {{ $js := resources.Get "js/theme.js" | minify | fingerprint }}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
   {{ block "scripts" . }}{{ end }}

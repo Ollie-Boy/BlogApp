@@ -1,1 +1,0 @@
-{{< inset src="/images/placeholder-comic.svg" alt="Spread" caption="Optional **caption**." >}}

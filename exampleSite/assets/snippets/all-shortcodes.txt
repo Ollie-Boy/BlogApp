@@ -56,5 +56,4 @@ Line…
 POW|440
 {{< /soundboard >}}
 {{< chapter label="第 3 回" volume="Vol. 1" subtitle="Subtitle" >}}
-{{< inset src="/images/spread.png" alt="" >}}
 {{< codesnippet path="assets/snippets/panel.txt" />}}

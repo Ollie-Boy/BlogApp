@@ -37,14 +37,10 @@
   --line: #0a0a0f;
   --muted: #5c5c6e;
   --shadow: rgba(10, 10, 15, 0.18);
-  --halftone-opacity: 0.12;
   --radius: 4px;
   --stroke: 3px;
   --motion-duration: 0.45s;
   --motion-stagger: 0.07s;
-  /* Softer page texture (was dense 10px dots) */
-  --page-dot-opacity: 0.045;
-  --page-line-opacity: 0.07;
 }
 
 [data-theme="dark"] {
@@ -56,20 +52,6 @@
   --line: #f4f1ea;
   --muted: #a8a8bc;
   --shadow: rgba(0, 0, 0, 0.45);
-  --halftone-opacity: 0.08;
-  --page-dot-opacity: 0.035;
-  --page-line-opacity: 0.055;
-}
-
-/* Halftone strength (print controls) */
-html[data-dots="low"] {
-  --page-dot-opacity: 0.02;
-  --page-line-opacity: 0.04;
-}
-
-html[data-dots="high"] {
-  --page-dot-opacity: 0.08;
-  --page-line-opacity: 0.12;
 }
 
 html[data-motion="off"] .page-enter,
@@ -86,8 +68,14 @@ html[data-motion="off"] .comic-card:hover,
 html[data-motion="off"] .logo:hover,
 html[data-motion="off"] .theme-toggle:hover,
 html[data-motion="off"] .btn--primary:hover,
-html[data-motion="off"] .btn--ghost:hover {
+html[data-motion="off"] .btn--ghost:hover,
+html[data-motion="off"] .back-to-top:hover {
   transform: none !important;
+}
+
+html[data-motion="off"] .scroll-zap-overlay.is-active {
+  animation: none !important;
+  opacity: 0 !important;
 }
 
 *,
@@ -118,22 +106,6 @@ body.comichero-body.site-shell {
   line-height: 1.65;
   color: var(--ink);
   background-color: var(--paper);
-  /* Paper + light ink lines + very sparse dots (easier on the eyes than full halftone) */
-  background-image: linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--line) var(--page-line-opacity), transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      color-mix(in srgb, var(--line) var(--page-line-opacity), transparent) 1px,
-      transparent 1px
-    ),
-    radial-gradient(
-      circle,
-      color-mix(in srgb, var(--line) var(--page-dot-opacity), transparent) 1px,
-      transparent 1.5px
-    );
-  background-size: 28px 28px, 28px 28px, 24px 24px;
   position: relative;
 }
 
@@ -154,23 +126,6 @@ body.comichero-body.site-shell {
 .comichero-body em,
 .comichero-body i {
   font-style: italic;
-}
-
-body.comichero-body.site-shell::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at 20% 20%, var(--accent) 0%, transparent 45%),
-    radial-gradient(circle at 80% 10%, var(--accent-2) 0%, transparent 40%);
-  opacity: var(--halftone-opacity);
-  mix-blend-mode: multiply;
-  z-index: 0;
-}
-
-[data-theme="dark"] body.comichero-body.site-shell::before {
-  mix-blend-mode: screen;
-  opacity: 0.06;
 }
 
 .main,
@@ -347,48 +302,25 @@ body.comichero-body.site-shell::before {
   flex-wrap: wrap;
 }
 
-.print-controls {
+.motion-control {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.2rem 0.4rem;
-  border: 2px solid var(--line);
-  background: var(--paper);
-  box-shadow: 2px 2px 0 var(--line);
 }
 
-.print-controls__item {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.print-controls__select {
-  font: inherit;
-  font-family: var(--font-body);
-  padding: 0.15rem 0.25rem;
-  border: 2px solid var(--line);
-  background: var(--panel);
-  cursor: pointer;
-}
-
-.print-controls__motion {
+.motion-control__btn {
   font-family: var(--font-body);
   font-weight: 800;
   font-size: 0.7rem;
   text-transform: uppercase;
-  padding: 0.2rem 0.45rem;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.55rem;
   border: 2px solid var(--line);
   background: #ffeb3b;
   cursor: pointer;
-  box-shadow: 2px 2px 0 var(--line);
+  box-shadow: 3px 3px 0 var(--line);
 }
 
-.print-controls__motion[aria-pressed="false"] {
+.motion-control__btn[aria-pressed="false"] {
   background: var(--panel);
   opacity: 0.85;
 }
@@ -896,12 +828,10 @@ a.tag--series:hover {
   color: #fff;
 }
 
-/* Full-bleed article shell (for inset shortcode) */
+/* Article shell — keeps single column layout */
 .article-shell {
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: 100%;
+  max-width: 100%;
   overflow-x: clip;
 }
 
@@ -1051,40 +981,6 @@ a.tag--series:hover {
 
 .comic-chapter__subtitle p {
   margin: 0;
-}
-
-/* Full-bleed inset */
-.comic-inset {
-  margin: 2.5rem 0;
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-}
-
-.comic-inset__bleed {
-  border-top: var(--stroke) solid var(--line);
-  border-bottom: var(--stroke) solid var(--line);
-  line-height: 0;
-  box-shadow: 0 8px 0 var(--shadow);
-}
-
-.comic-inset__bleed img {
-  width: 100%;
-  height: auto;
-  max-height: min(70vh, 900px);
-  object-fit: cover;
-  display: block;
-}
-
-.comic-inset__caption {
-  max-width: min(1120px, 100% - 2rem);
-  margin: 0.75rem auto 0;
-  padding: 0.5rem 0.75rem;
-  font-weight: 700;
-  border: 2px solid var(--line);
-  background: var(--panel);
-  box-shadow: 4px 4px 0 var(--line);
 }
 
 /* Series episode footer */
@@ -2497,6 +2393,110 @@ pre.codesnippet code {
   margin-bottom: 0.5rem;
 }
 
+/* Back to top — comic panel FAB + lightning overlay on scroll */
+.back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1.25rem;
+  z-index: 90;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: var(--stroke) solid var(--line);
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 5px 5px 0 var(--line);
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-to-top:hover {
+  transform: translate(-3px, -3px) rotate(-6deg);
+  box-shadow: 8px 8px 0 var(--line);
+}
+
+.back-to-top__icon {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.back-to-top__zap {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: repeating-linear-gradient(
+    -25deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.35) 3px,
+    rgba(255, 255, 255, 0.35) 5px
+  );
+  opacity: 0;
+  pointer-events: none;
+  animation: zapRing 1.2s linear infinite;
+}
+
+.back-to-top:hover .back-to-top__zap {
+  opacity: 0.9;
+}
+
+@keyframes zapRing {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.scroll-zap-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    -18deg,
+    transparent,
+    transparent 14px,
+    color-mix(in srgb, var(--accent) 55%, transparent) 14px,
+    color-mix(in srgb, var(--accent) 55%, transparent) 18px
+  );
+  opacity: 0;
+}
+
+.scroll-zap-overlay.is-active {
+  animation: scrollZapFlash 0.65s ease-out forwards;
+}
+
+@keyframes scrollZapFlash {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.02);
+    transform-origin: top center;
+  }
+  25% {
+    opacity: 0.55;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleY(1);
+  }
+}
+
+[data-theme="dark"] .scroll-zap-overlay.is-active {
+  background: repeating-linear-gradient(
+    -18deg,
+    transparent,
+    transparent 14px,
+    color-mix(in srgb, var(--accent-2) 50%, transparent) 14px,
+    color-mix(in srgb, var(--accent) 45%, transparent) 18px
+  );
+}
+
 /* Footer — no extra top margin so flex layout keeps bar at viewport bottom */
 .site-footer {
   flex-shrink: 0;
@@ -2563,5 +2563,14 @@ pre.codesnippet code {
 
   .comic-compare__range {
     cursor: default;
+  }
+
+  .scroll-zap-overlay.is-active {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  .back-to-top__zap {
+    animation: none !important;
   }
 }

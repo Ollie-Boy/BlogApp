@@ -52,23 +52,14 @@ other = "Copy code to clipboard"
 [copied]
 other = "Copied!"
 
-[print_controls]
-other = "Print and motion"
-
-[dots]
-other = "Halftone"
-
-[dots_low]
-other = "Low"
-
-[dots_med]
-other = "Med"
-
-[dots_high]
-other = "High"
+[motion_control]
+other = "Motion"
 
 [motion]
 other = "Motion"
+
+[back_to_top]
+other = "Back to top"
 
 [series_label]
 other = "Series"

@@ -14,16 +14,8 @@
       {{ end }}
     </nav>
     <div class="header-tools">
-      <div class="print-controls" role="group" aria-label="{{ i18n "print_controls" | default "Print and motion" }}">
-        <label class="print-controls__item">
-          <span class="print-controls__label">{{ i18n "dots" | default "Dots" }}</span>
-          <select class="print-controls__select" data-dots-select aria-label="{{ i18n "dots" | default "Halftone strength" }}">
-            <option value="low">{{ i18n "dots_low" | default "Low" }}</option>
-            <option value="med">{{ i18n "dots_med" | default "Med" }}</option>
-            <option value="high">{{ i18n "dots_high" | default "High" }}</option>
-          </select>
-        </label>
-        <button type="button" class="print-controls__motion" data-motion-toggle aria-pressed="true">
+      <div class="motion-control" role="group" aria-label="{{ i18n "motion_control" | default "Motion" }}">
+        <button type="button" class="motion-control__btn" data-motion-toggle aria-pressed="true">
           {{ i18n "motion" | default "Motion" }}
         </button>
       </div>

@@ -13,7 +13,7 @@ Welcome to **issue 1**. Use the footer cards to jump to the next episode or a ra
 {{< chapter label="第 1 回" volume="Vol. 1" subtitle="The theme boots without *drama*." >}}
 
 {{< cast name="Editor" img="/images/placeholder-comic.svg" >}}
-We print **loud** margins and soft halftones — your call in the header.
+We print **loud** margins — motion toggle lives in the header too.
 {{< /cast >}}
 
 {{< soundboard >}}
@@ -23,7 +23,5 @@ ZIP|660
 {{< /soundboard >}}
 
 Long-press the **first** sound button to mute all beeps (stored in `localStorage`).
-
-{{< inset src="/images/placeholder-comic.svg" alt="" caption="**Inset:** full-bleed art breaks the article column." >}}
 
 Issue fin. {{< sfx text="END" >}}
