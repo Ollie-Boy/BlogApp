@@ -55,6 +55,13 @@ Examples (copy from this block; fenced so Hugo does not run them here):
 {{< thought from="Name" >}}...{{< /thought >}}
 {{< stamp color="accent" >}}NEW!{{< /stamp >}}
 {{< divider label="Act II" style="gutter" >}}
+{{< aside side="right" >}}...{{< /aside >}}
+{{< figure src="/images/x.svg" alt="" caption="**Cap**" tilt="true" >}}
+{{< grid cols="2" >}}Cell A
+---
+Cell B{{< /grid >}}
+{{< spoiler label="Reveal" >}}...{{< /spoiler >}}
+{{< note type="warning" title="Heads up" >}}...{{< /note >}}
 ```
 
 - **sfx** — inline sound-effect badge  
@@ -63,7 +70,14 @@ Examples (copy from this block; fenced so Hugo does not run them here):
 - **speech** — labeled dialogue bubble (paired; optional `from`)  
 - **thought** — thought cloud + dot trail (paired; optional `from`)  
 - **stamp** — inline seal; inner text or `text="..."`; `color`: `accent`, `warn`, `info`  
-- **divider** — panel break; optional `label`; `style`: `gutter` (default), `zap`, `burst`
+- **divider** — panel break; optional `label`; `style`: `gutter` (default), `zap`, `burst`  
+- **aside** — floated margin note; `side`: `right` or `left`  
+- **figure** — framed image; `src` (required), `alt`, `caption`, `tilt="true"`  
+- **grid** — 2–4 columns; split inner cells with a line containing only `---`  
+- **spoiler** — expandable block; optional `label`  
+- **note** — callout; `type`: `info`, `warning`, `tip`, `success`; optional `title`
+
+See the blog post **Shortcode gallery** for live examples and copy-paste snippets.
 
 ## Next
 

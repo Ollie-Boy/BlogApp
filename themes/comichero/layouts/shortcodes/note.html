@@ -1,0 +1,7 @@
+{{ $type := .Get "type" | default "info" }}
+{{ $title := .Get "title" | default "" }}
+{{ $class := .Get "class" | default "" }}
+<div class="comic-note comic-note--{{ $type }} {{ $class }}" role="note">
+  {{ if $title }}<p class="comic-note__title">{{ $title }}</p>{{ end }}
+  <div class="comic-note__body">{{ .Inner | markdownify }}</div>
+</div>

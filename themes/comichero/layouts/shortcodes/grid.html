@@ -1,0 +1,18 @@
+{{ $cols := .Get "cols" | default "2" }}
+{{ $class := .Get "class" | default "" }}
+{{ $raw := .Inner }}
+{{ $parts := split $raw "\n---\n" }}
+{{ if eq (len $parts) 1 }}
+  {{ $parts = split $raw "\n---\r\n" }}
+{{ end }}
+{{ if eq (len $parts) 1 }}
+  {{ $parts = split $raw "---" }}
+{{ end }}
+<div class="comic-grid-cells comic-grid-cells--cols-{{ $cols }} {{ $class }}" role="group">
+  {{ range $parts }}
+    {{ $cell := trim . " \n\r\t" }}
+    {{ if $cell }}
+    <div class="comic-grid-cells__cell comic-panel">{{ $cell | markdownify }}</div>
+    {{ end }}
+  {{ end }}
+</div>

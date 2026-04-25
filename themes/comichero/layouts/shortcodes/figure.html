@@ -1,0 +1,20 @@
+{{ $src := .Get "src" }}
+{{ if not $src }}
+  {{ errorf "shortcode figure: missing src" }}
+{{ end }}
+{{ $srcResolved := $src }}
+{{ if not (hasPrefix $src "http://") }}
+  {{ if not (hasPrefix $src "https://") }}
+    {{ $srcResolved = relURL $src }}
+  {{ end }}
+{{ end }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $caption := .Get "caption" | default "" }}
+{{ $tilt := eq (.Get "tilt") "true" }}
+{{ $class := .Get "class" | default "" }}
+<figure class="comic-figure {{ if $tilt }}comic-figure--tilt{{ end }} {{ $class }}">
+  <div class="comic-figure__frame">
+    <img src="{{ $srcResolved }}" alt="{{ $alt }}" loading="lazy" decoding="async" width="1200" height="675">
+  </div>
+  {{ if $caption }}<figcaption class="comic-figure__caption">{{ $caption | markdownify }}</figcaption>{{ end }}
+</figure>

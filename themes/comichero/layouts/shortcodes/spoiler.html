@@ -1,0 +1,6 @@
+{{ $label := .Get "label" | default "Reveal spoiler" }}
+{{ $class := .Get "class" | default "" }}
+<details class="comic-spoiler {{ $class }}">
+  <summary class="comic-spoiler__summary">{{ $label }}</summary>
+  <div class="comic-spoiler__body">{{ .Inner | markdownify }}</div>
+</details>

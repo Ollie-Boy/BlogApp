@@ -1,0 +1,6 @@
+{{ $side := .Get "side" | default "right" }}
+{{ $class := .Get "class" | default "" }}
+<aside class="comic-aside comic-aside--{{ $side }} {{ $class }}" role="note">
+  <div class="comic-aside__rail" aria-hidden="true"></div>
+  <div class="comic-aside__inner">{{ .Inner | markdownify }}</div>
+</aside>
