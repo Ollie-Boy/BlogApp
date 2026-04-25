@@ -1,6 +1,7 @@
 ---
 title: "About"
 description: "Colophon and demo notes for the ComicHero theme."
+layout: about
 ---
 
 This demo mixes **blog posts**, _portfolio pieces_, and **documentation** so you can see how one visual system carries all three.
