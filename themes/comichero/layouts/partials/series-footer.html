@@ -1,0 +1,55 @@
+{{/* Next / previous in same series + random blog pick */}}
+{{ if and .IsPage (eq .Section "blog") }}
+  {{ $seriesName := "" }}
+  {{ with .Params.series }}
+    {{ if reflect.IsSlice . }}{{ $seriesName = index . 0 | string }}{{ else }}{{ $seriesName = . | string }}{{ end }}
+  {{ end }}
+  {{ if $seriesName }}
+    {{ $slug := $seriesName | urlize }}
+    {{ $term := site.GetPage (printf "series/%s" $slug) }}
+    {{ with $term }}
+      {{ $pages := sort .Pages "Date" "asc" }}
+      {{ $next := false }}
+      {{ $prev := false }}
+      {{ range $i, $p := $pages }}
+        {{ if eq $p.RelPermalink $.RelPermalink }}
+          {{ if gt $i 0 }}{{ $prev = index $pages (sub $i 1) }}{{ end }}
+          {{ if lt $i (sub (len $pages) 1) }}{{ $next = index $pages (add $i 1) }}{{ end }}
+        {{ end }}
+      {{ end }}
+      {{ $pool := where site.RegularPages "Type" "blog" }}
+      {{ $pool = where $pool "RelPermalink" "!=" $.RelPermalink }}
+      {{ $pick := "" }}
+      {{ if gt (len $pool) 0 }}{{ $pick = index (shuffle $pool) 0 }}{{ end }}
+      <section class="episode-footer comic-panel" aria-label="{{ i18n "series_next" | default "Series navigation" }}">
+        <p class="episode-footer__label">{{ i18n "series_label" | default "Series" }} · {{ $seriesName }}</p>
+        <div class="episode-footer__grid">
+          {{ if $prev }}
+          <a class="episode-card episode-card--prev" href="{{ $prev.RelPermalink }}">
+            <span class="episode-card__kicker">{{ i18n "previous_issue" | default "Previous" }}</span>
+            <span class="episode-card__title">{{ $prev.LinkTitle }}</span>
+          </a>
+          {{ else }}
+          <span class="episode-card episode-card--ghost"></span>
+          {{ end }}
+          {{ if $next }}
+          <a class="episode-card episode-card--next" href="{{ $next.RelPermalink }}">
+            <span class="episode-card__kicker">{{ i18n "next_issue" | default "Next episode" }}</span>
+            <span class="episode-card__title">{{ $next.LinkTitle }}</span>
+          </a>
+          {{ else }}
+          <span class="episode-card episode-card--ghost"></span>
+          {{ end }}
+          {{ with $pick }}
+          <a class="episode-card episode-card--random" href="{{ .RelPermalink }}">
+            <span class="episode-card__kicker">{{ i18n "random_read" | default "Random read" }}</span>
+            <span class="episode-card__title">{{ .LinkTitle }}</span>
+          </a>
+          {{ else }}
+          <span class="episode-card episode-card--ghost"></span>
+          {{ end }}
+        </div>
+      </section>
+    {{ end }}
+  {{ end }}
+{{ end }}

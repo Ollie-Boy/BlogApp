@@ -1,4 +1,5 @@
 <header class="site-header comic-header">
+  <div class="read-progress" data-read-progress aria-hidden="true"></div>
   <div class="container site-header__inner">
     <a href="{{ "/" | relURL }}" class="logo sfx-tilt-small">{{ site.Title }}</a>
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
@@ -13,6 +14,19 @@
       {{ end }}
     </nav>
     <div class="header-tools">
+      <div class="print-controls" role="group" aria-label="{{ i18n "print_controls" | default "Print and motion" }}">
+        <label class="print-controls__item">
+          <span class="print-controls__label">{{ i18n "dots" | default "Dots" }}</span>
+          <select class="print-controls__select" data-dots-select aria-label="{{ i18n "dots" | default "Halftone strength" }}">
+            <option value="low">{{ i18n "dots_low" | default "Low" }}</option>
+            <option value="med">{{ i18n "dots_med" | default "Med" }}</option>
+            <option value="high">{{ i18n "dots_high" | default "High" }}</option>
+          </select>
+        </label>
+        <button type="button" class="print-controls__motion" data-motion-toggle aria-pressed="true">
+          {{ i18n "motion" | default "Motion" }}
+        </button>
+      </div>
       <button type="button" class="theme-toggle" data-theme-toggle aria-label="{{ i18n "toggle_theme" | default "Toggle color theme" }}">
         <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">☀</span>
         <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">☾</span>

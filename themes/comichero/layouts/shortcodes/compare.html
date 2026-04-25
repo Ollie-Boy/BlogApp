@@ -16,7 +16,7 @@
     <div class="comic-compare__frame">
       <div class="comic-compare__track">
         <img class="comic-compare__img comic-compare__img--back" src="{{ $rightR }}" alt="{{ $rightLabel }}" loading="lazy" decoding="async" width="800" height="450">
-        <img class="comic-compare__img comic-compare__img--front" src="{{ $leftR }}" alt="{{ $leftLabel }}" loading="lazy" decoding="async" width="800" height="450" data-compare-front style="--compare-pct: 50%">
+        <img class="comic-compare__img comic-compare__img--front" src="{{ $leftR }}" alt="{{ $leftLabel }}" loading="lazy" decoding="async" width="800" height="450" data-compare-front style="clip-path: inset(0 50% 0 0)">
       </div>
       <label class="comic-compare__control">
         <span class="visually-hidden">{{ $leftLabel }} versus {{ $rightLabel }}</span>

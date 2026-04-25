@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
   {{ with .Description }}<meta name="description" content="{{ . }}">{{ end }}
+  {{ partial "head-meta.html" . }}
   {{ with site.Params.comichero.googleFontsUrl }}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +21,14 @@
         else if (window.matchMedia("(prefers-color-scheme: dark)").matches)
           document.documentElement.setAttribute("data-theme", "dark");
       } catch (e) {}
+      try {
+        var d = localStorage.getItem("comichero-dots");
+        if (d === "low" || d === "med" || d === "high") document.documentElement.setAttribute("data-dots", d);
+        else document.documentElement.setAttribute("data-dots", "med");
+        var m = localStorage.getItem("comichero-motion");
+        if (m === "off" || m === "on") document.documentElement.setAttribute("data-motion", m);
+        else document.documentElement.setAttribute("data-motion", "on");
+      } catch (e2) {}
     })();
   </script>
   {{ block "head" . }}{{ end }}

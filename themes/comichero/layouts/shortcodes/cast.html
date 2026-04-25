@@ -1,0 +1,24 @@
+{{ $name := .Get "name" | default "Character" }}
+{{ $img := or (.Get "img") (.Get "src") }}
+{{ $class := .Get "class" | default "" }}
+{{ $imgURL := "" }}
+{{ with $img }}
+  {{ if or (hasPrefix . "http://") (hasPrefix . "https://") }}
+    {{ $imgURL = . }}
+  {{ else }}
+    {{ $imgURL = relURL . }}
+  {{ end }}
+{{ end }}
+<figure class="comic-cast {{ $class }}">
+  {{ if $imgURL }}
+  <div class="comic-cast__avatar">
+    <img src="{{ $imgURL }}" alt="" width="160" height="160" loading="lazy" decoding="async">
+  </div>
+  {{ else }}
+  <div class="comic-cast__avatar comic-cast__avatar--placeholder" aria-hidden="true"></div>
+  {{ end }}
+  <figcaption class="comic-cast__caption">
+    <span class="comic-cast__nametag">{{ $name }}</span>
+    <div class="comic-cast__line">{{ .Inner | markdownify }}</div>
+  </figcaption>
+</figure>

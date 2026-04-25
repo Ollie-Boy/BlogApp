@@ -1,5 +1,6 @@
 {{ define "main" }}
-<article class="doc-layout">
+{{ partial "article-shell-start.html" . }}
+<article class="doc-layout article-shell__doc">
   <div class="container doc-layout__grid">
     <aside class="doc-sidebar comic-panel">
       <p class="doc-sidebar__label">{{ i18n "on_this_page" | default "On this page" }}</p>
@@ -24,4 +25,5 @@
     </div>
   </div>
 </article>
+{{ partial "article-shell-end.html" . }}
 {{ end }}

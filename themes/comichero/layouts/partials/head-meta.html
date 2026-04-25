@@ -1,0 +1,28 @@
+{{ $title := cond .IsHome site.Title (printf "%s | %s" .Title site.Title) }}
+{{ $desc := or .Description .Summary site.Params.description }}
+{{ $img := or .Params.image .Params.og_image site.Params.comichero.og_image site.Params.og_image }}
+<meta property="og:type" content="{{ if and .IsPage (not .IsHome) }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with $desc }}<meta property="og:description" content="{{ . | plainify | truncate 300 }}">{{ end }}
+{{ with $img }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $title }}">
+{{ with $desc }}<meta name="twitter:description" content="{{ . | plainify | truncate 300 }}">{{ end }}
+{{ with $img }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end }}
+{{ if and .IsPage (eq .Section "blog") }}
+<script type="application/ld+json">
+{{- $json := dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "url" .Permalink "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00") -}}
+{{- if .Lastmod }}{{ $json = merge $json (dict "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")) }}{{ end -}}
+{{- $json = merge $json (dict "author" (dict "@type" "Organization" "name" site.Title) "publisher" (dict "@type" "Organization" "name" site.Title)) -}}
+{{- with $img }}{{ $json = merge $json (dict "image" (. | absURL)) }}{{ end -}}
+{{- with $desc }}{{ $json = merge $json (dict "description" (. | plainify | truncate 300)) }}{{ end -}}
+{{ $json | jsonify }}
+</script>
+{{ else if .IsHome }}
+<script type="application/ld+json">
+{{- $home := dict "@context" "https://schema.org" "@type" "WebSite" "name" site.Title "url" site.Home.Permalink -}}
+{{- with site.Params.description }}{{ $home = merge $home (dict "description" .) }}{{ end -}}
+{{ $home | jsonify }}
+</script>
+{{ end }}

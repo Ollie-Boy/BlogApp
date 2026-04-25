@@ -49,4 +49,12 @@ Panel B markdown
 {{< file path="hugo.toml" >}}{{< /file >}}
 {{< button href="/docs/" style="primary" >}}Label{{< /button >}}
 {{< toc >}}{{< /toc >}}
+{{< cast name="Hero" img="/images/hero.png" >}}
+Line…
+{{< /cast >}}
+{{< soundboard >}}
+POW|440
+{{< /soundboard >}}
+{{< chapter label="第 3 回" volume="Vol. 1" subtitle="Subtitle" >}}
+{{< inset src="/images/spread.png" alt="" >}}
 {{< codesnippet path="assets/snippets/panel.txt" />}}

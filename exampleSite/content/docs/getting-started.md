@@ -66,7 +66,13 @@ Hugo runs **all** shortcode tags (the usual Go-template style with double braces
 - **file** — syntax-highlighted file via `readFile`; needs `[markup.highlight]` in config. Use opening and closing **file** tags with a real **site-relative** path (paths are resolved from the site root next to `hugo.toml`, e.g. the config file name without a leading slash). Do **not** put example shortcode tags inside Markdown backticks in this page — Hugo still parses them.  
 - **button** — CTA link; `href`, `style` (`primary` / `ghost`), label as inner or `text`  
 - **toc** — in-page table of contents for the current page; use paired opening and closing **toc** tags (see the Shortcode gallery post for exact markup).  
-- **codesnippet** — escaped source from a `path` (site-relative) or from percent-delimited inner content; includes a **Copy** button
+- **codesnippet** — escaped source from a `path` (site-relative) or from percent-delimited inner content; includes a **Copy** button  
+- **cast** — character card: `name`, `img` or `src`, inner line (Markdown)  
+- **soundboard** — inner lines `WORD` or `WORD|hz`; Web Audio beep; long-press first button to mute  
+- **chapter** — big issue title: `label` or `title`, optional `volume`, `subtitle`  
+- **inset** — full-bleed image: `src`, optional `alt`, `caption`
+
+**Theme / site:** Header **reading progress** bar, **halftone** and **motion** controls (stored in `localStorage`), **Open Graph / Twitter** + **JSON-LD** via `layouts/partials/head-meta.html` (use `params.og_image` or `params.comichero.og_image`, or per-page `og_image` / `image`). **Series** taxonomy: add `series` and optional `issue` in front matter; list at `/series/`; blog posts show **next / previous / random** cards when `series` is set.
 
 Avoid self-closing shortcode tags when Hugo reports parse errors; prefer explicit closing tags. Copy-paste examples live in the **Shortcode gallery** blog post and under `assets/snippets/`, not as inline backticks here.
 

@@ -301,6 +301,52 @@ Or put raw lines inside `{{% codesnippet %}}` / `{{% /codesnippet %}}` (percent 
 
 ---
 
+## `cast` — character intro (avatar + nameplate + line)
+
+{{< cast name="The Editor" img="/images/placeholder-comic.svg" >}}
+**Cast** shortcode: avatar, name tag, and one speech block for the line.
+{{< /cast >}}
+
+{{< codesnippet path="assets/snippets/cast.txt" />}}
+
+Params: `name`, `img` (or `src`), optional `class`.
+
+---
+
+## `soundboard` — tap SFX buttons (Web Audio)
+
+{{< soundboard >}}
+POW|440
+BAM|330
+ZIP|660
+{{< /soundboard >}}
+
+{{< codesnippet path="assets/snippets/soundboard.txt" />}}
+
+One word per line; optional `Label|frequencyHz`. **Long-press the first button** to mute all beeps (stored in `localStorage`).
+
+---
+
+## `chapter` — big chapter / 「回」 title block
+
+{{< chapter label="第 3 回" volume="Vol. 1" subtitle="Optional **subtitle** markdown." >}}
+
+{{< codesnippet path="assets/snippets/chapter.txt" />}}
+
+Params: `label` (or `title`), `volume`, `subtitle`, `class`.
+
+---
+
+## `inset` — full-bleed “spread” image
+
+{{< inset src="/images/placeholder-comic.svg" alt="Demo spread" caption="Breaks out of the article column — **full viewport width**." >}}
+
+{{< codesnippet path="assets/snippets/inset.txt" />}}
+
+Params: `src` (required), `alt`, `caption`, `class`.
+
+---
+
 ## Quick reference table
 
 | Shortcode      | Role |
@@ -325,6 +371,10 @@ Or put raw lines inside `{{% codesnippet %}}` / `{{% /codesnippet %}}` (percent 
 | `button`       | Primary/ghost CTA link |
 | `toc`          | In-page mini TOC |
 | `codesnippet`  | Escaped source + copy button |
+| `cast`         | Avatar + nameplate + dialogue line |
+| `soundboard`   | Tap SFX buttons (Web Audio) |
+| `chapter`      | Large chapter / issue heading |
+| `inset`        | Full-bleed spread image |
 
 **One file with every call (for bulk copy):**
 

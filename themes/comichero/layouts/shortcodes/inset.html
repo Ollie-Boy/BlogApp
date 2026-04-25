@@ -1,0 +1,15 @@
+{{ $src := .Get "src" }}
+{{ if not $src }}{{ errorf "shortcode inset: required param \"src\"" }}{{ end }}
+{{ $srcR := $src }}
+{{ if and (not (hasPrefix $src "http://")) (not (hasPrefix $src "https://")) }}
+  {{ $srcR = relURL $src }}
+{{ end }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $caption := .Get "caption" | default "" }}
+{{ $class := .Get "class" | default "" }}
+<figure class="comic-inset {{ $class }}">
+  <div class="comic-inset__bleed">
+    <img src="{{ $srcR }}" alt="{{ $alt }}" loading="lazy" decoding="async" width="1600" height="900">
+  </div>
+  {{ if $caption }}<figcaption class="comic-inset__caption">{{ $caption | markdownify }}</figcaption>{{ end }}
+</figure>

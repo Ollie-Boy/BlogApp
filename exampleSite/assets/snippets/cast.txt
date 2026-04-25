@@ -1,0 +1,3 @@
+{{< cast name="Hero" img="/images/placeholder-comic.svg" >}}
+One line of **dialogue** in the speech tail.
+{{< /cast >}}

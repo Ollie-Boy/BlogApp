@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div class="container section">
+  <header class="page-header comic-panel comic-panel--hero">
+    <h1 class="page-title sfx-pop">{{ i18n "all_series" | default "All series" }}</h1>
+    <p class="lead">{{ i18n "series_terms_intro" | default "Jump into a storyline — each card is one series." }}</p>
+  </header>
+  <ul class="comic-grid" role="list">
+    {{ range .Data.Terms.Alphabetical }}
+    <li>
+      <a href="{{ .Page.RelPermalink }}" class="comic-card comic-card--section comic-bounce-in">
+        <span class="comic-card__tag">{{ i18n "series_label" | default "Series" }}</span>
+        <h2 class="comic-card__title">{{ .Page.Title }}</h2>
+        <p class="comic-card__desc">{{ .Count }} {{ i18n "issues" | default "issues" }}</p>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

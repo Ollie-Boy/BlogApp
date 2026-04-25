@@ -6,6 +6,11 @@ themesDir = "../themes"
 
 [params]
   description = "Demo site: blog, portfolio, and docs in one comic-book layout."
+  og_image = "/images/placeholder-comic.svg"
+
+[taxonomies]
+  tag = "tags"
+  series = "series"
 
 [params.comichero]
   defaultTheme = "light"
@@ -56,6 +61,11 @@ themesDir = "../themes"
   name = "About"
   url = "/about/"
   weight = 40
+
+[[menus.main]]
+  name = "Series"
+  url = "/series/"
+  weight = 35
 
 [[menus.footer]]
   name = "Privacy"

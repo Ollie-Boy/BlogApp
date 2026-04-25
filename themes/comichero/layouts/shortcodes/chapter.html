@@ -1,0 +1,9 @@
+{{ $label := .Get "label" | default (.Get "title") | default "Chapter" }}
+{{ $subtitle := .Get "subtitle" | default "" }}
+{{ $volume := .Get "volume" | default "" }}
+{{ $class := .Get "class" | default "" }}
+<header class="comic-chapter {{ $class }}">
+  {{ if $volume }}<p class="comic-chapter__volume">{{ $volume }}</p>{{ end }}
+  <h2 class="comic-chapter__title sfx-pop">{{ $label }}</h2>
+  {{ if $subtitle }}<p class="comic-chapter__subtitle">{{ $subtitle | markdownify }}</p>{{ end }}
+</header>

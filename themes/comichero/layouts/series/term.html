@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="container section">
+  <header class="page-header comic-panel comic-panel--hero">
+    <p class="article-kicker">{{ i18n "series_label" | default "Series" }}</p>
+    <h1 class="page-title sfx-pop">{{ .Title }}</h1>
+    {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
+  </header>
+  <ol class="comic-series-issues" role="list">
+    {{ range .Pages.ByDate }}
+    <li class="comic-series-issues__row comic-panel comic-bounce-in">
+      <span class="comic-series-issues__issue">
+        {{ with .Params.issue }}#{{ . }}{{ else }}—{{ end }}
+      </span>
+      <a class="comic-series-issues__link" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+      <time class="comic-series-issues__date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+    </li>
+    {{ end }}
+  </ol>
+</div>
+{{ end }}

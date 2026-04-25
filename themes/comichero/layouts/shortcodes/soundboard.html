@@ -1,0 +1,18 @@
+{{ $class := .Get "class" | default "" }}
+{{ $raw := .Inner }}
+{{ $parts := split $raw "\n" }}
+<div class="comic-soundboard {{ $class }}" data-soundboard role="group" aria-label="{{ i18n "soundboard_label" | default "Sound effects" }}">
+  {{ range $parts }}
+    {{ $line := trim . " \r\t" }}
+    {{ if $line }}
+      {{ $label := $line }}
+      {{ $freq := "880" }}
+      {{ if strings.Contains $line "|" }}
+        {{ $bits := split $line "|" }}
+        {{ $label = trim (index $bits 0) " " }}
+        {{ with index $bits 1 }}{{ $freq = trim . " " }}{{ end }}
+      {{ end }}
+      <button type="button" class="comic-soundboard__btn" data-sfx-btn data-freq="{{ $freq }}" aria-pressed="false">{{ $label }}</button>
+    {{ end }}
+  {{ end }}
+</div>

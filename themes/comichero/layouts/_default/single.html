@@ -1,10 +1,18 @@
 {{ define "main" }}
-<article class="container section article comic-panel comic-panel--article comic-panel--lined">
+{{ partial "article-shell-start.html" . }}
+<article class="article comic-panel comic-panel--article comic-panel--lined">
   <header class="article-header">
     <p class="article-kicker">{{ .Section | humanize }}</p>
     <h1 class="article-title sfx-pop">{{ .Title }}</h1>
     <div class="article-meta">
       <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+      {{ with .Params.series }}
+      <span class="article-meta__series">
+        {{ $sn := "" }}{{ if reflect.IsSlice . }}{{ $sn = index . 0 }}{{ else }}{{ $sn = . }}{{ end }}
+        <a class="tag tag--series" href="{{ printf "/series/%s" ($sn | urlize) | relURL }}">{{ i18n "series_label" | default "Series" }}: {{ $sn }}</a>
+      </span>
+      {{ end }}
+      {{ with .Params.issue }}<span class="tag">{{ i18n "issue" | default "Issue" }} {{ . }}</span>{{ end }}
       {{ with .Params.tags }}
       <span class="article-meta__tags">
         {{ range . }}<span class="tag">{{ . }}</span>{{ end }}
@@ -20,6 +28,8 @@
   <div class="prose article-content">
     {{ .Content }}
   </div>
+  {{ partial "series-footer.html" . }}
   {{ partial "article-nav.html" . }}
 </article>
+{{ partial "article-shell-end.html" . }}
 {{ end }}
