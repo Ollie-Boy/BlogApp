@@ -128,14 +128,27 @@
     btt.addEventListener("click", function () {
       var motionOn = root.getAttribute("data-motion") !== "off";
       if (motionOn && zap) {
+        var main = document.getElementById("main");
+        var anchor = (main && main.querySelector(".article-content")) || main;
+        var xPct = 50;
+        var yPct = 62;
+        if (anchor && typeof anchor.getBoundingClientRect === "function") {
+          var r = anchor.getBoundingClientRect();
+          var cx = r.left + r.width / 2;
+          var cy = r.top + Math.min(r.height * 0.55, window.innerHeight * 0.72);
+          xPct = Math.round((cx / window.innerWidth) * 1000) / 10;
+          yPct = Math.round((cy / window.innerHeight) * 1000) / 10;
+          xPct = Math.max(12, Math.min(88, xPct));
+          yPct = Math.max(28, Math.min(88, yPct));
+        }
+        zap.style.setProperty("--zap-x", xPct + "%");
+        zap.style.setProperty("--zap-y", yPct + "%");
         zap.hidden = false;
-        zap.setAttribute("aria-hidden", "false");
         zap.classList.add("is-active");
         window.setTimeout(function () {
           zap.classList.remove("is-active");
           zap.hidden = true;
-          zap.setAttribute("aria-hidden", "true");
-        }, 520);
+        }, 580);
       }
       window.scrollTo({ top: 0, behavior: "smooth" });
     });

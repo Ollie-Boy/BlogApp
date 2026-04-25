@@ -30,30 +30,25 @@
   </script>
   {{ block "head" . }}{{ end }}
 </head>
-<body class="comichero-body page-enter site-shell">
+<body class="comichero-body site-shell">
   <a class="skip-link" href="#main">{{ i18n "skip_to_content" | default "Skip to content" }}</a>
   {{ partial "header.html" . }}
-  <main id="main" class="main main-grow" tabindex="-1">
+  <main id="main" class="main main-grow page-enter" tabindex="-1">
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
-  <div class="scroll-zap-overlay" data-scroll-zap-overlay hidden aria-hidden="true">
-    <div class="scroll-zap-overlay__burst" aria-hidden="true"></div>
-    <div class="scroll-zap-overlay__rays" aria-hidden="true"></div>
-    <svg class="scroll-zap-overlay__bolt" viewBox="0 0 140 260" aria-hidden="true" focusable="false">
-      <path
-        class="scroll-zap-overlay__path"
-        fill="#ffe600"
-        stroke="#0a0a0f"
-        stroke-width="7"
-        stroke-linejoin="miter"
-        d="M 78 8 L 42 118 L 68 118 L 28 252 L 108 98 L 72 98 L 112 8 Z"
-      />
-    </svg>
+  <div class="comichero-ui" id="comichero-ui" aria-hidden="true">
+    <div class="scroll-zap-overlay" data-scroll-zap-overlay hidden>
+      <div class="scroll-zap-overlay__trail" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__streak scroll-zap-overlay__streak--a" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__streak scroll-zap-overlay__streak--b" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__streak scroll-zap-overlay__streak--c" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__flash" aria-hidden="true"></div>
+    </div>
+    <button type="button" class="back-to-top" data-back-to-top aria-hidden="true" tabindex="-1" aria-label="{{ i18n "back_to_top" | default "Back to top" }}">
+      <span class="back-to-top__icon" aria-hidden="true">↑</span>
+    </button>
   </div>
-  <button type="button" class="back-to-top" data-back-to-top aria-hidden="true" tabindex="-1" aria-label="{{ i18n "back_to_top" | default "Back to top" }}">
-    <span class="back-to-top__icon" aria-hidden="true">↑</span>
-  </button>
   {{ $js := resources.Get "js/theme.js" | minify | fingerprint }}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
   {{ block "scripts" . }}{{ end }}
