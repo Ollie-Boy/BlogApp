@@ -63,12 +63,12 @@ Hugo runs **all** shortcode tags (the usual Go-template style with double braces
 - **pullquote** — large quote; optional `sfx`, `cite`  
 - **steps** — numbered panels; split inner steps with a line containing only `---`  
 - **compare** — two images: `left`, `right`, `leftLabel`, `rightLabel`, `slider="true"` (default) or `false`; or omit images and split inner markdown with `---`  
-- **file** — syntax-highlighted file via `readFile`; needs `[markup.highlight]` in config; pair `{{< file >}}{{< /file >}}` even when empty inner  
+- **file** — syntax-highlighted file via `readFile`; needs `[markup.highlight]` in config. Use opening and closing **file** tags with a real **site-relative** path (paths are resolved from the site root next to `hugo.toml`, e.g. the config file name without a leading slash). Do **not** put example shortcode tags inside Markdown backticks in this page — Hugo still parses them.  
 - **button** — CTA link; `href`, `style` (`primary` / `ghost`), label as inner or `text`  
-- **toc** — in-page table of contents for current page; pair `{{< toc >}}{{< /toc >}}`  
-- **codesnippet** — escaped source from `path` (site-relative) or `%` inner; includes a **Copy** button
+- **toc** — in-page table of contents for the current page; use paired opening and closing **toc** tags (see the Shortcode gallery post for exact markup).  
+- **codesnippet** — escaped source from a `path` (site-relative) or from percent-delimited inner content; includes a **Copy** button
 
-Avoid self-closing shortcode tags like `/>` in Markdown when Hugo reports parse errors; use explicit closing tags (e.g. `{{< file path="x.toml" >}}{{< /file >}}`).
+Avoid self-closing shortcode tags when Hugo reports parse errors; prefer explicit closing tags. Copy-paste examples live in the **Shortcode gallery** blog post and under `assets/snippets/`, not as inline backticks here.
 
 See the blog post **Shortcode gallery** for live examples and `codesnippet` copy blocks.
 

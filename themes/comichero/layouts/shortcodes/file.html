@@ -1,5 +1,16 @@
-{{ $path := .Get "path" }}
-{{ if not $path }}{{ errorf "shortcode file: required param \"path\" (site-relative)" }}{{ end }}
+{{ $path := trim (.Get "path" | default "") " \n\r\t" }}
+{{ if not $path }}
+  {{ errorf "shortcode file: required param \"path\" (site-relative, e.g. hugo.toml)" }}
+{{ end }}
+{{ if strings.HasPrefix $path "/" }}
+  {{ errorf "shortcode file: path must be site-relative without a leading slash (got %q)" $path }}
+{{ end }}
+{{ if not (fileExists $path) }}
+<div class="comic-file-block comic-file-block--missing comic-panel">
+  <p class="comic-file-block__missing-msg"><strong>file shortcode:</strong> could not read <code>{{ $path | htmlEscape }}</code>. Use a path relative to the site root (the folder that contains <code>hugo.toml</code>).</p>
+</div>
+{{- $_ := .Inner -}}
+{{ else }}
 {{ $code := readFile $path }}
 {{ $lang := .Get "lang" | default "" }}
 {{ if not $lang }}
@@ -20,3 +31,4 @@
   <div class="comic-file-block__body">{{ highlight $code $lang "lineNos=false" }}</div>
 </div>
 {{- $_ := .Inner -}}
+{{ end }}
