@@ -37,10 +37,22 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}
-  <div class="scroll-zap-overlay" data-scroll-zap-overlay hidden aria-hidden="true"></div>
-  <button type="button" class="back-to-top" data-back-to-top hidden aria-label="{{ i18n "back_to_top" | default "Back to top" }}">
+  <div class="scroll-zap-overlay" data-scroll-zap-overlay hidden aria-hidden="true">
+    <div class="scroll-zap-overlay__burst" aria-hidden="true"></div>
+    <div class="scroll-zap-overlay__rays" aria-hidden="true"></div>
+    <svg class="scroll-zap-overlay__bolt" viewBox="0 0 140 260" aria-hidden="true" focusable="false">
+      <path
+        class="scroll-zap-overlay__path"
+        fill="#ffe600"
+        stroke="#0a0a0f"
+        stroke-width="7"
+        stroke-linejoin="miter"
+        d="M 78 8 L 42 118 L 68 118 L 28 252 L 108 98 L 72 98 L 112 8 Z"
+      />
+    </svg>
+  </div>
+  <button type="button" class="back-to-top" data-back-to-top aria-hidden="true" tabindex="-1" aria-label="{{ i18n "back_to_top" | default "Back to top" }}">
     <span class="back-to-top__icon" aria-hidden="true">↑</span>
-    <span class="back-to-top__zap" aria-hidden="true"></span>
   </button>
   {{ $js := resources.Get "js/theme.js" | minify | fingerprint }}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>

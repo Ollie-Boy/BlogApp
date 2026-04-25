@@ -97,15 +97,31 @@
   window.addEventListener("resize", updateReadProgress);
   updateReadProgress();
 
-  /* Back to top + lightning stripe overlay */
+  /* Back to top — only when page scrolls; cartoon lightning on click */
   var btt = document.querySelector("[data-back-to-top]");
   var zap = document.querySelector("[data-scroll-zap-overlay]");
+  function docScrollHeight() {
+    return Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight
+    );
+  }
+  function pageCanScroll() {
+    return docScrollHeight() > window.innerHeight + 4;
+  }
   function toggleBtt() {
     if (!btt) return;
-    var show = (window.scrollY || document.documentElement.scrollTop) > 380;
-    btt.hidden = !show;
+    var y = window.scrollY || document.documentElement.scrollTop;
+    var show = pageCanScroll() && y > 160;
+    btt.classList.toggle("is-visible", show);
+    btt.setAttribute("aria-hidden", show ? "false" : "true");
+    btt.tabIndex = show ? 0 : -1;
   }
   window.addEventListener("scroll", toggleBtt, { passive: true });
+  window.addEventListener("resize", toggleBtt, { passive: true });
+  window.addEventListener("load", toggleBtt);
   toggleBtt();
 
   if (btt) {
@@ -113,11 +129,13 @@
       var motionOn = root.getAttribute("data-motion") !== "off";
       if (motionOn && zap) {
         zap.hidden = false;
+        zap.setAttribute("aria-hidden", "false");
         zap.classList.add("is-active");
         window.setTimeout(function () {
           zap.classList.remove("is-active");
           zap.hidden = true;
-        }, 700);
+          zap.setAttribute("aria-hidden", "true");
+        }, 520);
       }
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
