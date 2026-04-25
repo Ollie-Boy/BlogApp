@@ -1,0 +1,8 @@
+{{ $sfx := .Get "sfx" | default "" }}
+{{ $cite := .Get "cite" | default "" }}
+{{ $class := .Get "class" | default "" }}
+<figure class="comic-pullquote {{ $class }}">
+  {{ if $sfx }}<span class="comic-pullquote__sfx" aria-hidden="true">{{ $sfx }}</span>{{ end }}
+  <blockquote class="comic-pullquote__quote">{{ .Inner | markdownify }}</blockquote>
+  {{ if $cite }}<figcaption class="comic-pullquote__cite">{{ $cite | markdownify }}</figcaption>{{ end }}
+</figure>

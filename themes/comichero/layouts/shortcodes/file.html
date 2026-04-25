@@ -1,0 +1,22 @@
+{{ $path := .Get "path" }}
+{{ if not $path }}{{ errorf "shortcode file: required param \"path\" (site-relative)" }}{{ end }}
+{{ $code := readFile $path }}
+{{ $lang := .Get "lang" | default "" }}
+{{ if not $lang }}
+  {{ $ext := path.Ext $path | strings.TrimPrefix "." | lower }}
+  {{ if eq $ext "yml" }}{{ $lang = "yaml" }}
+  {{ else if eq $ext "md" }}{{ $lang = "markdown" }}
+  {{ else if eq $ext "sh" }}{{ $lang = "bash" }}
+  {{ else if eq $ext "htm" }}{{ $lang = "html" }}
+  {{ else }}{{ $lang = $ext }}{{ end }}
+{{ end }}
+{{ if not $lang }}{{ $lang = "text" }}{{ end }}
+{{ $title := .Get "title" | default $path }}
+<div class="comic-file-block">
+  <div class="comic-file-block__head">
+    <span class="comic-file-block__title">{{ $title }}</span>
+    <span class="comic-file-block__lang">{{ $lang }}</span>
+  </div>
+  <div class="comic-file-block__body">{{ highlight $code $lang "lineNos=false" }}</div>
+</div>
+{{- $_ := .Inner -}}

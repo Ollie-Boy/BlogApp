@@ -6,4 +6,8 @@
 {{ else }}
   {{ $raw = .Inner }}
 {{ end }}
-<pre class="codesnippet" translate="no"><code class="language-{{ $lang }}">{{ $raw | htmlEscape }}</code></pre>
+{{ $id := printf "cs-%d" .Ordinal }}
+<div class="codesnippet-wrap">
+  <button type="button" class="codesnippet-copy" data-copy-target="{{ $id }}" aria-label="{{ i18n "copy_code" | default "Copy code" }}">{{ i18n "copy" | default "Copy" }}</button>
+  <pre class="codesnippet" id="{{ $id }}" translate="no"><code class="language-{{ $lang }}">{{ $raw | htmlEscape }}</code></pre>
+</div>

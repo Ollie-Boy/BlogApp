@@ -1,0 +1,9 @@
+{{< steps >}}
+### Step one
+
+Do this first.
+---
+### Step two
+
+Then this.
+{{< /steps >}}

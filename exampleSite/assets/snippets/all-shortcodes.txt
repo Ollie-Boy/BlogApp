@@ -26,3 +26,27 @@ Hidden…
 {{< note type="warning" title="Heads up" >}}
 Callout body…
 {{< /note >}}
+{{< video src="https://example.com/video.webm" poster="/images/poster.jpg" >}}
+Caption (inner) or use caption param.
+{{< /video >}}
+{{< pullquote sfx="ZING!" cite="— Source" >}}
+Pull quote text…
+{{< /pullquote >}}
+{{< steps >}}
+### Step 1
+Text…
+---
+### Step 2
+More…
+{{< /steps >}}
+{{< compare left="/a.jpg" right="/b.jpg" leftLabel="Before" rightLabel="After" slider="true" >}}{{< /compare >}}
+{{< compare left="/a.jpg" right="/b.jpg" slider="false" >}}{{< /compare >}}
+{{< compare >}}
+Panel A markdown
+---
+Panel B markdown
+{{< /compare >}}
+{{< file path="hugo.toml" >}}{{< /file >}}
+{{< button href="/docs/" style="primary" >}}Label{{< /button >}}
+{{< toc >}}{{< /toc >}}
+{{< codesnippet path="assets/snippets/panel.txt" />}}

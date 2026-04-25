@@ -1,0 +1,1 @@
+{{< compare left="/images/compare-before.svg" right="/images/compare-after.svg" slider="false" >}}{{< /compare >}}

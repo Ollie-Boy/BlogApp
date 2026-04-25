@@ -59,7 +59,16 @@ Hugo runs **all** shortcode tags (the usual Go-template style with double braces
 - **grid** — 2–4 columns; split inner cells with a line containing only `---`  
 - **spoiler** — expandable block; optional `label`  
 - **note** — callout; `type`: `info`, `warning`, `tip`, `success`; optional `title`  
-- **codesnippet** — escaped source from a `path` param (site-relative) or from raw percent-delimited inner content
+- **video** — framed HTML5 video; `src`, `poster`, optional inner or `caption` param; `controls="false"` to hide controls  
+- **pullquote** — large quote; optional `sfx`, `cite`  
+- **steps** — numbered panels; split inner steps with a line containing only `---`  
+- **compare** — two images: `left`, `right`, `leftLabel`, `rightLabel`, `slider="true"` (default) or `false`; or omit images and split inner markdown with `---`  
+- **file** — syntax-highlighted file via `readFile`; needs `[markup.highlight]` in config; pair `{{< file >}}{{< /file >}}` even when empty inner  
+- **button** — CTA link; `href`, `style` (`primary` / `ghost`), label as inner or `text`  
+- **toc** — in-page table of contents for current page; pair `{{< toc >}}{{< /toc >}}`  
+- **codesnippet** — escaped source from `path` (site-relative) or `%` inner; includes a **Copy** button
+
+Avoid self-closing shortcode tags like `/>` in Markdown when Hugo reports parse errors; use explicit closing tags (e.g. `{{< file path="x.toml" >}}{{< /file >}}`).
 
 See the blog post **Shortcode gallery** for live examples and `codesnippet` copy blocks.
 

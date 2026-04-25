@@ -1,0 +1,57 @@
+{{ $left := .Get "left" | default "" }}
+{{ $right := .Get "right" | default "" }}
+{{ $leftLabel := .Get "leftLabel" | default "Before" }}
+{{ $rightLabel := .Get "rightLabel" | default "After" }}
+{{ $slider := ne (.Get "slider") "false" }}
+{{ $class := .Get "class" | default "" }}
+{{ if and $left $right }}
+  {{ $leftR := $left }}{{ if and (not (hasPrefix $left "http://")) (not (hasPrefix $left "https://")) }}{{ $leftR = relURL $left }}{{ end }}
+  {{ $rightR := $right }}{{ if and (not (hasPrefix $right "http://")) (not (hasPrefix $right "https://")) }}{{ $rightR = relURL $right }}{{ end }}
+  {{ if $slider }}
+  <div class="comic-compare comic-compare--slider {{ $class }}" data-comic-compare>
+    <div class="comic-compare__labels">
+      <span>{{ $leftLabel }}</span>
+      <span>{{ $rightLabel }}</span>
+    </div>
+    <div class="comic-compare__frame">
+      <div class="comic-compare__track">
+        <img class="comic-compare__img comic-compare__img--back" src="{{ $rightR }}" alt="{{ $rightLabel }}" loading="lazy" decoding="async" width="800" height="450">
+        <img class="comic-compare__img comic-compare__img--front" src="{{ $leftR }}" alt="{{ $leftLabel }}" loading="lazy" decoding="async" width="800" height="450" data-compare-front style="--compare-pct: 50%">
+      </div>
+      <label class="comic-compare__control">
+        <span class="visually-hidden">{{ $leftLabel }} versus {{ $rightLabel }}</span>
+        <input type="range" class="comic-compare__range" min="0" max="100" value="50" data-compare-range>
+      </label>
+    </div>
+  </div>
+  {{ else }}
+  <div class="comic-compare comic-compare--static {{ $class }}">
+    <div class="comic-compare__static-grid">
+      <figure class="comic-compare__static-item comic-panel">
+        <figcaption class="comic-compare__static-cap">{{ $leftLabel }}</figcaption>
+        <div class="comic-compare__static-img"><img src="{{ $leftR }}" alt="" loading="lazy" width="800" height="450"></div>
+      </figure>
+      <figure class="comic-compare__static-item comic-panel">
+        <figcaption class="comic-compare__static-cap">{{ $rightLabel }}</figcaption>
+        <div class="comic-compare__static-img"><img src="{{ $rightR }}" alt="" loading="lazy" width="800" height="450"></div>
+      </figure>
+    </div>
+  </div>
+  {{ end }}
+  {{- $_ := .Inner -}}
+{{ else }}
+  {{ $raw := .Inner }}
+  {{ $parts := split $raw "\n---\n" }}
+  {{ if eq (len $parts) 1 }}{{ $parts = split $raw "\n---\r\n" }}{{ end }}
+  {{ if eq (len $parts) 1 }}{{ $parts = split $raw "---" }}{{ end }}
+  <div class="comic-compare comic-compare--panels {{ $class }}">
+    <div class="comic-compare__panel-grid">
+      {{ range $parts }}
+        {{ $cell := trim . " \n\r\t" }}
+        {{ if $cell }}
+        <div class="comic-compare__panel comic-panel">{{ $cell | markdownify }}</div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+{{ end }}

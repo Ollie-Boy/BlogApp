@@ -1,0 +1,5 @@
+{{< compare >}}
+**Option A** — markdown in panels.
+---
+**Option B** — split with `---` on its own line.
+{{< /compare >}}

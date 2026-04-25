@@ -1,0 +1,3 @@
+{{< pullquote sfx="ZING!" cite="— The docs" >}}
+One loud sentence that **pulls** the eye down the page.
+{{< /pullquote >}}

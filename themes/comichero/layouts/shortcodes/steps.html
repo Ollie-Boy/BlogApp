@@ -1,0 +1,15 @@
+{{ $class := .Get "class" | default "" }}
+{{ $raw := .Inner }}
+{{ $parts := split $raw "\n---\n" }}
+{{ if eq (len $parts) 1 }}{{ $parts = split $raw "\n---\r\n" }}{{ end }}
+{{ if eq (len $parts) 1 }}{{ $parts = split $raw "---" }}{{ end }}
+<ol class="comic-steps {{ $class }}" role="list">
+  {{ range $parts }}
+    {{ $cell := trim . " \n\r\t" }}
+    {{ if $cell }}
+    <li class="comic-steps__step comic-panel">
+      <div class="comic-steps__body">{{ $cell | markdownify }}</div>
+    </li>
+    {{ end }}
+  {{ end }}
+</ol>

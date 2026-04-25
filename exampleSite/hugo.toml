@@ -26,6 +26,12 @@ themesDir = "../themes"
   endLevel = 4
   ordered = false
 
+[markup.highlight]
+  style = "monokai"
+  lineNos = false
+  noClasses = false
+  guessSyntax = true
+
 [[menus.main]]
   name = "Home"
   url = "/"

@@ -1,0 +1,10 @@
+{{ $class := .Get "class" | default "" }}
+{{ with .Page.TableOfContents }}
+<div class="comic-toc comic-panel {{ $class }}" data-comic-toc>
+  <p class="comic-toc__label">{{ i18n "on_this_page" | default "On this page" }}</p>
+  {{ . }}
+</div>
+{{ else }}
+<p class="comic-toc comic-toc--empty">{{ i18n "no_toc" | default "Add headings to show a table of contents." }}</p>
+{{ end }}
+{{- $_ := .Inner -}}

@@ -1,0 +1,6 @@
+{{ $href := .Get "href" | default "#" }}
+{{ $style := .Get "style" | default "primary" }}
+{{ $class := .Get "class" | default "" }}
+{{ $label := trim (string .Inner) " \n\r\t" }}
+{{ if not $label }}{{ $label = .Get "text" | default "Go" }}{{ end }}
+<a href="{{ $href | safeURL }}" class="btn btn--{{ $style }} {{ $class }}">{{ $label }}</a>

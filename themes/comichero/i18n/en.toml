@@ -42,3 +42,12 @@ other = "That page vanished like a speech bubble in the wind."
 
 [go_home]
 other = "Back home"
+
+[copy]
+other = "Copy"
+
+[copy_code]
+other = "Copy code to clipboard"
+
+[copied]
+other = "Copied!"

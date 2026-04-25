@@ -1,0 +1,27 @@
+{{ $src := .Get "src" }}
+{{ if not $src }}{{ errorf "shortcode video: required param \"src\"" }}{{ end }}
+{{ $srcResolved := $src }}
+{{ if and (not (hasPrefix $src "http://")) (not (hasPrefix $src "https://")) }}
+  {{ $srcResolved = relURL $src }}
+{{ end }}
+{{ $poster := .Get "poster" | default "" }}
+{{ $posterResolved := $poster }}
+{{ if and $poster (not (hasPrefix $poster "http://")) (not (hasPrefix $poster "https://")) }}
+  {{ $posterResolved = relURL $poster }}
+{{ end }}
+{{ $innerCap := trim (string .Inner) " \n\r\t" }}
+{{ $caption := .Get "caption" | default "" }}
+{{ if and $innerCap (not $caption) }}{{ $caption = $innerCap }}{{ end }}
+{{ $class := .Get "class" | default "" }}
+{{ $controls := ne (.Get "controls") "false" }}
+<figure class="comic-video {{ $class }}">
+  <div class="comic-video__frame">
+    <video
+      src="{{ $srcResolved }}"
+      {{ if $posterResolved }}poster="{{ $posterResolved }}"{{ end }}
+      {{ if $controls }}controls playsinline{{ end }}
+      preload="metadata"
+    ></video>
+  </div>
+  {{ if $caption }}<figcaption class="comic-video__caption">{{ $caption | markdownify }}</figcaption>{{ end }}
+</figure>
