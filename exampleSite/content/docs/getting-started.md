@@ -45,24 +45,7 @@ Under `[params.comichero]` you can set `heroTitle`, `heroSubtitle`, `heroSfx`, `
 
 ## Shortcodes
 
-Examples (copy from this block; fenced so Hugo does not run them here):
-
-```text
-{{< sfx text="POW!" >}}
-{{< burst text="BAM!" >}}
-{{< panel title="Note" >}}...{{< /panel >}}
-{{< speech from="Name" >}}...{{< /speech >}}
-{{< thought from="Name" >}}...{{< /thought >}}
-{{< stamp color="accent" >}}NEW!{{< /stamp >}}
-{{< divider label="Act II" style="gutter" >}}
-{{< aside side="right" >}}...{{< /aside >}}
-{{< figure src="/images/x.svg" alt="" caption="**Cap**" tilt="true" >}}
-{{< grid cols="2" >}}Cell A
----
-Cell B{{< /grid >}}
-{{< spoiler label="Reveal" >}}...{{< /spoiler >}}
-{{< note type="warning" title="Heads up" >}}...{{< /note >}}
-```
+Hugo runs **all** shortcode tags (the usual Go-template style with double braces and angle brackets) **before** Markdown, so a normal fenced code block **still executes** shortcodes written inside it. To show copy-paste source safely, use **`codesnippet`** with a site-relative file path, for example the bundled reference file `assets/snippets/all-shortcodes.txt`. Or wrap raw lines in percent-style shortcode tags so the inner markup is not evaluated (see the theme `codesnippet` template).
 
 - **sfx** — inline sound-effect badge  
 - **burst** — centered burst  
@@ -75,9 +58,10 @@ Cell B{{< /grid >}}
 - **figure** — framed image; `src` (required), `alt`, `caption`, `tilt="true"`  
 - **grid** — 2–4 columns; split inner cells with a line containing only `---`  
 - **spoiler** — expandable block; optional `label`  
-- **note** — callout; `type`: `info`, `warning`, `tip`, `success`; optional `title`
+- **note** — callout; `type`: `info`, `warning`, `tip`, `success`; optional `title`  
+- **codesnippet** — escaped source from a `path` param (site-relative) or from raw percent-delimited inner content
 
-See the blog post **Shortcode gallery** for live examples and copy-paste snippets.
+See the blog post **Shortcode gallery** for live examples and `codesnippet` copy blocks.
 
 ## Next
 

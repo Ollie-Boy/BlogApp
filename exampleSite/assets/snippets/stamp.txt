@@ -1,0 +1,2 @@
+{{< stamp color="warn" >}}BETA{{< /stamp >}} inline next to copy.
+{{< stamp text="NEW!" color="accent" >}}{{< /stamp >}}

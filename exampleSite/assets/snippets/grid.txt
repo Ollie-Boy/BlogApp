@@ -1,0 +1,7 @@
+{{< grid cols="2" >}}
+**Panel A** — first cell.
+
+More markdown…
+---
+**Panel B** — second cell.
+{{< /grid >}}

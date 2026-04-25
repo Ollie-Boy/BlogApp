@@ -1,0 +1,3 @@
+{{< speech from="Hero" >}}
+We need **one** theme to rule blog, portfolio, _and_ docs.
+{{< /speech >}}

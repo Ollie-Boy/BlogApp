@@ -1,0 +1,28 @@
+{{< sfx text="POW!" >}}
+{{< burst text="BAM!" >}}
+{{< panel title="Note" >}}
+Body…
+{{< /panel >}}
+{{< speech from="Name" >}}
+Dialogue…
+{{< /speech >}}
+{{< thought from="Name" >}}
+Inner thought…
+{{< /thought >}}
+{{< stamp color="accent" >}}NEW!{{< /stamp >}}
+{{< divider label="Act II" style="gutter" >}}
+{{< aside side="right" >}}
+Margin note…
+{{< /aside >}}
+{{< figure src="/images/x.svg" alt="" caption="Caption" tilt="true" >}}
+{{< grid cols="2" >}}
+Cell A
+---
+Cell B
+{{< /grid >}}
+{{< spoiler label="Reveal" >}}
+Hidden…
+{{< /spoiler >}}
+{{< note type="warning" title="Heads up" >}}
+Callout body…
+{{< /note >}}

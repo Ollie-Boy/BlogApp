@@ -1,0 +1,3 @@
+{{< spoiler label="Reveal ending" >}}
+The butler did **not** do it.
+{{< /spoiler >}}

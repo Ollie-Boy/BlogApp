@@ -1,0 +1,3 @@
+{{< panel title="From the editor" >}}
+Use panels for **asides** that should read like a comic caption box.
+{{< /panel >}}

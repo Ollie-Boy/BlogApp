@@ -1,0 +1,1 @@
+{{< codesnippet path="assets/snippets/panel.txt" />}}

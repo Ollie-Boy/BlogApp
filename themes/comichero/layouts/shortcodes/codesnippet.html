@@ -1,0 +1,9 @@
+{{ $lang := .Get "lang" | default "text" }}
+{{ $path := .Get "path" }}
+{{ $raw := "" }}
+{{ if $path }}
+  {{ $raw = readFile $path }}
+{{ else }}
+  {{ $raw = .Inner }}
+{{ end }}
+<pre class="codesnippet" translate="no"><code class="language-{{ $lang }}">{{ $raw | htmlEscape }}</code></pre>

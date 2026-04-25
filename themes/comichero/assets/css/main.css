@@ -857,6 +857,30 @@ body.comichero-body.site-shell::before {
   font-family: var(--font-mono);
 }
 
+/* codesnippet shortcode — escaped shortcode source (not Goldmark highlighted) */
+pre.codesnippet {
+  margin: 1.25rem 0;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  border: var(--stroke) solid var(--line);
+  box-shadow: 6px 6px 0 var(--line);
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+pre.codesnippet code {
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-weight: 400;
+}
+
 /* Inline code matches body typeface; blocks stay monospace for alignment */
 .prose code {
   font-family: inherit;
