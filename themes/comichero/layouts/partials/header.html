@@ -1,0 +1,22 @@
+<header class="site-header comic-header">
+  <div class="container site-header__inner">
+    <a href="{{ "/" | relURL }}" class="logo sfx-tilt-small">{{ site.Title }}</a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span class="nav-toggle__bar"></span>
+      <span class="nav-toggle__bar"></span>
+      <span class="nav-toggle__bar"></span>
+      <span class="visually-hidden">{{ i18n "menu" | default "Menu" }}</span>
+    </button>
+    <nav id="site-nav" class="site-nav" data-site-nav>
+      {{ range site.Menus.main }}
+      <a href="{{ .URL }}" class="site-nav__link{{ if $.IsMenuCurrent "main" . }} is-active{{ end }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
+    <div class="header-tools">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="{{ i18n "toggle_theme" | default "Toggle color theme" }}">
+        <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">☀</span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </div>
+</header>

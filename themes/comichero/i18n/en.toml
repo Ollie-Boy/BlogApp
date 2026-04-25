@@ -1,0 +1,44 @@
+[skip_to_content]
+other = "Skip to content"
+
+[read_blog]
+other = "Read the blog"
+
+[see_work]
+other = "See work"
+
+[menu]
+other = "Menu"
+
+[toggle_theme]
+other = "Toggle color theme"
+
+[newer]
+other = "Newer"
+
+[older]
+other = "Older"
+
+[article_navigation]
+other = "Article navigation"
+
+[on_this_page]
+other = "On this page"
+
+[no_toc]
+other = "Headings on this page will appear here."
+
+[docs]
+other = "Docs"
+
+[updated]
+other = "Updated"
+
+[page_not_found]
+other = "Page not found"
+
+[page_not_found_body]
+other = "That page vanished like a speech bubble in the wind."
+
+[go_home]
+other = "Back home"

@@ -1,0 +1,27 @@
+{{ define "main" }}
+<article class="doc-layout">
+  <div class="container doc-layout__grid">
+    <aside class="doc-sidebar comic-panel">
+      <p class="doc-sidebar__label">{{ i18n "on_this_page" | default "On this page" }}</p>
+      {{ if .TableOfContents }}
+      <div class="doc-toc">{{ .TableOfContents }}</div>
+      {{ else }}
+      <p class="doc-toc--empty">{{ i18n "no_toc" | default "Headings in this page will appear here." }}</p>
+      {{ end }}
+    </aside>
+    <div class="doc-main comic-panel comic-panel--article">
+      <header class="article-header">
+        <p class="article-kicker">{{ i18n "docs" | default "Docs" }}</p>
+        <h1 class="article-title sfx-pop">{{ .Title }}</h1>
+        <div class="article-meta">
+          {{ if .Lastmod }}<time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ i18n "updated" | default "Updated" }} {{ .Lastmod.Format "Jan 2, 2006" }}</time>{{ end }}
+        </div>
+      </header>
+      <div class="prose article-content">
+        {{ .Content }}
+      </div>
+      {{ partial "article-nav.html" . }}
+    </div>
+  </div>
+</article>
+{{ end }}

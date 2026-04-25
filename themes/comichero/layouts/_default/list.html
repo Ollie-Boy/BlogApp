@@ -1,0 +1,44 @@
+{{ define "main" }}
+<div class="container section">
+  <header class="page-header comic-panel comic-panel--hero">
+    <h1 class="page-title sfx-pop">{{ .Title }}</h1>
+    {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
+  </header>
+
+  {{ if .Sections }}
+  <section class="section-grid section-grid--sections" aria-label="Sections">
+    {{ range .Sections.ByWeight }}
+    <a href="{{ .RelPermalink }}" class="comic-card comic-card--section comic-bounce-in">
+      <span class="comic-card__tag">{{ .Section | humanize }}</span>
+      <h2 class="comic-card__title">{{ .Title }}</h2>
+      {{ with .Description }}<p class="comic-card__desc">{{ . }}</p>{{ end }}
+    </a>
+    {{ end }}
+  </section>
+  {{ end }}
+
+  <ul class="comic-grid" role="list">
+    {{ range .Pages }}
+    <li>
+      <article class="comic-card comic-card--post comic-bounce-in">
+        <a href="{{ .RelPermalink }}" class="comic-card__link">
+          {{ with .Params.image }}
+          <div class="comic-card__thumb">
+            <img src="{{ . | relURL }}" alt="" loading="lazy" width="640" height="360">
+          </div>
+          {{ else }}
+          <div class="comic-card__thumb comic-card__thumb--placeholder" aria-hidden="true"></div>
+          {{ end }}
+          <div class="comic-card__body">
+            <span class="comic-card__meta">{{ .Date.Format "2006-01-02" }} · {{ .Section }}</span>
+            <h2 class="comic-card__title">{{ .LinkTitle }}</h2>
+            {{ with .Description }}<p class="comic-card__desc">{{ . }}</p>{{ end }}
+          </div>
+        </a>
+      </article>
+    </li>
+    {{ end }}
+  </ul>
+  {{ partial "pagination.html" . }}
+</div>
+{{ end }}

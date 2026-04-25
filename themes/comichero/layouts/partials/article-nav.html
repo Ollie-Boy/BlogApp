@@ -1,0 +1,10 @@
+{{ if or .PrevInSection .NextInSection }}
+<nav class="article-nav comic-panel" aria-label="{{ i18n "article_navigation" | default "Article navigation" }}">
+  {{ with .PrevInSection }}
+  <a class="article-nav__link article-nav__link--prev" href="{{ .RelPermalink }}">← {{ .LinkTitle }}</a>
+  {{ end }}
+  {{ with .NextInSection }}
+  <a class="article-nav__link article-nav__link--next" href="{{ .RelPermalink }}">{{ .LinkTitle }} →</a>
+  {{ end }}
+</nav>
+{{ end }}

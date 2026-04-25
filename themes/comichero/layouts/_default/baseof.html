@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Lang | default "en" }}" data-theme="{{ site.Params.comichero.defaultTheme | default "light" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+  {{ with .Description }}<meta name="description" content="{{ . }}">{{ end }}
+  {{ with site.Params.comichero.googleFontsUrl }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="{{ . }}" rel="stylesheet">
+  {{ end }}
+  {{ $style := resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
+  <script>
+    (function () {
+      try {
+        var s = localStorage.getItem("comichero-theme");
+        if (s === "dark" || s === "light") document.documentElement.setAttribute("data-theme", s);
+        else if (window.matchMedia("(prefers-color-scheme: dark)").matches)
+          document.documentElement.setAttribute("data-theme", "dark");
+      } catch (e) {}
+    })();
+  </script>
+  {{ block "head" . }}{{ end }}
+</head>
+<body class="comichero-body page-enter">
+  <a class="skip-link" href="#main">{{ i18n "skip_to_content" | default "Skip to content" }}</a>
+  {{ partial "header.html" . }}
+  <main id="main" class="main" tabindex="-1">
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+  {{ $js := resources.Get "js/theme.js" | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous" defer></script>
+  {{ block "scripts" . }}{{ end }}
+</body>
+</html>

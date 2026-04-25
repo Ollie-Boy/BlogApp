@@ -1,0 +1,11 @@
+name = "ComicHero"
+license = "MIT"
+licenselink = "https://opensource.org/licenses/MIT"
+description = "American comic book style Hugo theme for blogs, portfolios, and docs with bold motion and halftone aesthetics."
+homepage = "https://github.com/gohugoio/hugoThemesSite"
+tags = ["blog", "portfolio", "docs", "comic", "dark", "responsive"]
+features = ["blog", "portfolio", "documentation", "theme-toggle", "animations"]
+min_version = "0.110.0"
+
+[author]
+  name = "ComicHero contributors"

@@ -1,0 +1,49 @@
+{{ define "main" }}
+<section class="hero comic-hero">
+  <div class="container hero__inner">
+    <div class="hero__burst" aria-hidden="true">
+      <span class="hero__sfx">{{ site.Params.comichero.heroSfx | default "WHAM!" }}</span>
+    </div>
+    <div class="hero__copy comic-panel comic-panel--hero">
+      <h1 class="hero__title">{{ site.Params.comichero.heroTitle | default site.Title }}</h1>
+      <p class="hero__subtitle">{{ site.Params.comichero.heroSubtitle | default site.Params.description }}</p>
+      <div class="hero__actions">
+        {{ range site.Menus.hero }}
+        <a href="{{ .URL }}" class="btn btn--primary">{{ .Name }}</a>
+        {{ end }}
+        {{ if not site.Menus.hero }}
+        <a href="{{ "blog/" | relURL }}" class="btn btn--primary">{{ i18n "read_blog" | default "Read the blog" }}</a>
+        <a href="{{ "portfolio/" | relURL }}" class="btn btn--ghost">{{ i18n "see_work" | default "See work" }}</a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container section">
+  <h2 class="section-heading sfx-tilt">{{ site.Params.comichero.latestHeading | default "Latest stories" }}</h2>
+  <ul class="comic-grid comic-grid--home" role="list">
+    {{ $types := site.Params.comichero.homeTypes | default (slice "blog" "portfolio") }}
+    {{ range first 6 (where site.RegularPages "Type" "in" $types) }}
+    <li>
+      <article class="comic-card comic-card--post comic-bounce-in">
+        <a href="{{ .RelPermalink }}" class="comic-card__link">
+          {{ with .Params.image }}
+          <div class="comic-card__thumb">
+            <img src="{{ . | relURL }}" alt="" loading="lazy" width="640" height="360">
+          </div>
+          {{ else }}
+          <div class="comic-card__thumb comic-card__thumb--placeholder" aria-hidden="true"></div>
+          {{ end }}
+          <div class="comic-card__body">
+            <span class="comic-card__meta">{{ .Section }} · {{ .Date.Format "2006-01-02" }}</span>
+            <h3 class="comic-card__title">{{ .LinkTitle }}</h3>
+            {{ with .Description }}<p class="comic-card__desc">{{ . }}</p>{{ end }}
+          </div>
+        </a>
+      </article>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}
