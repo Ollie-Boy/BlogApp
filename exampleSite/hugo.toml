@@ -17,7 +17,7 @@ themesDir = "../themes"
   googleFontsUrl = "https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
   useLocalFonts = true
   heroTitle = "Stories, shots & specs"
-  heroSubtitle = "One loud theme for blogs, portfolios, and documentation — hard shadows and motion to spare."
+  heroSubtitle = "One loud theme for blogs, portfolios, and documentation — hard shadows and panels to spare."
   heroSfx = "KAPOW!"
   latestHeading = "Fresh off the press"
   footerText = "ComicHero demo — MIT theme."

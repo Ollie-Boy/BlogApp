@@ -1,6 +1,6 @@
 ---
 title: "Customization"
-description: "Menus, fonts, and motion knobs."
+description: "Menus, fonts, and theme knobs."
 weight: 20
 ---
 

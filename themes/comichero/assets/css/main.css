@@ -54,31 +54,6 @@
   --shadow: rgba(0, 0, 0, 0.45);
 }
 
-html[data-motion="off"] .page-enter,
-html[data-motion="off"] .comic-bounce-in,
-html[data-motion="off"] .hero__burst,
-html[data-motion="off"] .hero__sfx,
-html[data-motion="off"] .comic-stamp,
-html[data-motion="off"] .comic-thought,
-html[data-motion="off"] .hero__copy {
-  animation: none !important;
-}
-
-html[data-motion="off"] .comic-card:hover,
-html[data-motion="off"] .logo:hover,
-html[data-motion="off"] .theme-toggle:hover,
-html[data-motion="off"] .btn--primary:hover,
-html[data-motion="off"] .btn--ghost:hover,
-html[data-motion="off"] .back-to-top:hover {
-  transform: none !important;
-}
-
-html[data-motion="off"] .scroll-zap-overlay.is-active {
-  animation: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
-
 *,
 *::before,
 *::after {
@@ -301,48 +276,6 @@ body.comichero-body.site-shell {
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
-}
-
-.motion-control {
-  display: flex;
-  align-items: center;
-}
-
-.motion-control__btn {
-  font-family: var(--font-body);
-  font-weight: 800;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.35rem 0.55rem;
-  border: 2px solid var(--line);
-  background: #ffeb3b;
-  cursor: pointer;
-  box-shadow: 3px 3px 0 var(--line);
-}
-
-.motion-control__btn[aria-pressed="false"] {
-  background: var(--panel);
-  opacity: 0.85;
-}
-
-[data-theme="dark"] .motion-control__btn {
-  background: #3d3d52;
-  color: #ffe066;
-  border-color: #ffe066;
-  box-shadow: 3px 3px 0 #ffe066;
-}
-
-[data-theme="dark"] .motion-control__btn[aria-pressed="false"] {
-  background: #2a2a38;
-  color: #e8e8f0;
-  border-color: #8b8ba3;
-  box-shadow: 3px 3px 0 #0a0a0f;
-  opacity: 1;
-}
-
-[data-theme="dark"] .motion-control__btn:hover {
-  filter: brightness(1.08);
 }
 
 .theme-toggle {
@@ -2018,7 +1951,7 @@ pre.codesnippet code {
   background: color-mix(in srgb, #ffd43b 22%, var(--panel));
 }
 
-/* codesnippet copy control */
+/* codesnippet copy — hidden until hover/focus inside block */
 .codesnippet-wrap {
   position: relative;
   margin: 1.25rem 0;
@@ -2040,16 +1973,47 @@ pre.codesnippet code {
   color: #fff;
   cursor: pointer;
   box-shadow: 3px 3px 0 var(--line);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px) scale(0.94);
+  transition:
+    opacity 0.22s ease,
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s ease;
+}
+
+.codesnippet-wrap:hover .codesnippet-copy,
+.codesnippet-wrap:focus-within .codesnippet-copy {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
 .codesnippet-copy:hover {
-  transform: translate(-1px, -1px);
+  transform: translate(-1px, -1px) scale(1);
   box-shadow: 4px 4px 0 var(--line);
+}
+
+.codesnippet-wrap:hover .codesnippet-copy:hover,
+.codesnippet-wrap:focus-within .codesnippet-copy:hover {
+  transform: translate(-1px, -1px) scale(1);
 }
 
 .codesnippet-copy:disabled {
   opacity: 0.85;
   cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .codesnippet-copy {
+    transition: opacity 0.15s ease;
+    transform: none;
+  }
+
+  .codesnippet-wrap:hover .codesnippet-copy,
+  .codesnippet-wrap:focus-within .codesnippet-copy {
+    transform: none;
+  }
 }
 
 /* Video shortcode */

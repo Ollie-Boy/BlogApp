@@ -1,6 +1,6 @@
 # ComicHero
 
-American comic book style Hugo theme: hard shadows, Bangers-style headlines, and bold CSS motion. Suited for **blogs**, **portfolios**, and **docs** in one site.
+American comic book style Hugo theme: hard shadows, Bangers-style headlines, and bold CSS animations. Suited for **blogs**, **portfolios**, and **docs** in one site.
 
 ## Features
 
@@ -10,7 +10,7 @@ American comic book style Hugo theme: hard shadows, Bangers-style headlines, and
 - **Docs** content type uses `layouts/docs/single.html` with table of contents
 - Shortcodes: `panel`, `sfx`, `burst`, `speech`, `thought`, `stamp`, `divider`, `aside`, `figure`, `grid`, `spoiler`, `note`, `video`, `pullquote`, `steps`, `compare`, `file`, `button`, `toc`, `codesnippet`, `cast`, `soundboard`, `chapter` (see Shortcode gallery; avoid putting `{{< … >}}` inside Markdown code fences — Hugo still runs them)
 - **Series** taxonomy + `/series/` term pages; blog footer **next / prev / random** when `series` is set in front matter
-- **Header:** reading **progress** bar; **motion** toggle; **back to top** with lightning flash overlay when scrolling up (respects motion off)
+- **Header:** reading **progress** bar; **back to top** with speed-line overlay on click
 - **SEO / share:** `partials/head-meta.html` — Open Graph, Twitter card, JSON-LD (`BlogPosting` / `WebSite`); set `params.og_image` or `params.comichero.og_image`, or per-page `image` / `og_image`
 - Fonts: `@font-face` from theme `static/fonts/` plus optional Google Fonts link in config
 

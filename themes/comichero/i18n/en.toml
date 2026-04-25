@@ -52,12 +52,6 @@ other = "Copy code to clipboard"
 [copied]
 other = "Copied!"
 
-[motion_control]
-other = "Motion"
-
-[motion]
-other = "Motion"
-
 [back_to_top]
 other = "Back to top"
 

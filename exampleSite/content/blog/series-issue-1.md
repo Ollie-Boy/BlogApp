@@ -13,7 +13,7 @@ Welcome to **issue 1**. Use the footer cards to jump to the next episode or a ra
 {{< chapter label="第 1 回" volume="Vol. 1" subtitle="The theme boots without *drama*." >}}
 
 {{< cast name="Editor" img="/images/placeholder-comic.svg" >}}
-We print **loud** margins — motion toggle lives in the header too.
+We print **loud** margins — theme toggle lives in the header too.
 {{< /cast >}}
 
 {{< soundboard >}}

@@ -1,6 +1,5 @@
 (function () {
   var THEME_KEY = "comichero-theme";
-  var MOTION_KEY = "comichero-motion";
   var SFX_MUTE_KEY = "comichero-sfx-muted";
   var root = document.documentElement;
 
@@ -36,14 +35,6 @@
     setStored(THEME_KEY, next);
   }
 
-  function applyMotion(on) {
-    root.setAttribute("data-motion", on ? "on" : "off");
-    setStored(MOTION_KEY, on ? "on" : "off");
-    document.querySelectorAll("[data-motion-toggle]").forEach(function (btn) {
-      btn.setAttribute("aria-pressed", on ? "true" : "false");
-    });
-  }
-
   document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
     btn.addEventListener("click", toggleTheme);
   });
@@ -62,17 +53,6 @@
       applyTheme(e.matches ? "dark" : "light");
     }
   });
-
-  var motionBtn = document.querySelector("[data-motion-toggle]");
-  if (motionBtn) {
-    var m = getStored(MOTION_KEY);
-    if (m === "off") applyMotion(false);
-    else applyMotion(true);
-    motionBtn.addEventListener("click", function () {
-      var on = root.getAttribute("data-motion") !== "off";
-      applyMotion(!on);
-    });
-  }
 
   /* Reading progress */
   var bar = document.querySelector("[data-read-progress]");
@@ -97,7 +77,7 @@
   window.addEventListener("resize", updateReadProgress);
   updateReadProgress();
 
-  /* Back to top — only when page scrolls; cartoon lightning on click */
+  /* Back to top + speed-line overlay */
   var btt = document.querySelector("[data-back-to-top]");
   var zap = document.querySelector("[data-scroll-zap-overlay]");
   function docScrollHeight() {
@@ -126,8 +106,7 @@
 
   if (btt) {
     btt.addEventListener("click", function () {
-      var motionOn = root.getAttribute("data-motion") !== "off";
-      if (motionOn && zap) {
+      if (zap) {
         var main = document.getElementById("main");
         var anchor = (main && main.querySelector(".article-content")) || main;
         var xPct = 50;
@@ -154,7 +133,7 @@
     });
   }
 
-  /* Before/after slider — clip-path on front image */
+  /* Before/after slider */
   document.querySelectorAll("[data-comic-compare]").forEach(function (wrap) {
     var range = wrap.querySelector("[data-compare-range]");
     var front = wrap.querySelector("[data-compare-front]");
@@ -204,7 +183,7 @@
     });
   });
 
-  /* Soundboard — Web Audio beep; long-press first button toggles mute */
+  /* Soundboard */
   var audioCtx = null;
   function getCtx() {
     if (!audioCtx) {
