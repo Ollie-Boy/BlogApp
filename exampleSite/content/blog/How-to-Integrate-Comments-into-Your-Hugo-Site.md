@@ -1,27 +1,35 @@
 +++
 title = "How to Integrate Comments into Your Hugo Site"
 description = "A tutorial for integrating comment"
-tags = ["Hugo", "dev"]
+tags = [
+    "Hugo",
+    "dev"
+]
 date = "2024-10-29"
 +++
 
-Someday you suddenly think it is so alone in your webpage and you want others can leave their comment here, so you opened [Hugo's Quick Reference](https://gohugo.io/quick-reference/), and you find this:
+Someday you suddenly think it is so alone in your webpage and you want others can leave their comment here, so you opened 
+[Hugo's Quick Reference](https://gohugo.io/content-management/comments/), and you find this:
+> Hugo ships with an internal Disqus template, but this isn't the only commenting system that will work with your new Hugo 
+website.
 
-> Hugo ships with an internal Disqus template, but this isn't the only commenting system that will work with your new Hugo website.
-
-But when you search with Google, DuckDuckGo, or any engine else, you may find most people would suggest you use giscus but Disqus for your blog's comments, so you may wanna know the differences between them. But wait, this is not what this article's aim is. In this article, I will show you how to integrate a comment module but not compare them, only experience it yourself, can you find which is more suit for you.
+But when you search with Google, DuckDuckGo, or any engine else, you may find most people would suggest you use 
+giscus but Disqus for your blog's comments, so you may wanna know the differences between them. But wait, this is not
+what this article's aim is. In this article, I will show you how to integrate a comment module but not compare them, only 
+experience it yourself, can you find which is more suit for you.
 
 Note that I prefer to use [Hugo partial template](https://gohugo.io/templates/partial/) since that can keep your file structure clean, so I will use the template in the tutorial.
 
 ## Disqus
+First, let's look at the [Disqus](https://disqus.com/). 
 
-First, let's look at the [Disqus](https://disqus.com/).
+Actually hugo comes with all the code you need to load Disqus. Before adding Disqus to your site, you'll need to 
+[set up an account](https://disqus.com/profile/signup/). Then go to *AddDisqusToSite* and click Get Started.
 
-Actually hugo comes with all the code you need to load Disqus. Before adding Disqus to your site, you'll need to [set up an account](https://disqus.com/admin/create/). Then go to AddDisqusToSite and click Get Started.
+Note that you should remember the **SHORTNAME** you input since this shortname will appear later on as a variable in your 
+`config.yml` or `config.toml`.
 
-Note that you should remember the SHORTNAME you input since this shortname will appear later on as a variable in your `config.yml` or `config.toml`.
 Keep moving and fill in the form details for your site, after finishing you will obtain a template like this, create a file named `disqus.html` in `/layouts/partials` and paste it.
-
 ```html
 <div id="disqus_thread"></div>
 <script>
@@ -46,7 +54,7 @@ Keep moving and fill in the form details for your site, after finishing you will
 
 Then add the partial in the footer of the post template, for me it is in `/layouts/posts/single.html`.
 
-```go-html-template
+```go
 {{ .Content }}
 {{ partial "disqus.html" . }}
 {{ end }}
@@ -54,16 +62,15 @@ Then add the partial in the footer of the post template, for me it is in `/layou
 
 Here we come to the last step, add below code inside your `config.yml` or `config.toml`.
 
-```yaml
+```yml
 services:
   disqus:
     shortname: your-disqus-shortname
 ```
 
-Congrats, now it is all finished.
+Congrats, now it is all finished. :blush:
 
 ## Giscus
-
 First of all, we need to go to [Giscus](https://giscus.app/) to make your own configuration. When you finished, you will get a code like this, just save it so we can use later.
 
 ```html
@@ -86,7 +93,7 @@ First of all, we need to go to [Giscus](https://giscus.app/) to make your own co
 
 And then, we need to create a partial template named `giscus.html` in `../layout/partials/`, and paste the code below into the file.
 
-```go-html-template
+```go
 {{- if isset .Site.Params "giscus" -}}
   {{- if and (isset .Site.Params.giscus "repo") (not (eq .Site.Params.giscus.repo "" )) (eq (.Params.disable_comments | default false) false) -}}
   <script src="https://giscus.app/client.js"
@@ -110,26 +117,26 @@ And then, we need to create a partial template named `giscus.html` in `../layout
 
 Same with before, add the partial in the footer of the post template in `/layouts/posts/single.html`.
 
-```go-html-template
+```go
 {{ .Content }}
 {{ partial "giscus.html" . }}
 {{ end }}
 ```
 
-Finally, we can configure the params in the `config.yml` or `config.toml` as below, just input the params we got in the first step, and enjoy.
+Finally, we can configure the params in the `config.yml` or `config.toml` as below, just input the params we got in the first step, and enjoy. :smile:
 
-```yaml
-giscus:
-  repo: "YOUR REPO"
-  repoID: "YOUR REPOID"
-  category: "CATEGORY"
-  categoryID: "CATEGORYID"
-  mapping: "pathname"
-  reactionsEnabled: "1"
-  emitMetadata: "0"
-  inputPosition: "bottom"
-  theme: "preferred_color_scheme"
-  lang: "en"
-  loading: "lazy"
-  crossorigin: "anonymous"
+```yml
+  giscus:
+    repo: "YOUR REPO"
+    repoID: "YOUR REPOID"
+    category: "CATEGORY"
+    categoryID: "CATEGORYID"
+    mapping: "pathname"
+    reactionsEnabled: "1"
+    emitMetadata: "0"
+    inputPosition: "bottom"
+    theme: "preferred_color_scheme"
+    lang: "en"
+    loading: "lazy"
+    crossorigin: "anonymous"
 ```
