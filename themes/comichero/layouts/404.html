@@ -1,10 +1,18 @@
 {{ define "main" }}
+{{ $pool := where site.RegularPages "Type" "blog" }}
+{{ $pick := "" }}
+{{ if gt (len $pool) 0 }}{{ $pick = index (shuffle $pool) 0 }}{{ end }}
 <div class="container section not-found">
   <div class="comic-panel comic-panel--hero not-found__panel">
     <p class="burst burst--lg sfx-pop" aria-hidden="true"><span class="burst__text">404</span></p>
     <h1 class="page-title">{{ i18n "page_not_found" | default "Page not found" }}</h1>
     <p class="lead">{{ i18n "page_not_found_body" | default "That page vanished like a speech bubble in the wind." }}</p>
-    <a class="btn btn--primary" href="{{ "/" | relURL }}">{{ i18n "go_home" | default "Back home" }}</a>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="{{ "/" | relURL }}">{{ i18n "go_home" | default "Back home" }}</a>
+      {{ with $pick }}
+      <a class="btn btn--ghost" href="{{ .RelPermalink }}">{{ i18n "random_read" | default "Random article" }}</a>
+      {{ end }}
+    </div>
   </div>
 </div>
 {{ end }}

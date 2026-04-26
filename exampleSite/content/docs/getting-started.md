@@ -33,7 +33,7 @@ hugo server --themesDir ..
 
 ## Parameters
 
-Under `[params.comichero]` you can set `heroTitle`, `heroSubtitle`, `heroSfx`, `latestHeading`, `footerText`, `homeTypes`, `defaultTheme`, and `googleFontsUrl`.
+Under `[params.comichero]` you can set `heroTitle`, `heroSubtitle`, `heroSfx`, `latestHeading`, `footerText`, `homeTypes`, `defaultTheme`, `googleFontsUrl`, and `githubUser`.
 
 ## Types and layouts
 

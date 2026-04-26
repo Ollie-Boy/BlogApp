@@ -166,6 +166,34 @@
     });
   });
 
+  /* Docs TOC active heading highlight */
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll(".doc-toc a[href^='#']"));
+  if (tocLinks.length) {
+    var headingMap = [];
+    tocLinks.forEach(function (a) {
+      var id = decodeURIComponent((a.getAttribute("href") || "").slice(1));
+      var target = id ? document.getElementById(id) : null;
+      if (target) headingMap.push({ link: a, target: target });
+    });
+    function setActive(link) {
+      tocLinks.forEach(function (a) { a.classList.remove("is-active"); });
+      if (link) link.classList.add("is-active");
+    }
+    if (headingMap.length) {
+      var observer = new IntersectionObserver(function (entries) {
+        var visible = entries
+          .filter(function (e) { return e.isIntersecting; })
+          .sort(function (a, b) { return b.intersectionRatio - a.intersectionRatio; });
+        if (visible[0]) {
+          var found = headingMap.find(function (x) { return x.target === visible[0].target; });
+          if (found) setActive(found.link);
+        }
+      }, { rootMargin: "0px 0px -70% 0px", threshold: [0.1, 0.4, 0.7] });
+      headingMap.forEach(function (x) { observer.observe(x.target); });
+      setActive(headingMap[0].link);
+    }
+  }
+
 
   document.querySelectorAll(".prose pre").forEach(function (pre) {
     if (pre.closest(".codesnippet-wrap")) return;

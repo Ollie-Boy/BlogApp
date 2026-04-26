@@ -22,6 +22,7 @@ themesDir = "../themes"
   latestHeading = "Fresh off the press"
   footerText = "Dear wind, please take me flying."
   homeTypes = ["blog"]
+  githubUser = "Ollie-Boy"
 
 [markup.goldmark.renderer]
   unsafe = true

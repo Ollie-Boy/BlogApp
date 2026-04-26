@@ -1,0 +1,13 @@
+{{- $user := .Get "user" | default site.Params.comichero.githubUser -}}
+{{- if $user -}}
+<div class="comic-panel github-calendar">
+  <p class="github-calendar__title">GitHub Activity · {{ $user }}</p>
+  <a href="https://github.com/{{ $user }}" target="_blank" rel="noopener noreferrer" class="github-calendar__link">
+    <img src="https://ghchart.rshah.org/{{ $user }}" alt="GitHub contribution calendar for {{ $user }}" loading="lazy">
+  </a>
+</div>
+{{- else -}}
+<div class="comic-note comic-note--warning" role="note">
+  <div class="comic-note__body">Set <code>params.comichero.githubUser</code> or pass <code>user</code> to <code>github-calendar</code>.</div>
+</div>
+{{- end -}}

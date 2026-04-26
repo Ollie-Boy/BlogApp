@@ -3,6 +3,15 @@
   <header class="page-header comic-panel comic-panel--hero">
     <p class="article-kicker">{{ i18n "series_label" | default "Series" }}</p>
     <h1 class="page-title sfx-pop">{{ .Title }}</h1>
+    <p>
+      {{ $status := lower (.Params.status | default "ongoing") }}
+      {{ if eq $status "completed" }}
+      <span class="tag">已完结</span>
+      {{ else }}
+      <span class="tag tag--series-progress">连载中</span>
+      {{ end }}
+    </p>
+    <p class="lead">阅读顺序提示：从最早一篇开始，按时间向后阅读。</p>
     {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
   </header>
   <ol class="comic-series-issues" role="list">

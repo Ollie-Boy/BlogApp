@@ -51,3 +51,11 @@ I’ll update this section monthly with 3–5 current focuses.
   - Writing clearer blog posts with better section flow.
   - Practicing Java basics through small daily exercises.
   - Learning more Go by reading and tweaking theme code.
+
+## GitHub Activity
+
+{{< note type="info" title="Configurable account" >}}
+This calendar reads from `params.comichero.githubUser`, or you can override with `{{</* github-calendar user=\"your-account\" */>}}`.
+{{< /note >}}
+
+{{< github-calendar >}}{{< /github-calendar >}}

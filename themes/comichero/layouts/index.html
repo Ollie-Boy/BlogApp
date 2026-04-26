@@ -38,7 +38,7 @@
           <div class="comic-card__body">
             <span class="comic-card__meta">{{ .Section }} · {{ .Date.Format "2006-01-02" }}</span>
             <h3 class="comic-card__title">{{ .LinkTitle }}</h3>
-            {{ with .Description }}<p class="comic-card__desc">{{ . }}</p>{{ end }}
+            {{ with .Params.summary | default .Description | default .Summary }}<p class="comic-card__desc">{{ . | plainify | truncate 120 }}</p>{{ end }}
           </div>
         </a>
       </article>

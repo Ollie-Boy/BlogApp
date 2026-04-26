@@ -1517,10 +1517,18 @@ pre.codesnippet code {
   color: var(--ink);
   text-decoration: none;
   font-weight: 700;
+  border-left: 3px solid transparent;
+  padding-left: 0.35rem;
 }
 
 .doc-toc a:hover {
   color: var(--accent);
+}
+
+.doc-toc a.is-active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel));
 }
 
 .doc-toc--empty {
@@ -1531,6 +1539,24 @@ pre.codesnippet code {
 
 .doc-main {
   min-width: 0;
+}
+
+.github-calendar {
+  margin-top: 1.5rem;
+}
+
+.github-calendar__title {
+  margin: 0 0 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.github-calendar__link img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: var(--stroke) solid var(--line);
+  background: var(--panel);
 }
 
 /* Shortcodes */
