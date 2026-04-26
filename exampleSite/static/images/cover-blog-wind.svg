@@ -1,12 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#dff3ff"/>
-  <rect x="30" y="30" width="1140" height="570" fill="#fff" stroke="#0a0a0f" stroke-width="8"/>
-  <rect x="70" y="70" width="520" height="490" fill="#95d9ff" stroke="#0a0a0f" stroke-width="6"/>
-  <rect x="620" y="70" width="510" height="235" fill="#ffd43b" stroke="#0a0a0f" stroke-width="6"/>
-  <rect x="620" y="325" width="510" height="235" fill="#74c0fc" stroke="#0a0a0f" stroke-width="6"/>
-  <text x="110" y="180" font-family="Bangers, Impact, sans-serif" font-size="74" fill="#0a0a0f">BLOG</text>
-  <text x="110" y="260" font-family="Comic Neue, Arial, sans-serif" font-size="36" fill="#0a0a0f">Build logs, ideas, and</text>
-  <text x="110" y="305" font-family="Comic Neue, Arial, sans-serif" font-size="36" fill="#0a0a0f">small daily experiments.</text>
-  <text x="670" y="210" font-family="Bangers, Impact, sans-serif" font-size="66" fill="#0a0a0f">WIND</text>
-  <text x="670" y="455" font-family="Bangers, Impact, sans-serif" font-size="66" fill="#0a0a0f">NOTES</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="t d">
+  <title id="t">Blog cover in comic style</title>
+  <desc id="d">Bold comic panel cover with halftone dots and wind headline.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e6f6ff"/>
+      <stop offset="1" stop-color="#8bd6ff"/>
+    </linearGradient>
+    <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.4" fill="#ffffff" fill-opacity="0.45"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#0a0a0f" stroke-width="8"/>
+  <g transform="translate(80 70)">
+    <path d="M50 280c150-160 290-160 440 0" fill="none" stroke="#0a0a0f" stroke-width="10"/>
+    <path d="M410 320c90-90 190-90 300 0" fill="none" stroke="#0a0a0f" stroke-width="10"/>
+    <path d="M710 120l44 92 101 14-74 71 18 102-89-47-91 47 19-102-74-71 101-14z" fill="#ffeb3b" stroke="#0a0a0f" stroke-width="8"/>
+  </g>
+  <g transform="translate(82 360)">
+    <rect width="760" height="190" fill="#fff" stroke="#0a0a0f" stroke-width="8"/>
+    <text x="30" y="88" font-family="Bangers, Impact, sans-serif" font-size="84" fill="#0a0a0f" letter-spacing="2">BLOG LOG</text>
+    <text x="32" y="144" font-family="Comic Neue, Arial, sans-serif" font-size="33" fill="#0a0a0f">Code notes, tiny wins, and windy experiments.</text>
+  </g>
+  <g transform="translate(892 366)">
+    <rect width="224" height="184" fill="#ff5a5f" stroke="#0a0a0f" stroke-width="8"/>
+    <text x="26" y="86" font-family="Bangers, Impact, sans-serif" font-size="58" fill="#fff">WOW</text>
+    <text x="26" y="138" font-family="Comic Neue, Arial, sans-serif" font-size="28" fill="#fff">NEW POST</text>
+  </g>
 </svg>
