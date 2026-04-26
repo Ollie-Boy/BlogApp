@@ -1,0 +1,7 @@
+{{< dialogue-tree title="Gatekeeper Dialogue" >}}
+Ask for passage politely.
+---
+Offer a bribe to skip inspection.
+---
+Challenge authority and force entry.
+{{< /dialogue-tree >}}

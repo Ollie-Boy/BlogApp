@@ -335,7 +335,141 @@ One word per line; optional `Label|frequencyHz`. **Long-press the first button**
 
 Params: `label` (or `title`), `volume`, `subtitle`, `class`.
 
+
 ---
+
+## `battle-log` — turn-based event stream
+
+{{< battle-log title="Boss Fight" >}}
+Round 1|Slash|24|Shield cracked
+Round 2|Counter|18|Enemy staggered
+Round 3|Finisher|56|KO
+{{< /battle-log >}}
+
+{{< codesnippet path="assets/snippets/battle-log.txt" />}}
+
+---
+
+## `inventory` — item card grid
+
+{{< inventory title="Loadout" >}}
+Pulse Blade|Legendary|High crit melee weapon
+Nano Kit|Rare|Restores 35 HP instantly
+Flash Bomb|Common|Briefly blinds enemies
+{{< /inventory >}}
+
+{{< codesnippet path="assets/snippets/inventory.txt" />}}
+
+---
+
+## `mission` — mission board card
+
+{{< mission title="Secure the Relay" type="main" status="active" reward="900 XP + Rare Mod" >}}
+Reach the rooftop relay and hold for 90 seconds.
+{{< /mission >}}
+
+{{< codesnippet path="assets/snippets/mission.txt" />}}
+
+---
+
+## `map-pin` — location card
+
+{{< map-pin name="Sector 7 Relay" coords="E-17 / N-04" faction="City Guard" arc="Nightfall" >}}
+A high-ground signal node with heavy patrol routes.
+{{< /map-pin >}}
+
+{{< codesnippet path="assets/snippets/map-pin.txt" />}}
+
+---
+
+## `loot-table` — drop table with rarity colors
+
+{{< loot-table title="Raid Drops" >}}
+Core Shard|42%|Common
+Aegis Coil|18%|Rare
+Phoenix Cell|4%|Legendary
+{{< /loot-table >}}
+
+{{< codesnippet path="assets/snippets/loot-table.txt" />}}
+
+---
+
+## `dialogue-tree` — collapsible dialogue branches
+
+{{< dialogue-tree title="Gatekeeper Dialogue" >}}
+Ask for passage politely.
+---
+Offer a bribe to skip inspection.
+---
+Challenge authority and force entry.
+{{< /dialogue-tree >}}
+
+{{< codesnippet path="assets/snippets/dialogue-tree.txt" />}}
+
+---
+
+## `relation-graph` — allies vs enemies map
+
+{{< relation-graph center="Captain Mira" allies="Jax,The Archivist" enemies="Iron Fang,Null Choir" >}}{{< /relation-graph >}}
+
+{{< codesnippet path="assets/snippets/relation-graph.txt" />}}
+
+---
+
+## `character-card` — profile card
+
+{{< character-card name="Captain Mira" img="/images/placeholder-comic.svg" faction="Sky Guard" ability="Photon Dash" debut="Issue #1" >}}
+Tactical leader who specializes in rapid flank maneuvers.
+{{< /character-card >}}
+
+{{< codesnippet path="assets/snippets/character-card.txt" />}}
+
+---
+
+## `choice` — branch buttons
+
+{{< choice aText="Take rooftop route" aHref="#route-a" bText="Take alley route" bHref="#route-b" >}}{{< /choice >}}
+
+{{< codesnippet path="assets/snippets/choice.txt" />}}
+
+---
+
+## `stats` — compact metric panel
+
+{{< stats label="Threat Level" value="82" trend="up" change="+6 this chapter" >}}{{< /stats >}}
+
+{{< codesnippet path="assets/snippets/stats.txt" />}}
+
+---
+
+## `warning-strip` — top warning banner
+
+{{< warning-strip level="spoiler" text="Major plot spoiler below." >}}{{< /warning-strip >}}
+
+{{< codesnippet path="assets/snippets/warning-strip.txt" />}}
+
+## Dark QA
+
+Use this section to quickly verify contrast and edge visibility in dark mode.
+
+{{< speech from="Narrator" tone="narrator" >}}
+Dark mode QA keeps labels and bubbles readable while preserving comic tone.
+{{< /speech >}}
+
+{{< note type="info" title="Contrast check" >}}
+Check label text, border contrast, and body copy readability.
+{{< /note >}}
+
+{{< aside side="right" >}}
+This rail note validates panel/background separation in dark mode.
+{{< /aside >}}
+
+{{< button href="/about/" style="primary" >}}Open About QA{{< /button >}}
+{{< button href="/docs/getting-started/" style="ghost" >}}Ghost QA{{< /button >}}
+
+{{< spoiler label="Dark spoiler test" >}}
+Ensure spoiler body remains readable and border contrast is clear.
+{{< /spoiler >}}
 
 ## Quick reference table
 
@@ -364,6 +498,14 @@ Params: `label` (or `title`), `volume`, `subtitle`, `class`.
 | `cast`         | Avatar + nameplate + dialogue line |
 | `soundboard`   | Tap SFX buttons (Web Audio) |
 | `chapter`      | Large chapter / issue heading |
+| `battle-log`   | Turn-based event stream |
+| `inventory`    | Item card grid with rarity |
+| `mission`      | Mission board card |
+| `map-pin`      | Location metadata card |
+| `loot-table`   | Drop table with rarity tint |
+| `dialogue-tree`| Collapsible branch dialogue |
+| `relation-graph`| Allies/enemies relation map |
+| `character-card`| Character profile card |
 
 **One file with every call (for bulk copy):**
 

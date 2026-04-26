@@ -1,0 +1,16 @@
+{{ $name := .Get "name" | default "Unknown" }}
+{{ $img := .Get "img" | default (.Get "src") | default "" }}
+{{ $faction := .Get "faction" | default "" }}
+{{ $ability := .Get "ability" | default "" }}
+{{ $debut := .Get "debut" | default "" }}
+{{ $class := .Get "class" | default "" }}
+<article class="comic-character comic-panel {{ $class }}">
+  {{ with $img }}<img src="{{ . | relURL }}" alt="{{ $name }}" class="comic-character__avatar" loading="lazy">{{ end }}
+  <div class="comic-character__body">
+    <h4 class="comic-character__name">{{ $name }}</h4>
+    {{ with $faction }}<p class="comic-character__meta"><strong>Faction:</strong> {{ . }}</p>{{ end }}
+    {{ with $ability }}<p class="comic-character__meta"><strong>Ability:</strong> {{ . }}</p>{{ end }}
+    {{ with $debut }}<p class="comic-character__meta"><strong>Debut:</strong> {{ . }}</p>{{ end }}
+    {{ with .Inner }}<div class="comic-character__desc">{{ . | markdownify }}</div>{{ end }}
+  </div>
+</article>
