@@ -5,7 +5,9 @@
     <p class="article-kicker">{{ .Section | humanize }}</p>
     <h1 class="article-title sfx-pop">{{ .Title }}</h1>
     <div class="article-meta">
+      {{ if not (or (eq .Layout "about") (eq .Section "about")) }}
       <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+      {{ end }}
       {{ with .Params.series }}
       <span class="article-meta__series">
         {{ $sn := "" }}{{ if reflect.IsSlice . }}{{ $sn = index . 0 }}{{ else }}{{ $sn = . }}{{ end }}

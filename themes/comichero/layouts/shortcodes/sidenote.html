@@ -1,0 +1,5 @@
+{{- $note := .Get 0 | default "" -}}
+<aside class="comic-aside">
+  <div>{{ .Inner | markdownify }}</div>
+  {{ with $note }}<small>{{ . | markdownify }}</small>{{ end }}
+</aside>

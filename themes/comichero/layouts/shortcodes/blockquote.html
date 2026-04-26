@@ -1,0 +1,15 @@
+<blockquote class="comic-pullquote comic-panel">
+  {{ .Inner | markdownify }}
+  {{- $author := .Get "author" -}}
+  {{- $source := .Get "source" -}}
+  {{- $title := .Get "title" -}}
+  {{- $link := .Get "link" -}}
+  {{- if or $author $source $title $link -}}
+  <cite>
+    {{- with $author }}{{ . }}{{ end -}}
+    {{- with $source }} · {{ . }}{{ end -}}
+    {{- with $title }} · {{ . }}{{ end -}}
+    {{- with $link }} · <a href="{{ . }}" target="_blank" rel="noopener">Link</a>{{ end -}}
+  </cite>
+  {{- end -}}
+</blockquote>

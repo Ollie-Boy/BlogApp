@@ -1,0 +1,6 @@
+{{- $dir := .Get "gallery_dir" | default "" -}}
+{{- if $dir -}}
+<div class="comic-panel" style="margin:1rem 0;">
+  <p><strong>Gallery:</strong> {{ $dir }}</p>
+</div>
+{{- end -}}
