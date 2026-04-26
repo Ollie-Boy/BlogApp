@@ -63,6 +63,11 @@ themesDir = "../themes"
   url = "/series/"
   weight = 25
 
+[[menus.main]]
+  name = "Archives"
+  url = "/archives/"
+  weight = 26
+
 [[menus.hero]]
   name = "Open docs"
   url = "/docs/getting-started/"
@@ -70,3 +75,6 @@ themesDir = "../themes"
 
 [pagination]
   pagerSize = 12
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

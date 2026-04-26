@@ -4,6 +4,7 @@
   <div class="container doc-layout__grid">
     <aside class="doc-sidebar comic-panel">
       <p class="doc-sidebar__label">{{ i18n "on_this_page" | default "On this page" }}</p>
+      <div class="doc-toc-progress" aria-hidden="true"><span class="doc-toc-progress__bar" data-doc-progress></span></div>
       {{ if .TableOfContents }}
       <div class="doc-toc">{{ .TableOfContents }}</div>
       {{ else }}

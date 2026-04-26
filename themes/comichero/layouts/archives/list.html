@@ -1,0 +1,23 @@
+{{ define "main" }}
+<div class="container section">
+  <header class="page-header comic-panel comic-panel--hero comic-panel--lined page-shell-panel">
+    <h1 class="page-title sfx-pop">{{ .Title }}</h1>
+    {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
+  </header>
+  {{ $posts := where site.RegularPages "Type" "blog" }}
+  {{ range $posts.GroupByDate "2006-01" }}
+  <section class="comic-panel archives-month">
+    <h2 class="section-heading">{{ .Key }}</h2>
+    <ul class="comic-series-issues" role="list">
+      {{ range .Pages.ByDate.Reverse }}
+      <li class="comic-series-issues__row">
+        <span class="comic-series-issues__issue">{{ .Date.Format "02" }}</span>
+        <a class="comic-series-issues__link" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+        <time class="comic-series-issues__date">{{ .Date.Format "Jan 2" }}</time>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+</div>
+{{ end }}

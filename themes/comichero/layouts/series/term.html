@@ -12,6 +12,9 @@
       {{ end }}
     </p>
     <p class="lead">Reading tip: start from the earliest issue and continue by date.</p>
+    {{ with index (.Pages.ByDate) 0 }}
+    <p><a class="btn btn--primary" href="{{ .RelPermalink }}">Start from Issue 1</a></p>
+    {{ end }}
     {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
   </header>
   <ol class="comic-series-issues" role="list">

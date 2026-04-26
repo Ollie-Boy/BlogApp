@@ -103,6 +103,22 @@
     });
   }
 
+  /* Docs TOC reading progress */
+  var docProgress = document.querySelector("[data-doc-progress]");
+  var docMain = document.querySelector(".doc-main .article-content");
+  function updateDocProgress() {
+    if (!docProgress || !docMain) return;
+    var rect = docMain.getBoundingClientRect();
+    var total = Math.max(1, docMain.scrollHeight - window.innerHeight * 0.35);
+    var consumed = Math.min(total, Math.max(0, -rect.top + 80));
+    var pct = Math.max(0, Math.min(100, (consumed / total) * 100));
+    docProgress.style.width = pct.toFixed(2) + "%";
+  }
+  window.addEventListener("scroll", updateDocProgress, { passive: true });
+  window.addEventListener("resize", updateDocProgress, { passive: true });
+  window.addEventListener("load", updateDocProgress);
+  updateDocProgress();
+
 
   var prevIssue = document.querySelector("[data-prev-issue]");
   var nextIssue = document.querySelector("[data-next-issue]");
@@ -221,9 +237,11 @@
       var text = pre.textContent || "";
       function done() {
         btn.textContent = "Copied!";
+        btn.classList.add("is-copied");
         btn.disabled = true;
         window.setTimeout(function () {
           btn.textContent = "Copy";
+          btn.classList.remove("is-copied");
           btn.disabled = false;
         }, 1400);
       }
@@ -243,9 +261,11 @@
       function done() {
         var prev = btn.textContent;
         btn.textContent = "Copied!";
+        btn.classList.add("is-copied");
         btn.disabled = true;
         window.setTimeout(function () {
           btn.textContent = prev;
+          btn.classList.remove("is-copied");
           btn.disabled = false;
         }, 1600);
       }
@@ -265,6 +285,71 @@
         document.body.removeChild(ta);
       }
     });
+  });
+
+  var tagSearch = document.querySelector("[data-tag-search]");
+  if (tagSearch) {
+    var tags = Array.prototype.slice.call(document.querySelectorAll(".tag-filter a.tag"));
+    tagSearch.addEventListener("input", function () {
+      var q = tagSearch.value.trim().toLowerCase();
+      tags.forEach(function (t) {
+        var show = !q || t.textContent.toLowerCase().indexOf(q) !== -1;
+        t.style.display = show ? "" : "none";
+      });
+    });
+  }
+
+  /* Lightbox for content images */
+  var lightbox = document.createElement("div");
+  lightbox.className = "comic-lightbox";
+  lightbox.innerHTML = '<button type="button" class="comic-lightbox__close" aria-label="Close">×</button><img alt="">';
+  document.body.appendChild(lightbox);
+  var lightboxImg = lightbox.querySelector("img");
+  function closeLightbox() { lightbox.classList.remove("is-open"); }
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox || e.target.classList.contains("comic-lightbox__close")) closeLightbox();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
+  });
+
+  /* Comic-style page enter transition */
+  document.querySelectorAll("a[href]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var href = a.getAttribute("href") || "";
+      if (!href || href.startsWith("#") || a.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var sameOrigin = href.startsWith("/") || href.indexOf(window.location.origin) === 0;
+      if (!sameOrigin) return;
+      document.body.classList.add("page-entering");
+    });
+  });
+  document.querySelectorAll(".article-content img, .prose img").forEach(function (img) {
+    img.addEventListener("click", function () {
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt || "";
+      lightbox.classList.add("is-open");
+    });
+  });
+
+  /* Keyboard shortcuts: j/k next-prev post, / focus search/filter */
+  document.addEventListener("keydown", function (e) {
+    var tag = e.target && e.target.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (e.target && e.target.isContentEditable)) return;
+    if (e.key === "j" || e.key === "J") {
+      var next = document.querySelector("[data-next-issue], .article-nav__link--next");
+      if (next) { window.location.href = next.getAttribute("href"); }
+    }
+    if (e.key === "k" || e.key === "K") {
+      var prev = document.querySelector("[data-prev-issue], .article-nav__link--prev");
+      if (prev) { window.location.href = prev.getAttribute("href"); }
+    }
+    if (e.key === "/") {
+      var filter = document.querySelector("[data-tag-search]");
+      if (filter) {
+        e.preventDefault();
+        filter.focus();
+      }
+    }
   });
 
   /* Soundboard */

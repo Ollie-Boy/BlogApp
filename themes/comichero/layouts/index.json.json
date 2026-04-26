@@ -1,0 +1,19 @@
+{{- $posts := first 30 (where site.RegularPages "Type" "blog") -}}
+{
+  "version": "https://jsonfeed.org/version/1",
+  "title": {{ site.Title | jsonify }},
+  "home_page_url": {{ site.BaseURL | jsonify }},
+  "feed_url": {{ (print site.BaseURL "index.json") | jsonify }},
+  "items": [
+    {{- range $i, $p := $posts -}}
+    {{- if gt $i 0 }},{{ end }}
+    {
+      "id": {{ $p.Permalink | jsonify }},
+      "url": {{ $p.Permalink | jsonify }},
+      "title": {{ $p.Title | jsonify }},
+      "date_published": {{ $p.Date.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+      "summary": {{ ($p.Params.summary | default $p.Description | default $p.Summary | plainify) | jsonify }}
+    }
+    {{- end -}}
+  ]
+}

@@ -38,7 +38,12 @@
           <div class="comic-card__body">
             <span class="comic-card__meta">{{ .Section }} · {{ .Date.Format "2006-01-02" }}</span>
             <h3 class="comic-card__title">{{ .LinkTitle }}</h3>
-            {{ with .Params.summary | default .Description | default .Summary }}<p class="comic-card__desc">{{ . | plainify | truncate 120 }}</p>{{ end }}
+            {{ with .Params.summary | default .Description | default .Summary }}
+            {{ $txt := . | plainify }}
+            {{ $lvl := "short" }}
+            {{ if gt (len $txt) 120 }}{{ $lvl = "long" }}{{ else if gt (len $txt) 70 }}{{ $lvl = "medium" }}{{ end }}
+            <p class="comic-card__desc comic-card__desc--{{ $lvl }}">{{ $txt | truncate 140 }}</p>
+            {{ end }}
           </div>
         </a>
       </article>
