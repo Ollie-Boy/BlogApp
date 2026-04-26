@@ -1,27 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="t d">
-  <title id="t">Series arc cover in comic style</title>
-  <desc id="d">Dark comic board with issue path and bold series label.</desc>
-  <rect width="1200" height="630" fill="#111827"/>
-  <rect x="24" y="24" width="1152" height="582" fill="#1f2937" stroke="#facc15" stroke-width="8"/>
-  <g fill="#334155">
-    <circle cx="200" cy="120" r="90"/><circle cx="1020" cy="170" r="130"/><circle cx="420" cy="470" r="120"/>
-  </g>
-  <g stroke="#facc15" stroke-width="6" fill="none">
-    <path d="M120 470h210l80-95h210l70-80h190l85-90"/>
-    <circle cx="120" cy="470" r="11" fill="#facc15"/>
-    <circle cx="410" cy="375" r="11" fill="#facc15"/>
-    <circle cx="690" cy="295" r="11" fill="#facc15"/>
-    <circle cx="965" cy="295" r="11" fill="#facc15"/>
-    <circle cx="1050" cy="205" r="11" fill="#facc15"/>
-  </g>
-  <g transform="translate(88 74)">
-    <rect width="700" height="206" fill="#0b1020" stroke="#facc15" stroke-width="7"/>
-    <text x="30" y="108" font-family="Bangers, Impact, sans-serif" font-size="92" fill="#e2e8f0">SERIES ARC</text>
-    <text x="32" y="165" font-family="Comic Neue, Arial, sans-serif" font-size="34" fill="#e2e8f0">Read in order, issue by issue.</text>
-  </g>
-  <g transform="translate(845 385)">
-    <rect width="280" height="160" fill="#f43f5e" stroke="#0a0a0f" stroke-width="7"/>
-    <text x="24" y="78" font-family="Bangers, Impact, sans-serif" font-size="58" fill="#fff">NEXT</text>
-    <text x="24" y="125" font-family="Comic Neue, Arial, sans-serif" font-size="30" fill="#fff">Issue Path</text>
-  </g>
+  <title id="t">Series comic cover</title>
+  <desc id="d">Simple line style comic series cover.</desc>
+  <rect width="1200" height="630" fill="#152238"/>
+  <rect x="22" y="22" width="1156" height="586" fill="none" stroke="#ffd43b" stroke-width="8"/>
+  <rect x="82" y="84" width="700" height="204" fill="#101b2d" stroke="#ffd43b" stroke-width="6"/>
+  <text x="112" y="202" font-family="Bangers, Impact, sans-serif" font-size="92" fill="#f8fafc">SERIES ARC</text>
+  <path d="M120 462h220l76-92h220l76-76h220" fill="none" stroke="#ffd43b" stroke-width="8"/>
+  <circle cx="120" cy="462" r="10" fill="#ffd43b"/>
+  <circle cx="416" cy="370" r="10" fill="#ffd43b"/>
+  <circle cx="712" cy="294" r="10" fill="#ffd43b"/>
+  <circle cx="932" cy="294" r="10" fill="#ffd43b"/>
 </svg>

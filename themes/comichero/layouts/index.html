@@ -22,7 +22,7 @@
 
 <div class="container section">
   <h2 class="section-heading sfx-tilt">{{ site.Params.comichero.latestHeading | default "Latest stories" }}</h2>
-  <ul class="comic-grid comic-grid--home" role="list">
+  <ul class="comic-grid comic-grid--home comic-grid--book" role="list">
     {{ $types := site.Params.comichero.homeTypes | default (slice "blog") }}
     {{ range first 6 (where site.RegularPages "Type" "in" $types) }}
     <li>

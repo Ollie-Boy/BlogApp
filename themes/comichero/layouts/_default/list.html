@@ -31,7 +31,7 @@
     {{ $pages = .Pages }}
   {{ end }}
   {{ $paginator := .Paginate ($pages.ByDate.Reverse) }}
-  <ul class="comic-grid" role="list">
+  <ul class="comic-grid comic-grid--book" role="list">
     {{ range $paginator.Pages }}
     <li>
       <article class="comic-card comic-card--post comic-bounce-in">
