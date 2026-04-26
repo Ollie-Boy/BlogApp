@@ -28,6 +28,9 @@
 <body class="comichero-body site-shell">
   <a class="skip-link" href="#main">{{ i18n "skip_to_content" | default "Skip to content" }}</a>
   {{ partial "header.html" . }}
+  <div class="reading-progress" aria-hidden="true">
+    <div class="reading-progress__bar" data-reading-progress></div>
+  </div>
   <main id="main" class="main main-grow" tabindex="-1">
     {{ block "main" . }}{{ end }}
   </main>
