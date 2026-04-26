@@ -49,24 +49,6 @@
   <div class="prose article-content">
     {{ .Content }}
   </div>
-  {{ if and (eq .Section "blog") .Params.tags }}
-  {{ $pool := where site.RegularPages "Type" "blog" }}
-  {{ $pool = where $pool "RelPermalink" "!=" .RelPermalink }}
-  {{ $related := where $pool "Params.tags" "intersect" .Params.tags }}
-  {{ with first 3 $related }}
-  <section class="comic-panel related-posts" aria-label="Related posts">
-    <p class="episode-footer__label">Related posts</p>
-    <div class="episode-footer__grid">
-      {{ range . }}
-      <a class="episode-card" href="{{ .RelPermalink }}">
-        <span class="episode-card__kicker">{{ .Date.Format "2006-01-02" }}</span>
-        <span class="episode-card__title">{{ .LinkTitle }}</span>
-      </a>
-      {{ end }}
-    </div>
-  </section>
-  {{ end }}
-  {{ end }}
   {{ partial "series-footer.html" . }}
   {{ partial "article-nav.html" . }}
 </article>

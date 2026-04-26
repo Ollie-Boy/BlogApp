@@ -20,10 +20,6 @@
           {{ if lt $i (sub (len $pages) 1) }}{{ $next = index $pages (add $i 1) }}{{ end }}
         {{ end }}
       {{ end }}
-      {{ $pool := where site.RegularPages "Type" "blog" }}
-      {{ $pool = where $pool "RelPermalink" "!=" $.RelPermalink }}
-      {{ $pick := "" }}
-      {{ if gt (len $pool) 0 }}{{ $pick = index (shuffle $pool) 0 }}{{ end }}
       <section class="episode-footer comic-panel" aria-label="{{ i18n "series_next" | default "Series navigation" }}">
         <p class="episode-footer__label">{{ i18n "series_label" | default "Series" }} · {{ $seriesName }}</p>
         <p class="episode-footer__progress">{{ i18n "issue" | default "Issue" }} {{ $current }} / {{ $total }}</p>
@@ -48,14 +44,7 @@
           {{ else }}
           <span class="episode-card episode-card--ghost"></span>
           {{ end }}
-          {{ with $pick }}
-          <a class="episode-card episode-card--random" href="{{ .RelPermalink }}">
-            <span class="episode-card__kicker">{{ i18n "random_read" | default "Random read" }}</span>
-            <span class="episode-card__title">{{ .LinkTitle }}</span>
-          </a>
-          {{ else }}
           <span class="episode-card episode-card--ghost"></span>
-          {{ end }}
         </div>
       </section>
     {{ end }}

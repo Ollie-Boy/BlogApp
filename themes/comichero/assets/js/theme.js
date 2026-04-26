@@ -320,11 +320,15 @@
       if (!href || href.startsWith("#") || a.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       var sameOrigin = href.startsWith("/") || href.indexOf(window.location.origin) === 0;
       if (!sameOrigin) return;
+      e.preventDefault();
       if (a.closest(".pagination, .article-nav, .episode-footer")) {
         document.body.classList.add("page-flipping");
       } else {
         document.body.classList.add("page-entering");
       }
+      window.setTimeout(function () {
+        window.location.href = href;
+      }, 210);
     });
   });
   document.querySelectorAll(".article-content img, .prose img").forEach(function (img) {

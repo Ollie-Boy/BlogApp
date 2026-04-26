@@ -127,24 +127,34 @@ body.comichero-body.site-shell {
   width: 100%;
 }
 
-body.page-entering .main {
-  animation: pageEnterZap 0.56s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@keyframes pageEnterZap {
-  from { opacity: 0.35; transform: perspective(900px) translateZ(-80px) rotateY(12deg) scale(0.94); filter: saturate(1.4); }
-  to { opacity: 1; transform: none; filter: none; }
+body.page-entering::before,
+body.page-flipping::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(135deg, rgba(10, 10, 15, 0.92), rgba(10, 10, 15, 0.62)),
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.08) 0 10px, transparent 10px 20px);
+  animation: comicOverlayFlash 0.5s ease;
 }
 
 body.page-flipping .main {
-  animation: pageFlipTurn 0.58s ease-in-out;
-  transform-origin: left center;
+  animation: pageFlipTurn 0.72s cubic-bezier(0.22, 0.76, 0.26, 1);
 }
 
 @keyframes pageFlipTurn {
-  0% { opacity: 1; transform: perspective(1200px) rotateY(0deg); }
-  40% { opacity: 0.6; transform: perspective(1200px) rotateY(-22deg) translateX(-16px); }
-  100% { opacity: 1; transform: perspective(1200px) rotateY(0deg) translateX(0); }
+  0% { transform: perspective(1200px) rotateY(0deg); opacity: 1; }
+  40% { transform: perspective(1200px) rotateY(-14deg) translateX(-8px); opacity: 0.6; }
+  100% { transform: perspective(1200px) rotateY(0deg) translateX(0); opacity: 1; }
+}
+
+@keyframes comicOverlayFlash {
+  0% { opacity: 0; }
+  35% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Inline semantics use the same face as body copy */
@@ -566,13 +576,21 @@ body.page-flipping .main {
 @media (min-width: 980px) {
   .comic-grid--book {
     grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: 22px;
+    grid-auto-flow: dense;
     gap: 1rem;
   }
-  .comic-grid--book > li { grid-column: span 4; }
-  .comic-grid--book > li:nth-child(6n + 1) { grid-column: span 6; }
-  .comic-grid--book > li:nth-child(6n + 2) { grid-column: span 3; }
-  .comic-grid--book > li:nth-child(6n + 5) { grid-column: span 5; }
-  .comic-grid--book > li:nth-child(6n + 6) { grid-column: span 7; }
+  .comic-grid--book > li { grid-column: span 4; grid-row: span 12; }
+  .comic-grid--book > li:nth-child(8n + 1) { grid-column: span 6; grid-row: span 16; }
+  .comic-grid--book > li:nth-child(8n + 2) { grid-column: span 3; grid-row: span 10; }
+  .comic-grid--book > li:nth-child(8n + 3) { grid-column: span 3; grid-row: span 10; }
+  .comic-grid--book > li:nth-child(8n + 4) { grid-column: span 8; grid-row: span 13; }
+  .comic-grid--book > li:nth-child(8n + 5) { grid-column: span 4; grid-row: span 13; }
+  .comic-grid--book > li:nth-child(8n + 6) { grid-column: span 5; grid-row: span 11; }
+  .comic-grid--book > li:nth-child(8n + 7) { grid-column: span 7; grid-row: span 11; }
+  .comic-grid--book > li:nth-child(8n + 8) { grid-column: span 12; grid-row: span 9; }
+  .comic-grid--book .comic-card { height: 100%; }
+  .comic-grid--book .comic-card__thumb { height: 56%; }
 }
 
 .section-grid {
@@ -683,7 +701,7 @@ body.page-flipping .main {
 
 /* Staggered entrance */
 .comic-bounce-in {
-  animation: bounceIn 0.9s cubic-bezier(0.26, 1.35, 0.48, 1) both;
+  animation: bounceIn 1.05s cubic-bezier(0.24, 1.24, 0.42, 1) both;
 }
 
 .comic-grid li:nth-child(1) .comic-bounce-in {
@@ -3134,11 +3152,6 @@ pre.codesnippet code {
 
 .footer-nav a:hover {
   transform: skewX(-3deg);
-}
-
-.btn--mini {
-  padding: 0.35rem 0.7rem;
-  font-size: 0.85rem;
 }
 
 .tag-filter {
