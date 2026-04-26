@@ -54,32 +54,23 @@
     }
   });
 
-  /* Reading progress */
-  var bar = document.querySelector("[data-read-progress]");
-  function updateReadProgress() {
-    if (!bar) return;
-    var main = document.getElementById("main");
-    if (!main) return;
-    var el = main.querySelector(".article-content") || main;
-    var rect = el.getBoundingClientRect();
-    var total = el.scrollHeight - window.innerHeight;
-    if (total <= 0) {
-      bar.style.width = "100%";
-      return;
-    }
-    var y = window.scrollY || document.documentElement.scrollTop;
-    var start = rect.top + y;
-    var p = (y - start + window.innerHeight * 0.2) / (el.scrollHeight + window.innerHeight * 0.2);
-    p = Math.max(0, Math.min(1, p));
-    bar.style.width = p * 100 + "%";
-  }
-  window.addEventListener("scroll", updateReadProgress, { passive: true });
-  window.addEventListener("resize", updateReadProgress);
-  updateReadProgress();
-
   /* Back to top + speed-line overlay */
   var btt = document.querySelector("[data-back-to-top]");
   var zap = document.querySelector("[data-scroll-zap-overlay]");
+  var footer = document.querySelector(".site-footer");
+
+  function updateBttBottom() {
+    if (!btt) return;
+    var baseBottom = 20;
+    if (!footer) {
+      btt.style.bottom = baseBottom + "px";
+      return;
+    }
+    var rect = footer.getBoundingClientRect();
+    var overlap = window.innerHeight - rect.top;
+    var lift = Math.max(0, overlap + 18);
+    btt.style.bottom = Math.round(baseBottom + lift) + "px";
+  }
   function docScrollHeight() {
     return Math.max(
       document.body.scrollHeight,
@@ -98,10 +89,12 @@
     btt.classList.toggle("is-visible", show);
     btt.setAttribute("aria-hidden", show ? "false" : "true");
     btt.tabIndex = show ? 0 : -1;
+    updateBttBottom();
   }
   window.addEventListener("scroll", toggleBtt, { passive: true });
   window.addEventListener("resize", toggleBtt, { passive: true });
   window.addEventListener("load", toggleBtt);
+  updateBttBottom();
   toggleBtt();
 
   if (btt) {
