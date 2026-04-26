@@ -179,19 +179,31 @@
       tocLinks.forEach(function (a) { a.classList.remove("is-active"); });
       if (link) link.classList.add("is-active");
     }
-    if (headingMap.length) {
-      var observer = new IntersectionObserver(function (entries) {
-        var visible = entries
-          .filter(function (e) { return e.isIntersecting; })
-          .sort(function (a, b) { return b.intersectionRatio - a.intersectionRatio; });
-        if (visible[0]) {
-          var found = headingMap.find(function (x) { return x.target === visible[0].target; });
-          if (found) setActive(found.link);
+    function updateActiveToc() {
+      if (!headingMap.length) return;
+      var marker = 130; /* offset for sticky header + breathing room */
+      var candidate = headingMap[0];
+      for (var i = 0; i < headingMap.length; i++) {
+        var rect = headingMap[i].target.getBoundingClientRect();
+        if (rect.top <= marker) {
+          candidate = headingMap[i];
+        } else {
+          break;
         }
-      }, { rootMargin: "0px 0px -70% 0px", threshold: [0.1, 0.4, 0.7] });
-      headingMap.forEach(function (x) { observer.observe(x.target); });
-      setActive(headingMap[0].link);
+      }
+      setActive(candidate.link);
     }
+    window.addEventListener("scroll", updateActiveToc, { passive: true });
+    window.addEventListener("resize", updateActiveToc, { passive: true });
+    window.addEventListener("hashchange", function () {
+      window.setTimeout(updateActiveToc, 0);
+    });
+    tocLinks.forEach(function (a) {
+      a.addEventListener("click", function () {
+        window.setTimeout(updateActiveToc, 0);
+      });
+    });
+    updateActiveToc();
   }
 
 

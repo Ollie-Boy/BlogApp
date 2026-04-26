@@ -43,19 +43,15 @@ This Hugo site is part of that process: I use it to practice writing, structurin
 ## Now
 
 {{< note type="tip" title="Monthly log" >}}
-I’ll update this section monthly with 3–5 current focuses.
+Latest focus is generated from my newest blog posts.
 {{< /note >}}
 
-- **2026-04**
-  - Refining this Hugo site’s content structure and navigation.
-  - Writing clearer blog posts with better section flow.
-  - Practicing Java basics through small daily exercises.
-  - Learning more Go by reading and tweaking theme code.
+{{< latest-blog-focus limit="4" >}}
 
 ## GitHub Activity
 
 {{< note type="info" title="Configurable account" >}}
-This calendar reads from `params.comichero.githubUser`, or you can override with `{{</* github-calendar user=\"your-account\" */>}}`.
+This calendar reads from `params.comichero.githubUser`, or you can override with。
 {{< /note >}}
 
 {{< github-calendar >}}

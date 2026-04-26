@@ -3,7 +3,7 @@
   <header class="page-header comic-panel comic-panel--hero">
     <h1 class="page-title sfx-pop">{{ i18n "all_series" | default "All series" }}</h1>
     <p class="lead">{{ i18n "series_terms_intro" | default "Jump into a storyline — each card is one series." }}</p>
-    <p class="tag tag--series-progress">Read in order: start from the earliest issue (#1) and continue by date.</p>
+    <p class="lead">Pick a storyline to read in order.</p>
   </header>
   <ul class="comic-grid" role="list">
     {{ range .Data.Terms.Alphabetical }}

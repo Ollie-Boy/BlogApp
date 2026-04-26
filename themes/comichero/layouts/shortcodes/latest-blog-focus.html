@@ -1,0 +1,11 @@
+{{- $limit := .Get "limit" | default 4 | int -}}
+{{- $posts := first $limit (where site.RegularPages "Type" "blog") -}}
+{{- if gt (len $posts) 0 -}}
+<ul>
+  {{- range $posts -}}
+  <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ with .Params.summary | default .Description }} — {{ . | plainify | truncate 80 }}{{ end }}</li>
+  {{- end -}}
+</ul>
+{{- else -}}
+<p>No blog posts yet.</p>
+{{- end -}}
