@@ -5,7 +5,6 @@
     {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
     {{ if eq .Section "blog" }}
     <div class="tag-filter">
-      <input type="search" class="tag-filter__search" data-tag-search placeholder="Filter tags…">
       <a class="tag tag--series" href="{{ "/blog/" | relURL }}">All</a>
       {{ range first 8 site.Taxonomies.tags.ByCount }}
       <a class="tag tag--series" href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
