@@ -1,6 +1,9 @@
 {{ $from := .Get "from" | default "" }}
+{{ $toneRaw := .Get "tone" | default "" }}
+{{ $tone := cond (and (eq $toneRaw "") (eq (lower $from) "narrator")) "narrator" $toneRaw }}
 {{ $class := .Get "class" | default "" }}
-<aside class="comic-speech {{ $class }}"{{ if $from }} data-from="{{ $from }}"{{ end }}>
+{{ $toneClass := cond (ne $tone "") (printf " comic-speech--%s" (urlize $tone)) "" }}
+<aside class="comic-speech{{ $toneClass }} {{ $class }}"{{ if $from }} data-from="{{ $from }}"{{ end }}>
   {{ if $from }}<span class="comic-speech__label">{{ $from }}</span>{{ end }}
   <div class="comic-speech__bubble">{{ .Inner | markdownify }}</div>
 </aside>

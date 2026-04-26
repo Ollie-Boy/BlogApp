@@ -1,0 +1,18 @@
+{{ $title := .Get "title" | default "Inventory" }}
+{{ $class := .Get "class" | default "" }}
+{{ $rows := split (.Inner | strings.TrimSpace) "\n" }}
+<section class="comic-inventory {{ $class }}">
+  <h3 class="comic-inventory__title">{{ $title }}</h3>
+  <div class="comic-inventory__grid">
+    {{ range $rows }}
+      {{ $parts := split . "|" }}
+      {{ if ge (len $parts) 3 }}
+      <article class="comic-inventory__item comic-panel" data-rarity="{{ index $parts 1 | strings.TrimSpace | lower }}">
+        <h4>{{ index $parts 0 | strings.TrimSpace }}</h4>
+        <p class="comic-inventory__rarity">{{ index $parts 1 | strings.TrimSpace }}</p>
+        <p>{{ index $parts 2 | strings.TrimSpace }}</p>
+      </article>
+      {{ end }}
+    {{ end }}
+  </div>
+</section>

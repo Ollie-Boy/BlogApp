@@ -1,0 +1,25 @@
+{{ $title := .Get "title" | default "Loot Table" }}
+{{ $class := .Get "class" | default "" }}
+{{ $rows := split (.Inner | strings.TrimSpace) "\n" }}
+<section class="comic-loot-table {{ $class }}">
+  <h3 class="comic-loot-table__title">{{ $title }}</h3>
+  <div class="comic-loot-table__wrap comic-panel">
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Rate</th><th>Rarity</th></tr>
+      </thead>
+      <tbody>
+        {{ range $rows }}
+          {{ $parts := split . "|" }}
+          {{ if ge (len $parts) 3 }}
+          <tr data-rarity="{{ index $parts 2 | strings.TrimSpace | lower }}">
+            <td>{{ index $parts 0 | strings.TrimSpace }}</td>
+            <td>{{ index $parts 1 | strings.TrimSpace }}</td>
+            <td>{{ index $parts 2 | strings.TrimSpace }}</td>
+          </tr>
+          {{ end }}
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+</section>

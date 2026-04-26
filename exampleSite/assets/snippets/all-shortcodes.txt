@@ -57,3 +57,38 @@ POW|440
 {{< /soundboard >}}
 {{< chapter label="第 3 回" volume="Vol. 1" subtitle="Subtitle" >}}
 {{< codesnippet path="assets/snippets/panel.txt" />}}
+{{< timeline title="Timeline" >}}
+Event A
+---
+Event B
+{{< /timeline >}}
+{{< choice aText="Route A" aHref="#a" bText="Route B" bHref="#b" >}}{{< /choice >}}
+{{< stats label="Threat" value="82" trend="up" change="+6" >}}{{< /stats >}}
+{{< character-card name="Captain Mira" img="/images/placeholder-comic.svg" faction="Sky Guard" ability="Photon Dash" debut="Issue #1" >}}
+Profile text…
+{{< /character-card >}}
+{{< warning-strip level="spoiler" text="Major spoiler below." >}}{{< /warning-strip >}}
+{{< relation-graph center="Captain Mira" allies="Jax,Archivist" enemies="Iron Fang,Null Choir" >}}{{< /relation-graph >}}
+{{< dialogue-tree title="Gatekeeper Dialogue" >}}
+Option A
+---
+Option B
+{{< /dialogue-tree >}}
+{{< battle-log title="Boss Fight" >}}
+Round 1|Slash|24|Shield cracked
+Round 2|Counter|18|Enemy staggered
+{{< /battle-log >}}
+{{< inventory title="Loadout" >}}
+Pulse Blade|Legendary|High crit melee weapon
+Nano Kit|Rare|Restores 35 HP instantly
+{{< /inventory >}}
+{{< mission title="Secure the Relay" type="main" status="active" reward="900 XP" >}}
+Reach the rooftop relay and hold for 90 seconds.
+{{< /mission >}}
+{{< map-pin name="Sector 7 Relay" coords="E-17 / N-04" faction="City Guard" arc="Nightfall" >}}
+High-ground signal node.
+{{< /map-pin >}}
+{{< loot-table title="Raid Drops" >}}
+Core Shard|42%|Common
+Aegis Coil|18%|Rare
+{{< /loot-table >}}

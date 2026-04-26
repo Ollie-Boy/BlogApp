@@ -1,0 +1,3 @@
+{{< map-pin name="Sector 7 Relay" coords="E-17 / N-04" faction="City Guard" arc="Nightfall" >}}
+A high-ground signal node with heavy patrol routes.
+{{< /map-pin >}}

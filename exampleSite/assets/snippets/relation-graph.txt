@@ -1,0 +1,1 @@
+{{< relation-graph center="Captain Mira" allies="Jax,The Archivist" enemies="Iron Fang,Null Choir" >}}{{< /relation-graph >}}
