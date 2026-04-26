@@ -1,0 +1,12 @@
+{{ $title := .Get "title" | default "Timeline" }}
+{{ $class := .Get "class" | default "" }}
+{{ $raw := .Inner | strings.TrimSpace }}
+{{ $parts := split $raw "\n---\n" }}
+<section class="comic-timeline {{ $class }}">
+  <h3 class="comic-timeline__title">{{ $title }}</h3>
+  <ol class="comic-timeline__list" role="list">
+    {{ range $parts }}
+    <li class="comic-timeline__item comic-panel">{{ . | markdownify }}</li>
+    {{ end }}
+  </ol>
+</section>

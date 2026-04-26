@@ -1,0 +1,7 @@
+{{ $level := .Get "level" | default "warning" }}
+{{ $text := .Get "text" | default (.Inner | strings.TrimSpace) | default "Content notice" }}
+{{ $class := .Get "class" | default "" }}
+<div class="comic-warning-strip comic-warning-strip--{{ $level }} {{ $class }}" role="note">
+  <span class="comic-warning-strip__badge">{{ upper $level }}</span>
+  <span class="comic-warning-strip__text">{{ $text | markdownify }}</span>
+</div>

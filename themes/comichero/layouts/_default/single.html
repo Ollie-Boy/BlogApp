@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ partial "article-shell-start.html" . }}
-<article class="article comic-panel comic-panel--article comic-panel--lined">
+<article class="article comic-panel comic-panel--article comic-panel--lined" data-remember-position="{{ if isset .Params "rememberPosition" }}{{ .Params.rememberPosition }}{{ else }}true{{ end }}">
   <header class="article-header">
     <p class="article-kicker">{{ .Section | humanize }}</p>
     <h1 class="article-title sfx-pop">{{ .Title }}</h1>
@@ -11,6 +11,16 @@
         {{ $sn := "" }}{{ if reflect.IsSlice . }}{{ $sn = index . 0 }}{{ else }}{{ $sn = . }}{{ end }}
         <a class="tag tag--series" href="{{ printf "/series/%s" ($sn | urlize) | relURL }}">{{ i18n "series_label" | default "Series" }}: {{ $sn }}</a>
       </span>
+      {{ $term := site.GetPage (printf "series/%s" ($sn | urlize)) }}
+      {{ with $term }}
+        {{ $pages := sort .Pages "Date" "asc" }}
+        {{ $total := len $pages }}
+        {{ range $i, $p := $pages }}
+          {{ if eq $p.RelPermalink $.RelPermalink }}
+            <span class="tag tag--series-progress">{{ i18n "issue" | default "Issue" }} {{ add $i 1 }} / {{ $total }}</span>
+          {{ end }}
+        {{ end }}
+      {{ end }}
       {{ end }}
       {{ with .Params.issue }}<span class="tag">{{ i18n "issue" | default "Issue" }} {{ . }}</span>{{ end }}
       {{ with .Params.tags }}

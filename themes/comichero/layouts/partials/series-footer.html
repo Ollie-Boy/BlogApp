@@ -11,8 +11,11 @@
       {{ $pages := sort .Pages "Date" "asc" }}
       {{ $next := false }}
       {{ $prev := false }}
+      {{ $current := 0 }}
+      {{ $total := len $pages }}
       {{ range $i, $p := $pages }}
         {{ if eq $p.RelPermalink $.RelPermalink }}
+          {{ $current = add $i 1 }}
           {{ if gt $i 0 }}{{ $prev = index $pages (sub $i 1) }}{{ end }}
           {{ if lt $i (sub (len $pages) 1) }}{{ $next = index $pages (add $i 1) }}{{ end }}
         {{ end }}
@@ -23,9 +26,14 @@
       {{ if gt (len $pool) 0 }}{{ $pick = index (shuffle $pool) 0 }}{{ end }}
       <section class="episode-footer comic-panel" aria-label="{{ i18n "series_next" | default "Series navigation" }}">
         <p class="episode-footer__label">{{ i18n "series_label" | default "Series" }} · {{ $seriesName }}</p>
+        <p class="episode-footer__progress">{{ i18n "issue" | default "Issue" }} {{ $current }} / {{ $total }}</p>
+        <div class="series-progress-panel" data-series-progress data-series-slug="{{ $slug }}" data-series-current="{{ $current }}" data-series-total="{{ $total }}">
+          <p class="series-progress-panel__title">{{ i18n "series_label" | default "Series" }} {{ i18n "issue" | default "Issue" }} {{ $current }} / {{ $total }}</p>
+          <p class="series-progress-panel__meta">Read: <span data-series-read>{{ $current }}</span> · Remaining: <span data-series-remaining>{{ sub $total $current }}</span></p>
+        </div>
         <div class="episode-footer__grid">
           {{ if $prev }}
-          <a class="episode-card episode-card--prev" href="{{ $prev.RelPermalink }}">
+          <a class="episode-card episode-card--prev" href="{{ $prev.RelPermalink }}" data-prev-issue>
             <span class="episode-card__kicker">{{ i18n "previous_issue" | default "Previous" }}</span>
             <span class="episode-card__title">{{ $prev.LinkTitle }}</span>
           </a>
@@ -33,7 +41,7 @@
           <span class="episode-card episode-card--ghost"></span>
           {{ end }}
           {{ if $next }}
-          <a class="episode-card episode-card--next" href="{{ $next.RelPermalink }}">
+          <a class="episode-card episode-card--next" href="{{ $next.RelPermalink }}" data-next-issue>
             <span class="episode-card__kicker">{{ i18n "next_issue" | default "Next episode" }}</span>
             <span class="episode-card__title">{{ $next.LinkTitle }}</span>
           </a>

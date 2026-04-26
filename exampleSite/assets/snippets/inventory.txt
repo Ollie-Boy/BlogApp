@@ -1,0 +1,5 @@
+{{< inventory title="Loadout" >}}
+Pulse Blade|Legendary|High crit melee weapon
+Nano Kit|Rare|Restores 35 HP instantly
+Flash Bomb|Common|Briefly blinds enemies
+{{< /inventory >}}

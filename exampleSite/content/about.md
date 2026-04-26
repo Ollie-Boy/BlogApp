@@ -6,7 +6,7 @@ layout: about
 
 This demo mixes **blog posts**, _portfolio pieces_, and **documentation** so you can see how one visual system carries all three.
 
-{{< speech from="Narrator" >}}
+{{< speech from="Narrator" tone="narrator" >}}
 Inline **bold** and _italic_ stay in **Comic Neue** so they match the paragraph voice.
 {{< /speech >}}
 
