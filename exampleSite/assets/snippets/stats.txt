@@ -1,0 +1,1 @@
+{{< stats label="Threat Level" value="82" trend="up" change="+6 this chapter" >}}{{< /stats >}}

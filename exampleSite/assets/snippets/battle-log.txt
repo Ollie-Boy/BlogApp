@@ -1,0 +1,5 @@
+{{< battle-log title="Boss Fight" >}}
+Round 1|Slash|24|Shield cracked
+Round 2|Counter|18|Enemy staggered
+Round 3|Finisher|56|KO
+{{< /battle-log >}}

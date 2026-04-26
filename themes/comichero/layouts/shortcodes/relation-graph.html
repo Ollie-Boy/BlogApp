@@ -1,0 +1,21 @@
+{{ $center := .Get "center" | default "Protagonist" }}
+{{ $allies := split (.Get "allies" | default "") "," }}
+{{ $enemies := split (.Get "enemies" | default "") "," }}
+{{ $class := .Get "class" | default "" }}
+{{ $body := .Inner | strings.TrimSpace }}
+<section class="comic-relation {{ $class }}" aria-label="Character relations">
+  <div class="comic-relation__col comic-relation__col--allies">
+    <p class="comic-relation__label">Allies</p>
+    <ul class="comic-relation__list" role="list">
+      {{ range $allies }}{{ $v := . | strings.TrimSpace }}{{ if ne $v "" }}<li class="comic-relation__node comic-relation__node--ally">{{ $v }}</li>{{ end }}{{ end }}
+    </ul>
+  </div>
+  <div class="comic-relation__center">{{ $center }}</div>
+  <div class="comic-relation__col comic-relation__col--enemies">
+    <p class="comic-relation__label">Enemies</p>
+    <ul class="comic-relation__list" role="list">
+      {{ range $enemies }}{{ $v := . | strings.TrimSpace }}{{ if ne $v "" }}<li class="comic-relation__node comic-relation__node--enemy">{{ $v }}</li>{{ end }}{{ end }}
+    </ul>
+  </div>
+  {{ with $body }}<div class="comic-relation__note">{{ . | markdownify }}</div>{{ end }}
+</section>

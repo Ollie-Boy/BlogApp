@@ -1,21 +1,31 @@
-# BlogApp
+# ComicHero Theme for Hugo
 
-This repository includes **ComicHero**, a production-ready [Hugo](https://gohugo.io/) theme under `themes/comichero/`, with an **`exampleSite`** that demonstrates blog, portfolio, and documentation sections.
+ComicHero is a modern Hugo theme with a comic-inspired visual language, responsive layout, and dark/light mode support.
+
+## Highlights
+
+- Responsive pages for blog, docs, and portfolio style content
+- Comic-style typography, panels, and motion accents
+- Built-in theme switcher with local preference storage
+- Reusable Hugo shortcodes for rich storytelling layouts
 
 ## Quick start
-
-Install [Hugo](https://gohugo.io/installation/) (0.110+), then from the repo root:
 
 ```bash
 hugo server --source exampleSite --themesDir themes
 ```
 
-Open the printed local URL (usually `http://localhost:1313/`). Use the header control to toggle light/dark theme.
+Then open the local URL from Hugo (usually `http://localhost:1313`).
 
-## Theme documentation
+## Project structure
 
-See `themes/comichero/README.md` for parameters, menus, and shortcodes.
+- `themes/comichero/`: Theme source
+- `exampleSite/`: Demo site and sample content
+
+## Documentation
+
+See `themes/comichero/README.md` for theme configuration and shortcode usage.
 
 ## License
 
-The ComicHero theme is MIT licensed (`themes/comichero/LICENSE`).
+MIT. See `themes/comichero/LICENSE`.

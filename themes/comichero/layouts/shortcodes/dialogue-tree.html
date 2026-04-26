@@ -1,0 +1,15 @@
+{{ $title := .Get "title" | default "Dialogue Tree" }}
+{{ $class := .Get "class" | default "" }}
+{{ $raw := .Inner | strings.TrimSpace }}
+{{ $parts := split $raw "\n---\n" }}
+<section class="comic-dialogue-tree {{ $class }}">
+  <h3 class="comic-dialogue-tree__title">{{ $title }}</h3>
+  <div class="comic-dialogue-tree__list">
+    {{ range $i, $part := $parts }}
+    <details class="comic-dialogue-tree__branch"{{ if eq $i 0 }} open{{ end }}>
+      <summary>Option {{ add $i 1 }}</summary>
+      <div class="comic-dialogue-tree__body">{{ $part | markdownify }}</div>
+    </details>
+    {{ end }}
+  </div>
+</section>

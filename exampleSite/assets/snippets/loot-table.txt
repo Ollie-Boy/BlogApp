@@ -1,0 +1,5 @@
+{{< loot-table title="Raid Drops" >}}
+Core Shard|42%|Common
+Aegis Coil|18%|Rare
+Phoenix Cell|4%|Legendary
+{{< /loot-table >}}
