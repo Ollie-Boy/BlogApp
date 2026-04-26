@@ -472,6 +472,10 @@ body.comichero-body.site-shell {
   transform: rotate(-0.5deg);
 }
 
+.page-shell-panel {
+  transform: none;
+}
+
 .comic-panel--article {
   padding: 2rem;
 }
