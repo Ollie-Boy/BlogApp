@@ -58,6 +58,8 @@
   var btt = document.querySelector("[data-back-to-top]");
   var zap = document.querySelector("[data-scroll-zap-overlay]");
   var footer = document.querySelector(".site-footer");
+  var scrollStopTimer = null;
+  var lastScrollY = -1;
 
   function updateBttBottom() {
     if (!btt) return;
@@ -87,6 +89,7 @@
     var maxScroll = docScrollHeight() - window.innerHeight;
     if (maxScroll <= 0) {
       zap.classList.remove("is-tracking");
+      zap.classList.remove("is-moving");
       zap.hidden = true;
       return;
     }
@@ -105,10 +108,22 @@
     zap.hidden = false;
     zap.classList.add("is-tracking");
   }
+  function markScrollActivity(y) {
+    if (!zap) return;
+    if (y === lastScrollY) return;
+    lastScrollY = y;
+    zap.classList.add("is-moving");
+    if (scrollStopTimer) window.clearTimeout(scrollStopTimer);
+    scrollStopTimer = window.setTimeout(function () {
+      zap.classList.remove("is-moving");
+    }, 140);
+  }
+
   function toggleBtt() {
     if (!btt) return;
     var y = window.scrollY || document.documentElement.scrollTop;
     var show = pageCanScroll() && y > 160;
+    markScrollActivity(y);
     btt.classList.toggle("is-visible", show);
     btt.setAttribute("aria-hidden", show ? "false" : "true");
     btt.tabIndex = show ? 0 : -1;
