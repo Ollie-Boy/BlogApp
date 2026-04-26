@@ -1699,6 +1699,16 @@ pre.codesnippet code {
   flex-wrap: wrap;
 }
 
+
+.comic-choice__note,
+.comic-stat__body,
+.comic-relation__note {
+  width: 100%;
+  margin: 0.35rem 0 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
 .comic-choice__or {
   font-family: var(--font-display);
   letter-spacing: 0.06em;

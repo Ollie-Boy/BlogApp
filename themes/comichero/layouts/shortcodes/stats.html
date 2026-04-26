@@ -3,8 +3,10 @@
 {{ $trend := .Get "trend" | default "flat" }}
 {{ $change := .Get "change" | default "" }}
 {{ $class := .Get "class" | default "" }}
+{{ $body := .Inner | strings.TrimSpace }}
 <div class="comic-stat {{ $class }} comic-panel" data-trend="{{ $trend }}">
   <p class="comic-stat__label">{{ $label }}</p>
   <p class="comic-stat__value">{{ $value }}</p>
   {{ with $change }}<p class="comic-stat__change">{{ . }}</p>{{ end }}
+  {{ with $body }}<div class="comic-stat__body">{{ . | markdownify }}</div>{{ end }}
 </div>
