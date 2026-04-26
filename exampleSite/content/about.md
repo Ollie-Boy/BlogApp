@@ -58,4 +58,4 @@ I’ll update this section monthly with 3–5 current focuses.
 This calendar reads from `params.comichero.githubUser`, or you can override with `{{</* github-calendar user=\"your-account\" */>}}`.
 {{< /note >}}
 
-{{< github-calendar >}}{{< /github-calendar >}}
+{{< github-calendar >}}
