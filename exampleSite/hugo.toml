@@ -1,6 +1,6 @@
 baseURL = "http://localhost:1313/"
 languageCode = "en-us"
-title = "Twelve Winds, Light Blue Days"
+title = "wind in the sky"
 theme = "comichero"
 themesDir = "../themes"
 
@@ -16,11 +16,11 @@ themesDir = "../themes"
   defaultTheme = "light"
   googleFontsUrl = "https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
   useLocalFonts = true
-  heroTitle = "Stories, shots & specs"
-  heroSubtitle = "It’s a bit of a mess here, honestly. Expect some incoherence, inconsistency, a LOT of edits, lazy grammar, punctuation mistakes, and a few “what was I thinking?” moments."
+  heroTitle = "wind in the sky"
+  heroSubtitle = "A personal notebook of code, ideas, and small experiments drifting forward one post at a time."
   heroSfx = "KAPOW!"
   latestHeading = "Fresh off the press"
-  footerText = "Dear wind, please take me flying."
+  footerText = "Write light. Ship often. Keep moving with the wind."
   homeTypes = ["blog"]
   githubUser = "Ollie-Boy"
 

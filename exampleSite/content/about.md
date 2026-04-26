@@ -51,7 +51,7 @@ Latest focus is generated from my newest blog posts.
 ## GitHub Activity
 
 {{< note type="info" title="Configurable account" >}}
-This calendar reads from `params.comichero.githubUser`, or you can override with。
+This calendar reads from `params.comichero.githubUser`, or you can override with `user`.
 {{< /note >}}
 
 {{< github-calendar >}}

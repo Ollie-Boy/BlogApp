@@ -6,12 +6,12 @@
     <p>
       {{ $status := lower (.Params.status | default "ongoing") }}
       {{ if eq $status "completed" }}
-      <span class="tag">已完结</span>
+      <span class="tag">Completed</span>
       {{ else }}
-      <span class="tag tag--series-progress">连载中</span>
+      <span class="tag tag--series-progress">Ongoing</span>
       {{ end }}
     </p>
-    <p class="lead">阅读顺序提示：从最早一篇开始，按时间向后阅读。</p>
+    <p class="lead">Reading tip: start from the earliest issue and continue by date.</p>
     {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
   </header>
   <ol class="comic-series-issues" role="list">
