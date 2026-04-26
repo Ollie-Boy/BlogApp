@@ -82,6 +82,29 @@
   function pageCanScroll() {
     return docScrollHeight() > window.innerHeight + 4;
   }
+  function updateScrollZap() {
+    if (!zap) return;
+    var maxScroll = docScrollHeight() - window.innerHeight;
+    if (maxScroll <= 0) {
+      zap.classList.remove("is-tracking");
+      zap.hidden = true;
+      return;
+    }
+    var y = window.scrollY || document.documentElement.scrollTop;
+    var progress = Math.max(0, Math.min(1, y / maxScroll));
+    var lengthFactor = Math.max(0.8, Math.min(2.4, maxScroll / 1100));
+    var energy = 0.22 + progress * 0.78;
+    var glow = Math.min(1, 0.2 + (maxScroll / 6000) * 0.55 + progress * 0.35);
+    var drift = Math.sin((y / Math.max(420, window.innerHeight)) * Math.PI * 2) * 7;
+
+    zap.style.setProperty("--scroll-progress", progress.toFixed(3));
+    zap.style.setProperty("--zap-length", lengthFactor.toFixed(3));
+    zap.style.setProperty("--zap-energy", energy.toFixed(3));
+    zap.style.setProperty("--zap-glow", glow.toFixed(3));
+    zap.style.setProperty("--zap-drift", drift.toFixed(2) + "%");
+    zap.hidden = false;
+    zap.classList.add("is-tracking");
+  }
   function toggleBtt() {
     if (!btt) return;
     var y = window.scrollY || document.documentElement.scrollTop;
@@ -90,11 +113,13 @@
     btt.setAttribute("aria-hidden", show ? "false" : "true");
     btt.tabIndex = show ? 0 : -1;
     updateBttBottom();
+    updateScrollZap();
   }
   window.addEventListener("scroll", toggleBtt, { passive: true });
   window.addEventListener("resize", toggleBtt, { passive: true });
   window.addEventListener("load", toggleBtt);
   updateBttBottom();
+  updateScrollZap();
   toggleBtt();
 
   if (btt) {
@@ -119,7 +144,7 @@
         zap.classList.add("is-active");
         window.setTimeout(function () {
           zap.classList.remove("is-active");
-          zap.hidden = true;
+          if (!zap.classList.contains("is-tracking")) zap.hidden = true;
         }, 580);
       }
       window.scrollTo({ top: 0, behavior: "smooth" });
