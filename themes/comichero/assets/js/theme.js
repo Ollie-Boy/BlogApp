@@ -1,6 +1,8 @@
 (function () {
   var THEME_KEY = "comichero-theme";
   var SFX_MUTE_KEY = "comichero-sfx-muted";
+  var BG_TEXTURE_KEY = "comichero-bg-texture";
+  var PRINT_FX_KEY = "comichero-print-fx";
   var root = document.documentElement;
 
   function getStored(key) {
@@ -39,6 +41,58 @@
     btn.addEventListener("click", toggleTheme);
   });
 
+
+  function pageTextureFactor() {
+    var kind = (document.body && document.body.getAttribute("data-page-kind")) || "";
+    if (kind === "blog") return 1.15;
+    if (kind === "docs") return 0.72;
+    return 1;
+  }
+
+  function nightTextureFactor() {
+    var h = new Date().getHours();
+    return h >= 22 || h < 6 ? 0.62 : 1;
+  }
+
+  function applyTextureIntensity(value) {
+    var raw = Number(value);
+    if (!isFinite(raw)) raw = 40;
+    raw = Math.max(0, Math.min(100, raw));
+    var effective = Math.max(0, Math.min(100, raw * pageTextureFactor() * nightTextureFactor()));
+    root.style.setProperty("--bg-texture-intensity", (effective / 100).toFixed(2));
+    return raw;
+  }
+
+  function applyPrintFx(enabled) {
+    root.classList.toggle("print-fx-enabled", !!enabled);
+  }
+
+  var textureRange = document.querySelector("[data-texture-intensity]");
+  if (textureRange) {
+    var storedTexture = getStored(BG_TEXTURE_KEY);
+    var initialTexture = applyTextureIntensity(storedTexture == null ? textureRange.value : storedTexture);
+    textureRange.value = String(initialTexture);
+    textureRange.addEventListener("input", function () {
+      var next = applyTextureIntensity(textureRange.value);
+      setStored(BG_TEXTURE_KEY, String(next));
+    });
+    window.setInterval(function () {
+      applyTextureIntensity(textureRange.value);
+    }, 5 * 60 * 1000);
+  }
+
+  var printFxToggle = document.querySelector("[data-print-fx-toggle]");
+  if (printFxToggle) {
+    var storedPrintFx = getStored(PRINT_FX_KEY);
+    var enabled = storedPrintFx == null ? true : storedPrintFx === "1";
+    printFxToggle.checked = enabled;
+    applyPrintFx(enabled);
+    printFxToggle.addEventListener("change", function () {
+      applyPrintFx(printFxToggle.checked);
+      setStored(PRINT_FX_KEY, printFxToggle.checked ? "1" : "0");
+    });
+  }
+
   var nav = document.querySelector("[data-site-nav]");
   var navToggle = document.querySelector("[data-nav-toggle]");
   if (nav && navToggle) {
@@ -54,32 +108,25 @@
     }
   });
 
-  /* Reading progress */
-  var bar = document.querySelector("[data-read-progress]");
-  function updateReadProgress() {
-    if (!bar) return;
-    var main = document.getElementById("main");
-    if (!main) return;
-    var el = main.querySelector(".article-content") || main;
-    var rect = el.getBoundingClientRect();
-    var total = el.scrollHeight - window.innerHeight;
-    if (total <= 0) {
-      bar.style.width = "100%";
-      return;
-    }
-    var y = window.scrollY || document.documentElement.scrollTop;
-    var start = rect.top + y;
-    var p = (y - start + window.innerHeight * 0.2) / (el.scrollHeight + window.innerHeight * 0.2);
-    p = Math.max(0, Math.min(1, p));
-    bar.style.width = p * 100 + "%";
-  }
-  window.addEventListener("scroll", updateReadProgress, { passive: true });
-  window.addEventListener("resize", updateReadProgress);
-  updateReadProgress();
-
   /* Back to top + speed-line overlay */
   var btt = document.querySelector("[data-back-to-top]");
   var zap = document.querySelector("[data-scroll-zap-overlay]");
+  var footer = document.querySelector(".site-footer");
+  var scrollStopTimer = null;
+  var lastScrollY = -1;
+
+  function updateBttBottom() {
+    if (!btt) return;
+    var baseBottom = 20;
+    if (!footer) {
+      btt.style.bottom = baseBottom + "px";
+      return;
+    }
+    var rect = footer.getBoundingClientRect();
+    var overlap = window.innerHeight - rect.top;
+    var lift = Math.max(0, overlap + 18);
+    btt.style.bottom = Math.round(baseBottom + lift) + "px";
+  }
   function docScrollHeight() {
     return Math.max(
       document.body.scrollHeight,
@@ -91,17 +138,69 @@
   function pageCanScroll() {
     return docScrollHeight() > window.innerHeight + 4;
   }
+  function updateScrollZap() {
+    if (!zap) return;
+    var maxScroll = docScrollHeight() - window.innerHeight;
+    if (maxScroll <= 0) {
+      zap.classList.remove("is-tracking");
+      zap.classList.remove("is-moving");
+      zap.hidden = true;
+      return;
+    }
+    var y = window.scrollY || document.documentElement.scrollTop;
+    var progress = Math.max(0, Math.min(1, y / maxScroll));
+    var lengthFactor = Math.max(0.8, Math.min(2.4, maxScroll / 1100));
+    var energy = 0.22 + progress * 0.78;
+    var glow = Math.min(1, 0.2 + (maxScroll / 6000) * 0.55 + progress * 0.35);
+    var drift = Math.sin((y / Math.max(420, window.innerHeight)) * Math.PI * 2) * 7;
+
+    var main = document.getElementById("main");
+    var content = (main && (main.querySelector(".article-content") || main.querySelector(".prose"))) || main;
+    var left = 0;
+    var right = window.innerWidth;
+    if (content && typeof content.getBoundingClientRect === "function") {
+      var cRect = content.getBoundingClientRect();
+      left = Math.max(0, cRect.left - 24);
+      right = Math.min(window.innerWidth, cRect.right + 24);
+    }
+
+    zap.style.setProperty("--scroll-progress", progress.toFixed(3));
+    zap.style.setProperty("--zap-length", lengthFactor.toFixed(3));
+    zap.style.setProperty("--zap-energy", energy.toFixed(3));
+    zap.style.setProperty("--zap-glow", glow.toFixed(3));
+    zap.style.setProperty("--zap-drift", drift.toFixed(2) + "%");
+    zap.style.setProperty("--content-left", (left / window.innerWidth * 100).toFixed(2) + "%");
+    zap.style.setProperty("--content-right", (right / window.innerWidth * 100).toFixed(2) + "%");
+    zap.hidden = false;
+    zap.classList.add("is-tracking");
+  }
+  function markScrollActivity(y) {
+    if (!zap) return;
+    if (y === lastScrollY) return;
+    lastScrollY = y;
+    zap.classList.add("is-moving");
+    if (scrollStopTimer) window.clearTimeout(scrollStopTimer);
+    scrollStopTimer = window.setTimeout(function () {
+      zap.classList.remove("is-moving");
+    }, 140);
+  }
+
   function toggleBtt() {
     if (!btt) return;
     var y = window.scrollY || document.documentElement.scrollTop;
     var show = pageCanScroll() && y > 160;
+    markScrollActivity(y);
     btt.classList.toggle("is-visible", show);
     btt.setAttribute("aria-hidden", show ? "false" : "true");
     btt.tabIndex = show ? 0 : -1;
+    updateBttBottom();
+    updateScrollZap();
   }
   window.addEventListener("scroll", toggleBtt, { passive: true });
   window.addEventListener("resize", toggleBtt, { passive: true });
   window.addEventListener("load", toggleBtt);
+  updateBttBottom();
+  updateScrollZap();
   toggleBtt();
 
   if (btt) {
@@ -126,7 +225,7 @@
         zap.classList.add("is-active");
         window.setTimeout(function () {
           zap.classList.remove("is-active");
-          zap.hidden = true;
+          if (!zap.classList.contains("is-tracking")) zap.hidden = true;
         }, 580);
       }
       window.scrollTo({ top: 0, behavior: "smooth" });

@@ -335,7 +335,31 @@ One word per line; optional `Label|frequencyHz`. **Long-press the first button**
 
 Params: `label` (or `title`), `volume`, `subtitle`, `class`.
 
+
 ---
+
+## Dark QA
+
+Use this section to quickly verify contrast and edge visibility in dark mode.
+
+{{< speech from="Narrator" tone="narrator" >}}
+Dark mode QA keeps labels and bubbles readable while preserving comic tone.
+{{< /speech >}}
+
+{{< note type="info" title="Contrast check" >}}
+Check label text, border contrast, and body copy readability.
+{{< /note >}}
+
+{{< aside side="right" >}}
+This rail note validates panel/background separation in dark mode.
+{{< /aside >}}
+
+{{< button href="/about/" style="primary" >}}Open About QA{{< /button >}}
+{{< button href="/docs/getting-started/" style="ghost" >}}Ghost QA{{< /button >}}
+
+{{< spoiler label="Dark spoiler test" >}}
+Ensure spoiler body remains readable and border contrast is clear.
+{{< /spoiler >}}
 
 ## Quick reference table
 

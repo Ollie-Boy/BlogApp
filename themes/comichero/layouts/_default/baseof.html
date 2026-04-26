@@ -25,7 +25,7 @@
   </script>
   {{ block "head" . }}{{ end }}
 </head>
-<body class="comichero-body site-shell">
+<body class="comichero-body site-shell" data-page-kind="{{ if .IsHome }}home{{ else }}{{ .Type | default "page" }}{{ end }}">
   <a class="skip-link" href="#main">{{ i18n "skip_to_content" | default "Skip to content" }}</a>
   {{ partial "header.html" . }}
   <main id="main" class="main main-grow page-enter" tabindex="-1">
@@ -35,9 +35,16 @@
   <div class="comichero-ui" id="comichero-ui" aria-hidden="true">
     <div class="scroll-zap-overlay" data-scroll-zap-overlay hidden>
       <div class="scroll-zap-overlay__trail" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__web scroll-zap-overlay__web--1" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__web scroll-zap-overlay__web--2" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__web scroll-zap-overlay__web--3" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__web scroll-zap-overlay__web--4" aria-hidden="true"></div>
       <div class="scroll-zap-overlay__streak scroll-zap-overlay__streak--a" aria-hidden="true"></div>
       <div class="scroll-zap-overlay__streak scroll-zap-overlay__streak--b" aria-hidden="true"></div>
       <div class="scroll-zap-overlay__streak scroll-zap-overlay__streak--c" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__streak scroll-zap-overlay__streak--d" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__streak scroll-zap-overlay__streak--e" aria-hidden="true"></div>
+      <div class="scroll-zap-overlay__streak scroll-zap-overlay__streak--f" aria-hidden="true"></div>
       <div class="scroll-zap-overlay__flash" aria-hidden="true"></div>
     </div>
     <button type="button" class="back-to-top" data-back-to-top aria-hidden="true" tabindex="-1" aria-label="{{ i18n "back_to_top" | default "Back to top" }}">
