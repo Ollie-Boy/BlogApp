@@ -6,8 +6,6 @@ description = "I don't know why but I just want to do this."
 tags = ["random"]
 +++
 
-{{< sidenote `
-I added this page for no reason or clue, but I just want. >:)
-` left >}}
-And this is a lovely sidenote. B)
-{{< /sidenote >}}
+> I added this page for no reason or clue, but I just want. >:)
+
+And this is a lovely note. B)

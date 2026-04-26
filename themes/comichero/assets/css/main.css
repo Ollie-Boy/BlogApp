@@ -735,6 +735,16 @@ body.comichero-body.site-shell {
   margin-bottom: 1.5rem;
 }
 
+.article {
+  min-height: clamp(34rem, calc(100vh - 18rem), 62rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.article .article-content {
+  flex: 1 1 auto;
+}
+
 .article-kicker {
   font-weight: 800;
   text-transform: uppercase;

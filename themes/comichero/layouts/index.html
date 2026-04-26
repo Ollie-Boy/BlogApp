@@ -13,7 +13,7 @@
         {{ end }}
         {{ if not site.Menus.hero }}
         <a href="{{ "blog/" | relURL }}" class="btn btn--primary">{{ i18n "read_blog" | default "Read the blog" }}</a>
-        <a href="{{ "portfolio/" | relURL }}" class="btn btn--ghost">{{ i18n "see_work" | default "See work" }}</a>
+        <a href="{{ "docs/" | relURL }}" class="btn btn--ghost">{{ i18n "open_docs" | default "Open docs" }}</a>
         {{ end }}
       </div>
     </div>
@@ -23,7 +23,7 @@
 <div class="container section">
   <h2 class="section-heading sfx-tilt">{{ site.Params.comichero.latestHeading | default "Latest stories" }}</h2>
   <ul class="comic-grid comic-grid--home" role="list">
-    {{ $types := site.Params.comichero.homeTypes | default (slice "blog" "portfolio") }}
+    {{ $types := site.Params.comichero.homeTypes | default (slice "blog") }}
     {{ range first 6 (where site.RegularPages "Type" "in" $types) }}
     <li>
       <article class="comic-card comic-card--post comic-bounce-in">

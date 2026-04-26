@@ -1,11 +1,11 @@
 baseURL = "http://localhost:1313/"
 languageCode = "en-us"
-title = "ComicHero Demo"
+title = "Twelve Winds, Light Blue Days"
 theme = "comichero"
 themesDir = "../themes"
 
 [params]
-  description = "Demo site: blog, portfolio, and docs in one comic-book layout."
+  description = "Demo site: blog, docs, and series in one comic-book layout."
   og_image = "/images/placeholder-comic.svg"
 
 [taxonomies]
@@ -17,11 +17,11 @@ themesDir = "../themes"
   googleFontsUrl = "https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
   useLocalFonts = true
   heroTitle = "Stories, shots & specs"
-  heroSubtitle = "One loud theme for blogs, portfolios, and documentation — hard shadows and panels to spare."
+  heroSubtitle = "It’s a bit of a mess here, honestly. Expect some incoherence, inconsistency, a LOT of edits, lazy grammar, punctuation mistakes, and a few “what was I thinking?” moments."
   heroSfx = "KAPOW!"
   latestHeading = "Fresh off the press"
-  footerText = "ComicHero demo — MIT theme."
-  homeTypes = ["blog", "portfolio"]
+  footerText = "Dear wind, please take me flying."
+  homeTypes = ["blog"]
 
 [markup.goldmark.renderer]
   unsafe = true
@@ -48,39 +48,24 @@ themesDir = "../themes"
   weight = 10
 
 [[menus.main]]
-  name = "Portfolio"
-  url = "/portfolio/"
-  weight = 20
-
-[[menus.main]]
   name = "Docs"
   url = "/docs/"
-  weight = 30
+  weight = 20
 
 [[menus.main]]
   name = "About"
   url = "/about/"
-  weight = 40
+  weight = 30
 
 [[menus.main]]
   name = "Series"
   url = "/series/"
-  weight = 35
-
-[[menus.footer]]
-  name = "Privacy"
-  url = "/about/#privacy"
-
-[[menus.footer]]
-  name = "Colophon"
-  url = "/about/#colophon"
+  weight = 25
 
 [[menus.hero]]
   name = "Open docs"
   url = "/docs/getting-started/"
   weight = 10
 
-[[menus.hero]]
-  name = "View portfolio"
-  url = "/portfolio/"
-  weight = 20
+[pagination]
+  pagerSize = 12

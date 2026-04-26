@@ -22,4 +22,4 @@ Animations use CSS keyframes. Users who prefer reduced motion get nearly static 
 
 ## Content types
 
-Add sections under `content/blog`, `content/portfolio`, and `content/docs`. Adjust `homeTypes` to control which types appear in the home grid.
+Add sections under `content/blog`, `content/docs`, and `content/series`. Adjust `homeTypes` to control which types appear in the home grid.

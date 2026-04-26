@@ -41,7 +41,7 @@ Turn it up: {{< sfx text="POW!" >}}
 ## `speech` — dialogue bubble + optional speaker
 
 {{< speech from="Hero" >}}
-We need **one** theme to rule blog, portfolio, _and_ docs.
+We need **one** theme to rule blog, docs, _and_ notes.
 {{< /speech >}}
 
 {{< codesnippet path="assets/snippets/speech.txt" />}}
@@ -273,7 +273,7 @@ Optional `lang` overrides auto-detect from the file extension.
 ## `button` — theme-styled CTA link
 
 {{< button href="/docs/getting-started/" style="primary" >}}Open docs{{< /button >}}
-{{< button href="/portfolio/" style="ghost" >}}Portfolio{{< /button >}}
+{{< button href="/docs/" style="ghost" >}}Docs{{< /button >}}
 
 {{< codesnippet path="assets/snippets/button.txt" />}}
 

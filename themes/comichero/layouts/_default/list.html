@@ -17,8 +17,13 @@
   </section>
   {{ end }}
 
+  {{ $pages := .RegularPages }}
+  {{ if not $pages }}
+    {{ $pages = .Pages }}
+  {{ end }}
+  {{ $paginator := .Paginate ($pages.ByDate.Reverse) }}
   <ul class="comic-grid" role="list">
-    {{ range .Pages }}
+    {{ range $paginator.Pages }}
     <li>
       <article class="comic-card comic-card--post comic-bounce-in">
         <a href="{{ .RelPermalink }}" class="comic-card__link">

@@ -40,8 +40,8 @@ Under `[params.comichero]` you can set `heroTitle`, `heroSubtitle`, `heroSfx`, `
 | Type        | Layout                         |
 |------------|---------------------------------|
 | `blog`     | Default list + single           |
-| `portfolio` | Default list + single          |
 | `docs`     | List + `docs/single` with TOC  |
+| `series`   | Taxonomy list + term pages     |
 
 ## Shortcodes
 

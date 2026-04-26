@@ -1,83 +1,53 @@
 ---
 title: "About"
-description: "Who I am, why I code, and what this blog is about."
+description: "A quick intro: who I am, what I’m learning, and why I built this blog."
 layout: about
 ---
 
-{{< speech from="Li Xiang / Ollie" >}}
-Hi, I’m **Li Xiang**, my friends also call me **Ollie**.
+{{< speech from="Li Xiang (Ollie)" >}}
+Hi! I’m **Ollie** — a student documenting my coding journey and everyday experiments.
 {{< /speech >}}
 
-{{< burst text="Gorgeous • Delightful • Fantastic • Elegant • Handsome • Cute" >}}
-
-{{< panel title="Pronouns" >}}
-He/Him (Attack Helicopter)
-{{< /panel >}}
-
-{{< note type="info" title="Welcome to my brain dump" >}}
-It’s a bit of a mess here, honestly. Expect some incoherence, inconsistency, a **LOT** of edits, lazy grammar, punctuation mistakes, and a few “what was I thinking?” moments.
-
-Basically, everything you read here is a work in progress.
+{{< note type="info" title="What this site is" >}}
+This blog is my public notebook: learning notes, build logs, random ideas, and occasional life updates.
+I prefer shipping small things consistently instead of waiting for “perfect.”
 {{< /note >}}
 
-## A Little Bit About Me
+{{< character-card name="Li Xiang / Ollie" img="/images/placeholder-comic.svg" faction="Builder mode" ability="Learn fast, build often" debut="Student developer" >}}
+I’m currently focused on **Java** and **Go**, and I’m learning by building real projects.
+This Hugo site is part of that process: I use it to practice writing, structuring content, and theme customization.
+{{< /character-card >}}
 
-My journey with computers started back in primary school. I was instantly hooked. But for reasons I’ve long forgotten, I put it aside.
-
-To my shame, the real adventure began only last year. I still vividly remember meeting my friend **Bowa** at school, then spending countless hours playing Minecraft together on a modded server. He introduced me to coding in Minecraft using Lua, and I was mind-blown — how could you code *inside a game*?!
-
-That pulled my childhood dream back to life: being a hacker (you know, the cool mysterious kind). Then I started asking Aunt Google (the all-knowing oracle) how to begin.
-
-{{< timeline title="Coding Origin Story" >}}
-**Primary school:** first spark with computers.
+{{< timeline title="My coding timeline" >}}
+**Early years:** Interested in computers, but no clear direction.
 ---
-**Long pause:** interest stayed, action didn’t.
+**Last year:** Returned to coding through games and small scripts.
 ---
-**Last year:** Minecraft + Lua + Bowa = comeback.
----
-**Now:** building skills in Java and Go, one step at a time.
+**Now:** Studying fundamentals and building projects step by step.
 {{< /timeline >}}
-
-## The Coding Rollercoaster
-
-{{< steps >}}
-### Python
-The classic beginner pick. I read some articles, started, then dropped it. Sorry Python.
----
-### C++
-A short flirt with embedded development. Tried it, learned a bit, but didn’t go deep.
----
-### Java
-My “chosen one.” Mobile, web apps, enterprise software, IoT, gaming, big data... basically everything under the sun. I even tried building my own blog with what I learned.
----
-### Go
-Why Go? Because I want to build my own Hugo theme. There are tons of amazing themes, but none exactly match the wild ideas in my head.
-{{< /steps >}}
 
 {{< grid cols="3" >}}
 {{< stats label="Status" value="Student" trend="up" >}}{{< /stats >}}
 ---
-{{< stats label="Personality" value="Shy" trend="flat" change="Prefer typing over talking" >}}{{< /stats >}}
+{{< stats label="Current focus" value="Java + Go" trend="up" >}}{{< /stats >}}
 ---
-{{< stats label="Current focus" value="Java + Go" trend="up" change="Building my own Hugo theme" >}}{{< /stats >}}
+{{< stats label="Building now" value="Hugo blog" trend="flat" change="Theme + content polishing" >}}{{< /stats >}}
 {{< /grid >}}
 
-## About Me… More Stuff
-
-{{< panel title="Handles & Contact" >}}
-- Minecraft IGN: `0llie_Boy`
-- Steam: `Ollie-Boy`
-- Xbox: `IzzyIzumi#8156`
-- Discord: `izumikoushiro` (not checked often)
+{{< panel title="Find me" >}}
 - GitHub: `Ollie-Boy`
-
-You can also email me by clicking **Contact** at the far right of the top navigation (look for that magical button).
+- Discord: `izumikoushiro` (not always online)
+- Minecraft IGN: `0llie_Boy`
 {{< /panel >}}
 
-{{< character-card name="Koshiro (Izzy)" img="/images/placeholder-comic.svg" faction="Digimon Adventure" ability="Tech intelligence" debut="Childhood hero" >}}
-I love Koshiro (Izzy) from Digimon Adventure. His intelligence, his love for technology, and his ability to think on his feet in hard situations resonate with me a lot.
+## Now
 
-That’s a big part of why I gravitated toward coding: I always admired characters who can make things work with creativity + knowledge.
-{{< /character-card >}}
+{{< note type="tip" title="Monthly log" >}}
+I’ll update this section monthly with 3–5 current focuses.
+{{< /note >}}
 
-{{< warning-strip level="info" text="Young me. Btw, this is me when I was young." />}}
+- **2026-04**
+  - Refining this Hugo site’s content structure and navigation.
+  - Writing clearer blog posts with better section flow.
+  - Practicing Java basics through small daily exercises.
+  - Learning more Go by reading and tweaking theme code.
