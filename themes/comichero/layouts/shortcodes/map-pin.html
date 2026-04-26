@@ -1,0 +1,12 @@
+{{ $name := .Get "name" | default "Location" }}
+{{ $coords := .Get "coords" | default "--" }}
+{{ $faction := .Get "faction" | default "Neutral" }}
+{{ $arc := .Get "arc" | default "" }}
+{{ $class := .Get "class" | default "" }}
+<section class="comic-map-pin comic-panel {{ $class }}">
+  <h4 class="comic-map-pin__name">{{ $name }}</h4>
+  <p class="comic-map-pin__meta"><strong>Coords:</strong> {{ $coords }}</p>
+  <p class="comic-map-pin__meta"><strong>Control:</strong> {{ $faction }}</p>
+  {{ with $arc }}<p class="comic-map-pin__meta"><strong>Arc:</strong> {{ . }}</p>{{ end }}
+  <div class="comic-map-pin__body">{{ .Inner | markdownify }}</div>
+</section>

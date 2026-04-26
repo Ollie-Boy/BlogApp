@@ -1,0 +1,3 @@
+{{< mission title="Secure the Relay" type="main" status="active" reward="900 XP + Rare Mod" >}}
+Reach the rooftop relay and hold for 90 seconds.
+{{< /mission >}}

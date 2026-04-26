@@ -1,0 +1,11 @@
+{{ $title := .Get "title" | default "Mission" }}
+{{ $type := .Get "type" | default "main" }}
+{{ $status := .Get "status" | default "active" }}
+{{ $reward := .Get "reward" | default "" }}
+{{ $class := .Get "class" | default "" }}
+<section class="comic-mission comic-panel {{ $class }}" data-type="{{ $type }}" data-status="{{ $status }}">
+  <p class="comic-mission__kicker">{{ upper $type }} · {{ upper $status }}</p>
+  <h4 class="comic-mission__title">{{ $title }}</h4>
+  <div class="comic-mission__body">{{ .Inner | markdownify }}</div>
+  {{ with $reward }}<p class="comic-mission__reward">Reward: {{ . }}</p>{{ end }}
+</section>

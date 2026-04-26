@@ -1,0 +1,10 @@
+{{ $aText := .Get "aText" | default "Choice A" }}
+{{ $aHref := .Get "aHref" | default "#" }}
+{{ $bText := .Get "bText" | default "Choice B" }}
+{{ $bHref := .Get "bHref" | default "#" }}
+{{ $class := .Get "class" | default "" }}
+<div class="comic-choice {{ $class }}" role="group" aria-label="Reader choice">
+  <a class="btn btn--primary comic-choice__btn" href="{{ $aHref }}">{{ $aText }}</a>
+  <span class="comic-choice__or">OR</span>
+  <a class="btn btn--ghost comic-choice__btn" href="{{ $bHref }}">{{ $bText }}</a>
+</div>

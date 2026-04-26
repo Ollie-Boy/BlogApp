@@ -1,0 +1,1 @@
+{{< choice aText="Take rooftop route" aHref="#route-a" bText="Take alley route" bHref="#route-b" >}}{{< /choice >}}

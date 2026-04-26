@@ -1,0 +1,19 @@
+{{ $title := .Get "title" | default "Battle Log" }}
+{{ $class := .Get "class" | default "" }}
+{{ $rows := split (.Inner | strings.TrimSpace) "\n" }}
+<section class="comic-battle-log {{ $class }}">
+  <h3 class="comic-battle-log__title">{{ $title }}</h3>
+  <ol class="comic-battle-log__list" role="list">
+    {{ range $rows }}
+      {{ $parts := split . "|" }}
+      {{ if ge (len $parts) 4 }}
+      <li class="comic-battle-log__item comic-panel">
+        <span class="comic-battle-log__turn">{{ index $parts 0 | strings.TrimSpace }}</span>
+        <span class="comic-battle-log__action">{{ index $parts 1 | strings.TrimSpace }}</span>
+        <span class="comic-battle-log__damage">{{ index $parts 2 | strings.TrimSpace }}</span>
+        <span class="comic-battle-log__result">{{ index $parts 3 | strings.TrimSpace }}</span>
+      </li>
+      {{ end }}
+    {{ end }}
+  </ol>
+</section>
