@@ -1,4 +1,0 @@
-{{- $kind := .Get 0 | default "info" -}}
-<div class="comic-note comic-note--{{ $kind }}" role="note">
-  <div class="comic-note__body">{{ .Inner | markdownify }}</div>
-</div>

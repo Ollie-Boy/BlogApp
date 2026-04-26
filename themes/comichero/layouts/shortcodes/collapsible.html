@@ -1,5 +1,0 @@
-{{- $title := .Get 0 | default (.Get "title") | default "Details" -}}
-<details class="comic-panel" style="margin:1rem 0;">
-  <summary style="font-weight:800;cursor:pointer;">{{ $title }}</summary>
-  <div style="margin-top:.75rem;">{{ .Inner | markdownify }}</div>
-</details>

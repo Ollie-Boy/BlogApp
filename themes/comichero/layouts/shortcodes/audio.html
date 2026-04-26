@@ -1,6 +1,0 @@
-{{- $mp3 := .Get "mp3" -}}
-{{- if $mp3 -}}
-<audio controls preload="none" class="comic-audio">
-  <source src="{{ $mp3 | relURL }}" type="audio/mpeg">
-</audio>
-{{- end -}}

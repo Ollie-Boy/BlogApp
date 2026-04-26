@@ -3,7 +3,6 @@ languageCode = "en-us"
 title = "Twelve Winds, Light Blue Days"
 theme = "comichero"
 themesDir = "../themes"
-paginate = 12
 
 [params]
   description = "Demo site: blog, portfolio, and docs in one comic-book layout."
