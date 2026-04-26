@@ -6,7 +6,7 @@ themesDir = "../themes"
 
 [params]
   description = "Demo site: blog, docs, and series in one comic-book layout."
-  og_image = "/images/placeholder-comic.svg"
+  og_image = "/images/cover-blog-wind.svg"
 
 [taxonomies]
   tag = "tags"

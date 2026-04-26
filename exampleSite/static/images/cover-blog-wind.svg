@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#dff3ff"/>
+  <rect x="30" y="30" width="1140" height="570" fill="#fff" stroke="#0a0a0f" stroke-width="8"/>
+  <rect x="70" y="70" width="520" height="490" fill="#95d9ff" stroke="#0a0a0f" stroke-width="6"/>
+  <rect x="620" y="70" width="510" height="235" fill="#ffd43b" stroke="#0a0a0f" stroke-width="6"/>
+  <rect x="620" y="325" width="510" height="235" fill="#74c0fc" stroke="#0a0a0f" stroke-width="6"/>
+  <text x="110" y="180" font-family="Bangers, Impact, sans-serif" font-size="74" fill="#0a0a0f">BLOG</text>
+  <text x="110" y="260" font-family="Comic Neue, Arial, sans-serif" font-size="36" fill="#0a0a0f">Build logs, ideas, and</text>
+  <text x="110" y="305" font-family="Comic Neue, Arial, sans-serif" font-size="36" fill="#0a0a0f">small daily experiments.</text>
+  <text x="670" y="210" font-family="Bangers, Impact, sans-serif" font-size="66" fill="#0a0a0f">WIND</text>
+  <text x="670" y="455" font-family="Bangers, Impact, sans-serif" font-size="66" fill="#0a0a0f">NOTES</text>
+</svg>

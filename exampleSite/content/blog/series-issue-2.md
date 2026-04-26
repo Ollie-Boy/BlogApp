@@ -5,10 +5,10 @@ description: "Second issue — tests next/prev in the series footer."
 tags: ["series-demo"]
 series: ["Comic Hero Tales"]
 issue: 2
-image: "/images/placeholder-comic.svg"
+image: "/images/cover-series-arc.svg"
 ---
 
-You made it to **issue 2**. Scroll the page and watch the **color bar** under the header fill like a print progress strip.
+You made it to **issue 2**. Open the Series page to see the reading order and issue links.
 
 {{< chapter label="第 2 回" subtitle="Open **Series** in the nav to see every issue listed." >}}
 

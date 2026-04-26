@@ -58,7 +58,6 @@
   /* Back to top */
   var btt = document.querySelector("[data-back-to-top]");
   var footer = document.querySelector(".site-footer");
-  var readingProgress = document.querySelector("[data-reading-progress]");
 
   function updateBttBottom() {
     if (!btt) return;
@@ -92,24 +91,11 @@
     updateBttBottom();
   }
 
-  function updateReadingProgress() {
-    if (!readingProgress) return;
-    var doc = document.documentElement;
-    var top = window.scrollY || doc.scrollTop || 0;
-    var max = Math.max(1, (doc.scrollHeight || 0) - window.innerHeight);
-    var pct = Math.max(0, Math.min(100, (top / max) * 100));
-    readingProgress.style.width = pct.toFixed(2) + "%";
-  }
-
   window.addEventListener("scroll", toggleBtt, { passive: true });
-  window.addEventListener("scroll", updateReadingProgress, { passive: true });
   window.addEventListener("resize", toggleBtt, { passive: true });
-  window.addEventListener("resize", updateReadingProgress, { passive: true });
   window.addEventListener("load", toggleBtt);
-  window.addEventListener("load", updateReadingProgress);
   updateBttBottom();
   toggleBtt();
-  updateReadingProgress();
 
   if (btt) {
     btt.addEventListener("click", function () {

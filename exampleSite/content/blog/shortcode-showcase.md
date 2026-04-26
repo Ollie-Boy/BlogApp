@@ -3,7 +3,7 @@ title: "Shortcode gallery: every ComicHero block"
 date: 2026-04-25
 description: "Live demos plus copy-paste snippets for panel, sfx, speech, grid, spoiler, and more."
 tags: ["theme", "hugo", "shortcodes"]
-image: "/images/placeholder-comic.svg"
+image: "/images/cover-blog-wind.svg"
 ---
 
 This page **renders** each shortcode first, then shows the **same markup as escaped text** so you can copy it.

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0d1b2a"/>
+  <rect x="34" y="34" width="1132" height="562" fill="#13263a" stroke="#ffd43b" stroke-width="8"/>
+  <g fill="#74c0fc" fill-opacity="0.2">
+    <circle cx="180" cy="130" r="90"/><circle cx="430" cy="490" r="110"/><circle cx="980" cy="180" r="140"/>
+  </g>
+  <g stroke="#ffd43b" stroke-width="5" fill="none">
+    <path d="M120 470h240l90-110h220l70-70h250"/>
+    <circle cx="120" cy="470" r="10" fill="#ffd43b"/>
+    <circle cx="450" cy="360" r="10" fill="#ffd43b"/>
+    <circle cx="740" cy="290" r="10" fill="#ffd43b"/>
+    <circle cx="1070" cy="290" r="10" fill="#ffd43b"/>
+  </g>
+  <text x="94" y="182" font-family="Bangers, Impact, sans-serif" font-size="84" fill="#ffffff">SERIES ARC</text>
+  <text x="96" y="242" font-family="Comic Neue, Arial, sans-serif" font-size="34" fill="#d9ecff">Follow each issue in order.</text>
+</svg>
