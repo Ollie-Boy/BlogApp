@@ -38,7 +38,7 @@
         <a href="{{ .RelPermalink }}" class="comic-card__link">
           {{ with .Params.image }}
           <div class="comic-card__thumb">
-            <img src="{{ . | relURL }}" alt="" loading="lazy" width="640" height="360">
+            {{ partial "smart-image.html" (dict "src" . "alt" $.LinkTitle "loading" "lazy" "width" "640" "height" "360") }}
           </div>
           {{ else }}
           <div class="comic-card__thumb comic-card__thumb--placeholder" aria-hidden="true"></div>

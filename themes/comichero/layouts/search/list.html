@@ -1,0 +1,31 @@
+{{ define "main" }}
+<div class="container section">
+  <header class="page-header comic-panel comic-panel--hero comic-panel--lined page-shell-panel">
+    <h1 class="page-title sfx-pop">{{ .Title }}</h1>
+    {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
+  </header>
+  <section class="comic-panel">
+    <div id="search-ui"></div>
+  </section>
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+<link rel="stylesheet" href="{{ "pagefind/pagefind-ui.css" | relURL }}">
+<script src="{{ "pagefind/pagefind-ui.js" | relURL }}" defer></script>
+<script defer>
+  window.addEventListener("DOMContentLoaded", function () {
+    if (window.PagefindUI) {
+      new PagefindUI({
+        element: "#search-ui",
+        showImages: true,
+        showSubResults: true,
+        processResult: function (result) {
+          if (!result.url.includes('/search/')) return result;
+          return null;
+        }
+      });
+    }
+  });
+</script>
+{{ end }}

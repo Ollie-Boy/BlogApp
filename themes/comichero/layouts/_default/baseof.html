@@ -12,7 +12,12 @@
   <link href="{{ . }}" rel="stylesheet">
   {{ end }}
   {{ $style := resources.Get "css/main.css" | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
+  <style>
+    html{background:#fff8e7;color:#0a0a0f}body{margin:0;font-family:"Comic Neue",system-ui,sans-serif}
+    .comic-header{border-bottom:3px solid #0a0a0f;background:#fff}.logo{font-family:"Bangers",system-ui,sans-serif}
+  </style>
+  <link rel="preload" as="style" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous"></noscript>
   <script>
     (function () {
       try {

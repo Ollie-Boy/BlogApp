@@ -68,6 +68,11 @@ themesDir = "../themes"
   url = "/archives/"
   weight = 26
 
+[[menus.main]]
+  name = "Search"
+  url = "/search/"
+  weight = 27
+
 [[menus.hero]]
   name = "Open docs"
   url = "/docs/getting-started/"

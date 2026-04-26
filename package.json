@@ -1,0 +1,20 @@
+{
+  "name": "comichero-tooling",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "format": "prettier --write \"{exampleSite,themes}/**/*.{md,toml,html,css,js,json,svg}\"",
+    "format:check": "prettier --check \"{exampleSite,themes}/**/*.{md,toml,html,css,js,json,svg}\"",
+    "lint:css": "stylelint \"themes/comichero/assets/css/**/*.css\"",
+    "lint:css:fix": "stylelint \"themes/comichero/assets/css/**/*.css\" --fix",
+    "validate:frontmatter": "python3 scripts/validate_frontmatter.py",
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "build:search": "pagefind --site exampleSite/public"
+  },
+  "devDependencies": {
+    "lighthouse": "^12.3.0",
+    "prettier": "^3.4.2",
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard": "^36.0.1"
+  }
+}

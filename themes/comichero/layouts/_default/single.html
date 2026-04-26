@@ -42,7 +42,7 @@
     </div>
     {{ with .Params.image }}
     <figure class="article-hero">
-      <img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy" width="1200" height="630">
+      {{ partial "smart-image.html" (dict "src" . "alt" $.Title "loading" "lazy" "width" "1200" "height" "630") }}
     </figure>
     {{ end }}
   </header>
