@@ -10,7 +10,7 @@
       <input id="search-query" class="search-page__input" type="search" name="q" placeholder="Search posts, docs, and series..." autocomplete="off">
       <button class="btn btn--primary" type="submit">Search</button>
     </form>
-    <p class="search-page__meta" data-search-meta>Type a keyword to search all indexed content.</p>
+    <p class="search-page__meta" data-search-meta></p>
     <div id="search-ui"></div>
     <ul class="search-page__results" data-search-results></ul>
   </section>
@@ -50,7 +50,7 @@
       if (!results) return;
       results.innerHTML = "";
       if (!query) {
-        setMeta("Type a keyword to search all indexed content.");
+        setMeta("");
         return;
       }
       if (!items.length) {

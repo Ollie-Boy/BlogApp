@@ -20,7 +20,7 @@
   <ol class="comic-series-issues" role="list">
     {{ $total := len .Pages }}
     {{ range $i, $p := .Pages.ByDate }}
-    <li class="comic-series-issues__row comic-panel comic-bounce-in" style="--stagger-index: {{ add $i 1 }};">
+    <li class="comic-series-issues__row comic-panel">
       <span class="comic-series-issues__issue">
         {{ with $p.Params.issue }}#{{ . }}{{ else }}{{ add $i 1 }}/{{ $total }}{{ end }}
       </span>

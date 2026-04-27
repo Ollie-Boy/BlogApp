@@ -3,12 +3,11 @@
   <header class="page-header comic-panel comic-panel--hero comic-panel--lined page-shell-panel">
     <h1 class="page-title sfx-pop">{{ i18n "all_series" | default "All series" }}</h1>
     <p class="lead">{{ i18n "series_terms_intro" | default "Jump into a storyline — each card is one series." }}</p>
-    <p class="lead">Pick a storyline to read in order.</p>
   </header>
   <ul class="comic-grid" role="list">
-    {{ range $i, $term := .Data.Terms.Alphabetical }}
+    {{ range $term := .Data.Terms.Alphabetical }}
     <li>
-      <a href="{{ $term.Page.RelPermalink }}" class="comic-card comic-card--section comic-bounce-in" style="--stagger-index: {{ add $i 1 }};">
+      <a href="{{ $term.Page.RelPermalink }}" class="comic-card comic-card--section">
         <span class="comic-card__tag">{{ i18n "series_label" | default "Series" }}</span>
         <h2 class="comic-card__title">{{ $term.Page.Title }}</h2>
         <p class="comic-card__desc">{{ $term.Count }} {{ i18n "issues" | default "issues" }}</p>

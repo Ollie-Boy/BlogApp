@@ -24,9 +24,9 @@
   <h2 class="section-heading sfx-tilt">{{ site.Params.comichero.latestHeading | default "Latest stories" }}</h2>
   <ul class="comic-grid comic-grid--home comic-grid--book" role="list">
     {{ $types := site.Params.comichero.homeTypes | default (slice "blog") }}
-    {{ range $i, $p := first 6 (where site.RegularPages "Type" "in" $types) }}
+    {{ range $p := first 6 (where site.RegularPages "Type" "in" $types) }}
     <li>
-      <article class="comic-card comic-card--post comic-bounce-in" style="--stagger-index: {{ add $i 1 }};">
+      <article class="comic-card comic-card--post">
         <a href="{{ $p.RelPermalink }}" class="comic-card__link">
           {{ with $p.Params.image }}
           <div class="comic-card__thumb">

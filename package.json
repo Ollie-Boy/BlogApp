@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "format": "prettier --write \"{exampleSite,themes}/**/*.{md,toml,html,css,js,json,svg}\"",
-    "format:check": "prettier --check \"{exampleSite,themes}/**/*.{md,toml,html,css,js,json,svg}\"",
+    "format": "prettier --write \"{themes/comichero/assets,scripts}/**/*.{css,js,json}\"",
+    "format:check": "prettier --check \"{themes/comichero/assets,scripts}/**/*.{css,js,json}\"",
     "lint:css": "stylelint \"themes/comichero/assets/css/**/*.css\"",
     "lint:css:fix": "stylelint \"themes/comichero/assets/css/**/*.css\" --fix",
     "validate:frontmatter": "python3 scripts/validate_frontmatter.py",

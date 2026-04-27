@@ -39,7 +39,6 @@
     btn.addEventListener("click", toggleTheme);
   });
 
-
   var nav = document.querySelector("[data-site-nav]");
   var navToggle = document.querySelector("[data-nav-toggle]");
   if (nav && navToggle) {
@@ -119,15 +118,21 @@
   window.addEventListener("load", updateDocProgress);
   updateDocProgress();
 
-
   var prevIssue = document.querySelector("[data-prev-issue]");
   var nextIssue = document.querySelector("[data-next-issue]");
   if (prevIssue || nextIssue) {
     document.addEventListener("keydown", function (e) {
       var tag = e.target && e.target.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (e.target && e.target.isContentEditable)) return;
+      if (
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        tag === "SELECT" ||
+        (e.target && e.target.isContentEditable)
+      )
+        return;
       if (e.key === "ArrowLeft" && prevIssue) window.location.href = prevIssue.getAttribute("href");
-      if (e.key === "ArrowRight" && nextIssue) window.location.href = nextIssue.getAttribute("href");
+      if (e.key === "ArrowRight" && nextIssue)
+        window.location.href = nextIssue.getAttribute("href");
     });
   }
 
@@ -142,11 +147,17 @@
         window.scrollTo(0, y);
       }
     });
-    window.addEventListener("scroll", function () {
-      setStored(key, String(Math.round(window.scrollY || document.documentElement.scrollTop || 0)));
-    }, { passive: true });
+    window.addEventListener(
+      "scroll",
+      function () {
+        setStored(
+          key,
+          String(Math.round(window.scrollY || document.documentElement.scrollTop || 0))
+        );
+      },
+      { passive: true }
+    );
   }
-
 
   var seriesProgress = document.querySelector("[data-series-progress]");
   if (seriesProgress) {
@@ -192,7 +203,9 @@
       if (target) headingMap.push({ link: a, target: target });
     });
     function setActive(link) {
-      tocLinks.forEach(function (a) { a.classList.remove("is-active"); });
+      tocLinks.forEach(function (a) {
+        a.classList.remove("is-active");
+      });
       if (link) link.classList.add("is-active");
     }
     function updateActiveToc() {
@@ -222,7 +235,6 @@
     updateActiveToc();
   }
 
-
   document.querySelectorAll(".prose pre").forEach(function (pre) {
     if (pre.closest(".codesnippet-wrap")) return;
     if (pre.querySelector(".code-copy-btn")) return;
@@ -246,7 +258,10 @@
         }, 1400);
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(function () {});
+        navigator.clipboard
+          .writeText(text)
+          .then(done)
+          .catch(function () {});
       }
     });
   });
@@ -270,7 +285,10 @@
         }, 1600);
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(function () {});
+        navigator.clipboard
+          .writeText(text)
+          .then(done)
+          .catch(function () {});
       } else {
         var ta = document.createElement("textarea");
         ta.value = text;
@@ -290,12 +308,16 @@
   /* Lightbox for content images */
   var lightbox = document.createElement("div");
   lightbox.className = "comic-lightbox";
-  lightbox.innerHTML = '<button type="button" class="comic-lightbox__close" aria-label="Close">×</button><img alt="">';
+  lightbox.innerHTML =
+    '<button type="button" class="comic-lightbox__close" aria-label="Close">×</button><img alt="">';
   document.body.appendChild(lightbox);
   var lightboxImg = lightbox.querySelector("img");
-  function closeLightbox() { lightbox.classList.remove("is-open"); }
+  function closeLightbox() {
+    lightbox.classList.remove("is-open");
+  }
   lightbox.addEventListener("click", function (e) {
-    if (e.target === lightbox || e.target.classList.contains("comic-lightbox__close")) closeLightbox();
+    if (e.target === lightbox || e.target.classList.contains("comic-lightbox__close"))
+      closeLightbox();
   });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
@@ -312,14 +334,24 @@
   /* Keyboard shortcuts: j/k next-prev post, / open search */
   document.addEventListener("keydown", function (e) {
     var tag = e.target && e.target.tagName;
-    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (e.target && e.target.isContentEditable)) return;
+    if (
+      tag === "INPUT" ||
+      tag === "TEXTAREA" ||
+      tag === "SELECT" ||
+      (e.target && e.target.isContentEditable)
+    )
+      return;
     if (e.key === "j" || e.key === "J") {
       var next = document.querySelector("[data-next-issue], .article-nav__link--next");
-      if (next) { window.location.href = next.getAttribute("href"); }
+      if (next) {
+        window.location.href = next.getAttribute("href");
+      }
     }
     if (e.key === "k" || e.key === "K") {
       var prev = document.querySelector("[data-prev-issue], .article-nav__link--prev");
-      if (prev) { window.location.href = prev.getAttribute("href"); }
+      if (prev) {
+        window.location.href = prev.getAttribute("href");
+      }
     }
     if (e.key === "/") {
       e.preventDefault();
