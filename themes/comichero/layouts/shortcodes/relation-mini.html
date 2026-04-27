@@ -1,0 +1,17 @@
+{{- $center := .Get "center" | default "Protagonist" -}}
+{{- $allies := split (.Get "allies" | default "") "," -}}
+{{- $enemies := split (.Get "enemies" | default "") "," -}}
+{{- $class := .Get "class" -}}
+<section class="comic-relation-mini comic-panel {{ $class }}" aria-label="Character relations mini">
+  <p class="comic-relation-mini__center">{{ $center }}</p>
+  <div class="comic-relation-mini__row">
+    <div>
+      <p class="comic-relation-mini__label">Allies</p>
+      <div class="comic-relation-mini__chips">{{ range $allies }}{{ $v := . | strings.TrimSpace }}{{ if ne $v "" }}<span class="comic-relation-mini__chip comic-relation-mini__chip--ally">{{ $v }}</span>{{ end }}{{ end }}</div>
+    </div>
+    <div>
+      <p class="comic-relation-mini__label">Enemies</p>
+      <div class="comic-relation-mini__chips">{{ range $enemies }}{{ $v := . | strings.TrimSpace }}{{ if ne $v "" }}<span class="comic-relation-mini__chip comic-relation-mini__chip--enemy">{{ $v }}</span>{{ end }}{{ end }}</div>
+    </div>
+  </div>
+</section>

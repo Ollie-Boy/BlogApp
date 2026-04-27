@@ -1,0 +1,9 @@
+{{- $name := .Get "name" | default "Villain" -}}
+{{- $threat := .Get "threat" | default "High" -}}
+{{- $class := .Get "class" -}}
+<div class="comic-villain-strip {{ $class }}" role="note" aria-label="Villain highlight">
+  <span class="comic-villain-strip__badge">VILLAIN</span>
+  <span class="comic-villain-strip__name">{{ $name }}</span>
+  <span class="comic-villain-strip__threat">Threat: {{ $threat }}</span>
+  <span class="comic-villain-strip__body">{{ .Inner | markdownify }}</span>
+</div>

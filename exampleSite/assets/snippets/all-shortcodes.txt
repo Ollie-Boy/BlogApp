@@ -92,3 +92,27 @@ High-ground signal node.
 Core Shard|42%|Common
 Aegis Coil|18%|Rare
 {{< /loot-table >}}
+{{< narrator title="Narrator" >}}
+Narration line…
+{{< /narrator >}}
+{{< thought-cloud from="Name" >}}
+Inner thought…
+{{< /thought-cloud >}}
+{{< dialogue-ab title="A/B Dialogue" aLabel="A" bLabel="B" >}}
+Option A text
+---
+Option B text
+{{< /dialogue-ab >}}
+{{< cast-lite name="Hero" role="Lead" img="/images/hero.png" >}}
+Short profile…
+{{< /cast-lite >}}
+{{< relation-mini center="Hero" allies="A,B" enemies="X,Y" >}}{{< /relation-mini >}}
+{{< battle-timeline title="Fight Beats" >}}
+Beat 1|Action|Impact
+{{< /battle-timeline >}}
+{{< quote-bar from="Narrator" >}}
+Big quote…
+{{< /quote-bar >}}
+{{< villain-strip name="Villain" threat="High" >}}
+Enemy note…
+{{< /villain-strip >}}

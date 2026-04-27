@@ -1,0 +1,6 @@
+{{- $from := .Get "from" | default "" -}}
+{{- $class := .Get "class" -}}
+<blockquote class="comic-quote-bar {{ $class }}">
+  <p class="comic-quote-bar__text">{{ .Inner | markdownify }}</p>
+  {{ with $from }}<footer class="comic-quote-bar__from">— {{ . }}</footer>{{ end }}
+</blockquote>

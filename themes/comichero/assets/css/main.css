@@ -2050,6 +2050,307 @@ pre.codesnippet code {
   background: color-mix(in srgb, var(--token-shortcode-surface) 88%, var(--accent-2) 12%);
 }
 
+/* Storytelling components */
+.comic-narrator {
+  margin: 1rem 0 1.4rem;
+  background: color-mix(in srgb, var(--accent-2) 10%, var(--panel));
+  border-left: 8px solid var(--accent-2);
+  padding: 0.85rem 1rem;
+}
+
+.comic-narrator__title {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.comic-narrator__body > *:first-child {
+  margin-top: 0;
+}
+
+.comic-narrator__body > *:last-child {
+  margin-bottom: 0;
+}
+
+.comic-thought-cloud {
+  margin: 1.4rem 0;
+}
+
+.comic-thought-cloud__label {
+  margin: 0 0 0.3rem;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+}
+
+.comic-thought-cloud__bubble {
+  position: relative;
+  border: var(--stroke) solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  padding: 1rem 1.1rem;
+  box-shadow: 5px 5px 0 var(--line);
+}
+
+.comic-thought-cloud__bubble::after,
+.comic-thought-cloud__bubble::before {
+  content: "";
+  position: absolute;
+  border: var(--stroke) solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+}
+
+.comic-thought-cloud__bubble::after {
+  width: 16px;
+  height: 16px;
+  left: 1.2rem;
+  bottom: -18px;
+}
+
+.comic-thought-cloud__bubble::before {
+  width: 10px;
+  height: 10px;
+  left: 2rem;
+  bottom: -34px;
+}
+
+.comic-dialogue-ab {
+  margin: 1.6rem 0;
+}
+
+.comic-dialogue-ab__title {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-display);
+}
+
+.comic-dialogue-ab__grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.comic-dialogue-ab__panel {
+  padding: 0.8rem 0.95rem;
+}
+
+.comic-dialogue-ab__label {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.comic-dialogue-ab__body > *:first-child {
+  margin-top: 0;
+}
+
+.comic-dialogue-ab__body > *:last-child {
+  margin-bottom: 0;
+}
+
+.comic-cast-lite {
+  margin: 1rem 0;
+  padding: 0.75rem 0.9rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+  align-items: start;
+}
+
+.comic-cast-lite__avatar {
+  width: 64px;
+  height: 64px;
+  border: var(--stroke) solid var(--line);
+  object-fit: cover;
+}
+
+.comic-cast-lite__name {
+  margin: 0;
+  font-family: var(--font-display);
+}
+
+.comic-cast-lite__role {
+  margin: 0.1rem 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.comic-cast-lite__desc > *:first-child {
+  margin-top: 0;
+}
+
+.comic-cast-lite__desc > *:last-child {
+  margin-bottom: 0;
+}
+
+.comic-relation-mini {
+  margin: 1rem 0;
+  padding: 0.8rem 0.9rem;
+}
+
+.comic-relation-mini__center {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.comic-relation-mini__row {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.comic-relation-mini__label {
+  margin: 0 0 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.comic-relation-mini__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.comic-relation-mini__chip {
+  border: 2px solid var(--line);
+  padding: 0.1rem 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.comic-relation-mini__chip--ally {
+  background: color-mix(in srgb, #69db7c 28%, var(--panel));
+}
+
+.comic-relation-mini__chip--enemy {
+  background: color-mix(in srgb, var(--accent) 18%, var(--panel));
+}
+
+.comic-battle-timeline {
+  margin: 1.3rem 0;
+}
+
+.comic-battle-timeline__title {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-display);
+}
+
+.comic-battle-timeline__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.comic-battle-timeline__item {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr auto;
+  gap: 0.6rem;
+  padding: 0.55rem 0.7rem;
+}
+
+.comic-battle-timeline__beat {
+  font-weight: 800;
+  color: var(--accent-2);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.comic-battle-timeline__impact {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.comic-quote-bar {
+  margin: 1.6rem 0;
+  border-left: 10px solid var(--line);
+  padding: 0.55rem 0.9rem 0.55rem 1rem;
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+  box-shadow: 5px 5px 0 var(--line);
+}
+
+.comic-quote-bar__text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.8vw, 1.75rem);
+  line-height: 1.15;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #ffeb3b;
+}
+
+.comic-quote-bar__from {
+  margin-top: 0.5rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.comic-villain-strip {
+  margin: 1.2rem 0;
+  padding: 0.45rem 0.65rem;
+  border: var(--stroke) solid var(--line);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 22%, var(--panel)),
+    color-mix(in srgb, var(--accent-2) 10%, var(--panel))
+  );
+  box-shadow: 5px 5px 0 var(--line);
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  gap: 0.45rem 0.65rem;
+  align-items: center;
+}
+
+.comic-villain-strip__badge {
+  border: 2px solid var(--line);
+  background: var(--line);
+  color: var(--paper);
+  font-family: var(--font-display);
+  padding: 0.08rem 0.4rem;
+}
+
+.comic-villain-strip__name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.comic-villain-strip__threat {
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.comic-villain-strip__body p {
+  margin: 0;
+}
+
+[data-theme="dark"]
+  :is(.comic-narrator, .comic-thought-cloud__bubble, .comic-quote-bar, .comic-villain-strip) {
+  background: var(--token-shortcode-surface);
+}
+
+@media (max-width: 780px) {
+  .comic-dialogue-ab__grid,
+  .comic-relation-mini__row {
+    grid-template-columns: 1fr;
+  }
+
+  .comic-battle-timeline__item {
+    grid-template-columns: 1fr;
+  }
+
+  .comic-villain-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Stamp — editorial seal / corner badge (inline-friendly) */
 .comic-stamp {
   display: inline-block;

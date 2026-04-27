@@ -1,0 +1,22 @@
+{{- $title := .Get "title" | default "A/B Dialogue" -}}
+{{- $aLabel := .Get "aLabel" | default "Option A" -}}
+{{- $bLabel := .Get "bLabel" | default "Option B" -}}
+{{- $class := .Get "class" -}}
+{{- $parts := split .Inner "---" -}}
+{{- $a := "" -}}
+{{- $b := "" -}}
+{{- if ge (len $parts) 1 }}{{ $a = index $parts 0 }}{{ end -}}
+{{- if ge (len $parts) 2 }}{{ $b = index $parts 1 }}{{ end -}}
+<section class="comic-dialogue-ab {{ $class }}" aria-label="Dialogue choices">
+  <h3 class="comic-dialogue-ab__title">{{ $title }}</h3>
+  <div class="comic-dialogue-ab__grid">
+    <article class="comic-dialogue-ab__panel comic-panel">
+      <p class="comic-dialogue-ab__label">{{ $aLabel }}</p>
+      <div class="comic-dialogue-ab__body">{{ $a | markdownify }}</div>
+    </article>
+    <article class="comic-dialogue-ab__panel comic-panel">
+      <p class="comic-dialogue-ab__label">{{ $bLabel }}</p>
+      <div class="comic-dialogue-ab__body">{{ $b | markdownify }}</div>
+    </article>
+  </div>
+</section>

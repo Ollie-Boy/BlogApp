@@ -1,0 +1,5 @@
+{{< battle-timeline title="Boss Clash" >}}
+Beat 1|Smoke dash|Enemy formation broken
+Beat 2|EMP blade|Shield dropped to 12%
+Beat 3|Finisher|Target neutralized
+{{< /battle-timeline >}}

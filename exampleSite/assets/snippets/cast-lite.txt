@@ -1,0 +1,3 @@
+{{< cast-lite name="Captain Mira" role="Sky Guard Leader" img="/images/placeholder-comic.svg" >}}
+Fast strategist with a habit of risky flank calls.
+{{< /cast-lite >}}

@@ -1,0 +1,21 @@
+{{- $title := .Get "title" | default "Battle Timeline" -}}
+{{- $class := .Get "class" -}}
+{{- $rows := split .Inner "\n" -}}
+<section class="comic-battle-timeline {{ $class }}">
+  <h3 class="comic-battle-timeline__title">{{ $title }}</h3>
+  <ol class="comic-battle-timeline__list" role="list">
+    {{ range $rows }}
+      {{ $line := trim . " \r\t" }}
+      {{ if $line }}
+        {{ $parts := split $line "|" }}
+        {{ if ge (len $parts) 3 }}
+          <li class="comic-battle-timeline__item comic-panel">
+            <span class="comic-battle-timeline__beat">{{ index $parts 0 | strings.TrimSpace }}</span>
+            <span class="comic-battle-timeline__event">{{ index $parts 1 | strings.TrimSpace }}</span>
+            <span class="comic-battle-timeline__impact">{{ index $parts 2 | strings.TrimSpace }}</span>
+          </li>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  </ol>
+</section>

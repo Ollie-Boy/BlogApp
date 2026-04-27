@@ -1,0 +1,3 @@
+{{< thought-cloud from="Mira" >}}
+If we miss this window, the relay is gone.
+{{< /thought-cloud >}}

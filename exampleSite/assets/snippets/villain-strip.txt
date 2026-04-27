@@ -1,0 +1,3 @@
+{{< villain-strip name="Iron Fang" threat="Critical" >}}
+Appears whenever the city grid enters blackout mode.
+{{< /villain-strip >}}

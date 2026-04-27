@@ -1,0 +1,3 @@
+{{< quote-bar from="Field Notes" >}}
+You don’t win by being louder. You win by being earlier.
+{{< /quote-bar >}}
