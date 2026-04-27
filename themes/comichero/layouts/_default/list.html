@@ -15,11 +15,11 @@
 
   {{ if .Sections }}
   <section class="section-grid section-grid--sections" aria-label="Sections">
-    {{ range .Sections.ByWeight }}
-    <a href="{{ .RelPermalink }}" class="comic-card comic-card--section comic-bounce-in">
-      <span class="comic-card__tag">{{ .Section | humanize }}</span>
-      <h2 class="comic-card__title">{{ .Title }}</h2>
-      {{ with .Description }}<p class="comic-card__desc">{{ . }}</p>{{ end }}
+    {{ range $i, $section := .Sections.ByWeight }}
+    <a href="{{ $section.RelPermalink }}" class="comic-card comic-card--section comic-bounce-in" style="--stagger-index: {{ add $i 1 }};">
+      <span class="comic-card__tag">{{ $section.Section | humanize }}</span>
+      <h2 class="comic-card__title">{{ $section.Title }}</h2>
+      {{ with $section.Description }}<p class="comic-card__desc">{{ . }}</p>{{ end }}
     </a>
     {{ end }}
   </section>
@@ -31,21 +31,21 @@
   {{ end }}
   {{ $paginator := .Paginate ($pages.ByDate.Reverse) }}
   <ul class="comic-grid comic-grid--book" role="list">
-    {{ range $paginator.Pages }}
+    {{ range $i, $p := $paginator.Pages }}
     <li>
-      <article class="comic-card comic-card--post comic-bounce-in">
-        <a href="{{ .RelPermalink }}" class="comic-card__link">
-          {{ with .Params.image }}
+      <article class="comic-card comic-card--post comic-bounce-in" style="--stagger-index: {{ add $i 1 }};">
+        <a href="{{ $p.RelPermalink }}" class="comic-card__link">
+          {{ with $p.Params.image }}
           <div class="comic-card__thumb">
-            {{ partial "smart-image.html" (dict "src" . "alt" $.LinkTitle "loading" "lazy" "width" "640" "height" "360") }}
+            {{ partial "smart-image.html" (dict "src" . "alt" $p.LinkTitle "loading" "lazy" "width" "640" "height" "360") }}
           </div>
           {{ else }}
           <div class="comic-card__thumb comic-card__thumb--placeholder" aria-hidden="true"></div>
           {{ end }}
           <div class="comic-card__body">
-            <span class="comic-card__meta">{{ .Date.Format "2006-01-02" }} · {{ .Section }}</span>
-            <h2 class="comic-card__title">{{ .LinkTitle }}</h2>
-            {{ with .Params.summary | default .Description | default .Summary }}
+            <span class="comic-card__meta">{{ $p.Date.Format "2006-01-02" }} · {{ $p.Section }}</span>
+            <h2 class="comic-card__title">{{ $p.LinkTitle }}</h2>
+            {{ with $p.Params.summary | default $p.Description | default $p.Summary }}
             {{ $txt := . | plainify }}
             {{ $lvl := "short" }}
             {{ if gt (len $txt) 120 }}{{ $lvl = "long" }}{{ else if gt (len $txt) 70 }}{{ $lvl = "medium" }}{{ end }}

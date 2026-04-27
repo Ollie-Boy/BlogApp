@@ -40,7 +40,7 @@
   --radius: 4px;
   --stroke: 3px;
   --motion-duration: 0.7s;
-  --motion-stagger: 0.07s;
+  --motion-stagger: 0.04s;
   --token-shortcode-surface: color-mix(in srgb, var(--panel) 94%, var(--accent-2) 6%);
   --token-shortcode-accent-bg: #ffeb3b;
   --token-shortcode-accent-fg: var(--line);
@@ -690,25 +690,7 @@ body.comichero-body.site-shell {
 /* Staggered entrance */
 .comic-bounce-in {
   animation: bounceIn 1.05s cubic-bezier(0.24, 1.24, 0.42, 1) both;
-}
-
-.comic-grid li:nth-child(1) .comic-bounce-in {
-  animation-delay: calc(var(--motion-stagger) * 1);
-}
-.comic-grid li:nth-child(2) .comic-bounce-in {
-  animation-delay: calc(var(--motion-stagger) * 2);
-}
-.comic-grid li:nth-child(3) .comic-bounce-in {
-  animation-delay: calc(var(--motion-stagger) * 3);
-}
-.comic-grid li:nth-child(4) .comic-bounce-in {
-  animation-delay: calc(var(--motion-stagger) * 4);
-}
-.comic-grid li:nth-child(5) .comic-bounce-in {
-  animation-delay: calc(var(--motion-stagger) * 5);
-}
-.comic-grid li:nth-child(6) .comic-bounce-in {
-  animation-delay: calc(var(--motion-stagger) * 6);
+  animation-delay: calc(var(--motion-stagger) * var(--stagger-index, 0));
 }
 
 @keyframes bounceIn {

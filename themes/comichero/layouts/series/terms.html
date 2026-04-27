@@ -6,12 +6,12 @@
     <p class="lead">Pick a storyline to read in order.</p>
   </header>
   <ul class="comic-grid" role="list">
-    {{ range .Data.Terms.Alphabetical }}
+    {{ range $i, $term := .Data.Terms.Alphabetical }}
     <li>
-      <a href="{{ .Page.RelPermalink }}" class="comic-card comic-card--section comic-bounce-in">
+      <a href="{{ $term.Page.RelPermalink }}" class="comic-card comic-card--section comic-bounce-in" style="--stagger-index: {{ add $i 1 }};">
         <span class="comic-card__tag">{{ i18n "series_label" | default "Series" }}</span>
-        <h2 class="comic-card__title">{{ .Page.Title }}</h2>
-        <p class="comic-card__desc">{{ .Count }} {{ i18n "issues" | default "issues" }}</p>
+        <h2 class="comic-card__title">{{ $term.Page.Title }}</h2>
+        <p class="comic-card__desc">{{ $term.Count }} {{ i18n "issues" | default "issues" }}</p>
       </a>
     </li>
     {{ end }}
