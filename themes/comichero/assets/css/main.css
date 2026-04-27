@@ -2233,6 +2233,12 @@ pre.codesnippet code {
   background: color-mix(in srgb, var(--accent) 18%, var(--panel));
 }
 
+.comic-relation-mini__note {
+  margin-top: 0.65rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 .comic-battle-timeline {
   margin: 1.3rem 0;
 }
