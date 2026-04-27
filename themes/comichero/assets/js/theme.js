@@ -301,20 +301,6 @@
     if (e.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
   });
 
-  /* Page enter transition */
-  document.querySelectorAll("a[href]").forEach(function (a) {
-    a.addEventListener("click", function (e) {
-      var href = a.getAttribute("href") || "";
-      if (!href || href.startsWith("#") || a.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      var sameOrigin = href.startsWith("/") || href.indexOf(window.location.origin) === 0;
-      if (!sameOrigin) return;
-      e.preventDefault();
-      document.body.classList.add("page-entering");
-      window.setTimeout(function () {
-        window.location.href = href;
-      }, 210);
-    });
-  });
   document.querySelectorAll(".article-content img, .prose img").forEach(function (img) {
     img.addEventListener("click", function () {
       lightboxImg.src = img.currentSrc || img.src;

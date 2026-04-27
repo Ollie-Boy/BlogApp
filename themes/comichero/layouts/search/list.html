@@ -4,8 +4,15 @@
     <h1 class="page-title sfx-pop">{{ .Title }}</h1>
     {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
   </header>
-  <section class="comic-panel">
+  <section class="comic-panel search-page">
+    <form class="search-page__form" data-search-form role="search">
+      <label class="visually-hidden" for="search-query">Search</label>
+      <input id="search-query" class="search-page__input" type="search" name="q" placeholder="Search posts, docs, and series..." autocomplete="off">
+      <button class="btn btn--primary" type="submit">Search</button>
+    </form>
+    <p class="search-page__meta" data-search-meta>Type a keyword to search all indexed content.</p>
     <div id="search-ui"></div>
+    <ul class="search-page__results" data-search-results></ul>
   </section>
 </div>
 {{ end }}
@@ -15,6 +22,53 @@
 <script src="{{ "pagefind/pagefind-ui.js" | relURL }}" defer></script>
 <script defer>
   window.addEventListener("DOMContentLoaded", function () {
+    var params = new URLSearchParams(window.location.search);
+    var initialQuery = (params.get("q") || "").trim();
+    var input = document.getElementById("search-query");
+    var form = document.querySelector("[data-search-form]");
+    var meta = document.querySelector("[data-search-meta]");
+    var results = document.querySelector("[data-search-results]");
+
+    if (input && initialQuery) {
+      input.value = initialQuery;
+    }
+
+    function escapeHtml(text) {
+      return String(text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function setMeta(text) {
+      if (meta) meta.textContent = text;
+    }
+
+    function renderFallback(items, query) {
+      if (!results) return;
+      results.innerHTML = "";
+      if (!query) {
+        setMeta("Type a keyword to search all indexed content.");
+        return;
+      }
+      if (!items.length) {
+        setMeta("No matches found.");
+        return;
+      }
+      setMeta("Found " + items.length + " result(s).");
+      items.slice(0, 40).forEach(function (item) {
+        var li = document.createElement("li");
+        li.className = "search-page__item";
+        li.innerHTML = '<a href="' + escapeHtml(item.url) + '" class="search-page__link">' +
+          '<strong>' + escapeHtml(item.title) + '</strong>' +
+          '<span>' + escapeHtml(item.summary || item.section || "") + '</span>' +
+          '</a>';
+        results.appendChild(li);
+      });
+    }
+
     if (window.PagefindUI) {
       new PagefindUI({
         element: "#search-ui",
@@ -26,19 +80,107 @@
         }
       });
 
-      var params = new URLSearchParams(window.location.search);
-      var q = (params.get("q") || "").trim();
-      if (q) {
+      if (initialQuery) {
         window.setTimeout(function () {
-          var input = document.querySelector("#search-ui input[type='search']");
-          if (input) {
-            input.value = q;
-            input.dispatchEvent(new Event("input", { bubbles: true }));
-            input.focus();
+          var pagefindInput = document.querySelector("#search-ui input[type='search']");
+          if (pagefindInput) {
+            pagefindInput.value = initialQuery;
+            pagefindInput.dispatchEvent(new Event("input", { bubbles: true }));
+            pagefindInput.focus();
           }
         }, 80);
       }
+      if (form && input) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var q = input.value.trim();
+          var pagefindInput = document.querySelector("#search-ui input[type='search']");
+          if (pagefindInput) {
+            pagefindInput.value = q;
+            pagefindInput.dispatchEvent(new Event("input", { bubbles: true }));
+            pagefindInput.focus();
+          }
+          var nextUrl = q ? ("/search/?q=" + encodeURIComponent(q)) : "/search/";
+          window.history.replaceState({}, "", nextUrl);
+        });
+      }
+      setMeta("Full-text search ready.");
+      return;
     }
+
+    fetch("{{ "/index.json" | relURL }}")
+      .then(function (res) { return res.json(); })
+      .then(function (json) {
+        var items = Array.isArray(json.items) ? json.items : [];
+        function runFallbackSearch(query) {
+          var q = query.trim().toLowerCase();
+          var filtered = items.filter(function (item) {
+            var haystack = ((item.title || "") + " " + (item.summary || "") + " " + (item.content_text || "")).toLowerCase();
+            return q && haystack.indexOf(q) !== -1;
+          });
+          renderFallback(filtered, q);
+        }
+        if (form && input) {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var q = input.value.trim();
+            runFallbackSearch(q);
+            var nextUrl = q ? ("/search/?q=" + encodeURIComponent(q)) : "/search/";
+            window.history.replaceState({}, "", nextUrl);
+          });
+        }
+        if (initialQuery) {
+          runFallbackSearch(initialQuery);
+        }
+      })
+      .catch(function () {
+        setMeta("Search index failed to load.");
+      });
   });
 </script>
+<style>
+  .search-page__form {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .search-page__input {
+    flex: 1 1 18rem;
+    min-width: 16rem;
+    border: var(--stroke) solid var(--line);
+    padding: 0.55rem 0.75rem;
+    font: inherit;
+    background: var(--panel);
+    color: var(--ink);
+  }
+  .search-page__meta {
+    margin: 0.5rem 0 1rem;
+    font-weight: 700;
+  }
+  .search-page__results {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.65rem;
+  }
+  .search-page__item {
+    border: var(--stroke) solid var(--line);
+    background: var(--panel);
+    box-shadow: 4px 4px 0 var(--line);
+  }
+  .search-page__link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.7rem 0.85rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .search-page__link span {
+    color: var(--muted);
+  }
+</style>
 {{ end }}

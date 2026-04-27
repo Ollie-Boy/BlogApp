@@ -127,42 +127,6 @@ body.comichero-body.site-shell {
   width: 100%;
 }
 
-body.page-entering::before {
-  content: "";
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  width: 24vmax;
-  height: 24vmax;
-  margin-left: -12vmax;
-  margin-top: -12vmax;
-  border-radius: 50%;
-  z-index: 200;
-  pointer-events: none;
-  transform: scale(0.02) rotate(0deg);
-  box-shadow:
-    0 0 0 0 rgba(8, 8, 12, 0.95),
-    inset 0 0 40px rgba(0, 0, 0, 0.9);
-  background:
-    radial-gradient(circle at center, #000 0 36%, rgba(10, 10, 15, 0.96) 58%, rgba(10, 10, 15, 0.86) 100%);
-  animation: blackHoleEnter 0.52s cubic-bezier(0.22, 0.76, 0.26, 1) forwards;
-}
-
-@keyframes blackHoleEnter {
-  0% {
-    transform: scale(0.02) rotate(0deg);
-    box-shadow:
-      0 0 0 0 rgba(8, 8, 12, 0.95),
-      inset 0 0 0 rgba(0, 0, 0, 1);
-  }
-  100% {
-    transform: scale(1.6) rotate(520deg);
-    box-shadow:
-      0 0 0 150vmax rgba(8, 8, 12, 0.95),
-      inset 0 0 60px rgba(0, 0, 0, 0.92);
-  }
-}
-
 /* Inline semantics use the same face as body copy */
 .comichero-body :is(strong, b, em, i, u, mark, del, ins, small, sub, sup) {
   font-family: inherit;
