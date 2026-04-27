@@ -60,6 +60,76 @@ Maybe I should have used **WordPress**… _(No.)_
 
 ---
 
+## New storytelling kit (narration / A-B / villain beats)
+
+### `narrator` — standalone narration box
+
+{{< narrator title="Narrator" >}}
+Rain swallowed the skyline before the sirens arrived.
+{{< /narrator >}}
+
+{{< codesnippet path="assets/snippets/narrator.txt" />}}
+
+### `thought-cloud` — unified thought bubble style
+
+{{< thought-cloud from="Mira" >}}
+If we miss this window, the relay is gone.
+{{< /thought-cloud >}}
+
+{{< codesnippet path="assets/snippets/thought-cloud.txt" />}}
+
+### `dialogue-ab` — two-column A/B dialogue
+
+{{< dialogue-ab title="Checkpoint Choice" aLabel="A 路线" bLabel="B 路线" >}}
+Walk in with forged credentials.
+---
+Cut power first, then breach from the roof.
+{{< /dialogue-ab >}}
+
+{{< codesnippet path="assets/snippets/dialogue-ab.txt" />}}
+
+### `cast-lite` — lightweight character intro card
+
+{{< cast-lite name="Captain Mira" role="Sky Guard Leader" img="/images/placeholder-comic.svg" >}}
+Fast strategist with a habit of risky flank calls.
+{{< /cast-lite >}}
+
+{{< codesnippet path="assets/snippets/cast-lite.txt" />}}
+
+### `relation-mini` — mini allies vs enemies map
+
+{{< relation-mini center="Captain Mira" allies="Jax,Archivist" enemies="Iron Fang,Null Choir" >}}{{< /relation-mini >}}
+
+{{< codesnippet path="assets/snippets/relation-mini.txt" />}}
+
+### `battle-timeline` — short beat-by-beat timeline
+
+{{< battle-timeline title="Boss Clash" >}}
+Beat 1|Smoke dash|Enemy formation broken
+Beat 2|EMP blade|Shield dropped to 12%
+Beat 3|Finisher|Target neutralized
+{{< /battle-timeline >}}
+
+{{< codesnippet path="assets/snippets/battle-timeline.txt" />}}
+
+### `quote-bar` — emphasized quote bar
+
+{{< quote-bar from="Field Notes" >}}
+You don’t win by being louder. You win by being earlier.
+{{< /quote-bar >}}
+
+{{< codesnippet path="assets/snippets/quote-bar.txt" />}}
+
+### `villain-strip` — villain highlight strip
+
+{{< villain-strip name="Iron Fang" threat="Critical" >}}
+Appears whenever the city grid enters blackout mode.
+{{< /villain-strip >}}
+
+{{< codesnippet path="assets/snippets/villain-strip.txt" />}}
+
+---
+
 ## `stamp` — small seal (pairs with inner text or `text` param)
 
 {{< stamp color="warn" >}}BETA{{< /stamp >}} inline next to copy. Or: {{< stamp text="NEW!" color="accent" >}}{{< /stamp >}}
@@ -506,6 +576,14 @@ Ensure spoiler body remains readable and border contrast is clear.
 | `dialogue-tree`| Collapsible branch dialogue |
 | `relation-graph`| Allies/enemies relation map |
 | `character-card`| Character profile card |
+| `narrator`     | Standalone narration panel |
+| `thought-cloud`| Unified thought bubble panel |
+| `dialogue-ab`  | Two-column A/B dialogue choices |
+| `cast-lite`    | Lightweight character intro card |
+| `relation-mini`| Mini ally/enemy relation map |
+| `battle-timeline`| Beat-by-beat battle timeline |
+| `quote-bar`    | Cinematic emphasized quote bar |
+| `villain-strip`| Villain spotlight warning strip |
 
 **One file with every call (for bulk copy):**
 

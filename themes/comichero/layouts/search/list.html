@@ -11,15 +11,12 @@
       <button class="btn btn--primary" type="submit">Search</button>
     </form>
     <p class="search-page__meta" data-search-meta></p>
-    <div id="search-ui"></div>
     <ul class="search-page__results" data-search-results></ul>
   </section>
 </div>
 {{ end }}
 
 {{ define "scripts" }}
-<link rel="stylesheet" href="{{ "pagefind/pagefind-ui.css" | relURL }}">
-<script src="{{ "pagefind/pagefind-ui.js" | relURL }}" defer></script>
 <script defer>
   window.addEventListener("DOMContentLoaded", function () {
     var params = new URLSearchParams(window.location.search);
@@ -46,10 +43,51 @@
       if (meta) meta.textContent = text;
     }
 
-    function renderFallback(items, query) {
+    function splitTokens(query) {
+      return String(query || "")
+        .trim()
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean);
+    }
+
+    function escapeRegExp(text) {
+      return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    function highlight(text, tokens) {
+      var out = escapeHtml(text || "");
+      if (!tokens.length) return out;
+      tokens.forEach(function (token) {
+        var re = new RegExp("(" + escapeRegExp(token) + ")", "gi");
+        out = out.replace(re, "<mark>$1</mark>");
+      });
+      return out;
+    }
+
+    function excerptAroundMatch(text, tokens) {
+      var source = String(text || "");
+      if (!source) return "";
+      var lower = source.toLowerCase();
+      var idx = -1;
+      tokens.forEach(function (token) {
+        var hit = lower.indexOf(token);
+        if (hit !== -1 && (idx === -1 || hit < idx)) idx = hit;
+      });
+      if (idx === -1) idx = 0;
+      var start = Math.max(0, idx - 46);
+      var end = Math.min(source.length, idx + 120);
+      var slice = source.slice(start, end).trim();
+      if (start > 0) slice = "… " + slice;
+      if (end < source.length) slice = slice + " …";
+      return slice;
+    }
+
+    function renderResults(items, query) {
       if (!results) return;
       results.innerHTML = "";
-      if (!query) {
+      var tokens = splitTokens(query);
+      if (!tokens.length) {
         setMeta("");
         return;
       }
@@ -59,78 +97,53 @@
       }
       setMeta("Found " + items.length + " result(s).");
       items.slice(0, 40).forEach(function (item) {
+        var body = item.body_text || "";
+        var excerpt = excerptAroundMatch(body, tokens);
         var li = document.createElement("li");
         li.className = "search-page__item";
-        li.innerHTML = '<a href="' + escapeHtml(item.url) + '" class="search-page__link">' +
-          '<strong>' + escapeHtml(item.title) + '</strong>' +
-          '<span>' + escapeHtml(item.summary || item.section || "") + '</span>' +
-          '</a>';
+        li.innerHTML =
+          '<a href="' +
+          escapeHtml(item.url) +
+          '" class="search-page__link">' +
+          '<strong>' +
+          highlight(item.title || "", tokens) +
+          "</strong>" +
+          '<span>' +
+          highlight(excerpt || item.section || "", tokens) +
+          "</span>" +
+          "</a>";
         results.appendChild(li);
       });
-    }
-
-    if (window.PagefindUI) {
-      new PagefindUI({
-        element: "#search-ui",
-        showImages: true,
-        showSubResults: true,
-        processResult: function (result) {
-          if (!result.url.includes('/search/')) return result;
-          return null;
-        }
-      });
-
-      if (initialQuery) {
-        window.setTimeout(function () {
-          var pagefindInput = document.querySelector("#search-ui input[type='search']");
-          if (pagefindInput) {
-            pagefindInput.value = initialQuery;
-            pagefindInput.dispatchEvent(new Event("input", { bubbles: true }));
-            pagefindInput.focus();
-          }
-        }, 80);
-      }
-      if (form && input) {
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          var q = input.value.trim();
-          var pagefindInput = document.querySelector("#search-ui input[type='search']");
-          if (pagefindInput) {
-            pagefindInput.value = q;
-            pagefindInput.dispatchEvent(new Event("input", { bubbles: true }));
-            pagefindInput.focus();
-          }
-          var nextUrl = q ? ("/search/?q=" + encodeURIComponent(q)) : "/search/";
-          window.history.replaceState({}, "", nextUrl);
-        });
-      }
-      setMeta("Full-text search ready.");
-      return;
     }
 
     fetch("{{ "/index.json" | relURL }}")
       .then(function (res) { return res.json(); })
       .then(function (json) {
         var items = Array.isArray(json.items) ? json.items : [];
-        function runFallbackSearch(query) {
-          var q = query.trim().toLowerCase();
+        function runSearch(query) {
+          var tokens = splitTokens(query);
+          var q = query.trim();
           var filtered = items.filter(function (item) {
-            var haystack = ((item.title || "") + " " + (item.summary || "") + " " + (item.content_text || "")).toLowerCase();
-            return q && haystack.indexOf(q) !== -1;
+            if (!tokens.length) return false;
+            var title = String(item.title || "").toLowerCase();
+            var body = String(item.body_text || "").toLowerCase();
+            return tokens.every(function (token) {
+              return title.indexOf(token) !== -1 || body.indexOf(token) !== -1;
+            });
           });
-          renderFallback(filtered, q);
+          renderResults(filtered, q);
         }
         if (form && input) {
           form.addEventListener("submit", function (e) {
             e.preventDefault();
             var q = input.value.trim();
-            runFallbackSearch(q);
+            runSearch(q);
             var nextUrl = q ? ("/search/?q=" + encodeURIComponent(q)) : "/search/";
             window.history.replaceState({}, "", nextUrl);
           });
         }
         if (initialQuery) {
-          runFallbackSearch(initialQuery);
+          runSearch(initialQuery);
         }
       })
       .catch(function () {
@@ -181,6 +194,11 @@
   }
   .search-page__link span {
     color: var(--muted);
+  }
+  .search-page mark {
+    background: color-mix(in srgb, #ffeb3b 70%, var(--panel));
+    color: inherit;
+    padding: 0 0.15em;
   }
 </style>
 {{ end }}

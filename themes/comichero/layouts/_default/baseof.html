@@ -13,8 +13,10 @@
   {{ end }}
   {{ $style := resources.Get "css/main.css" | minify | fingerprint }}
   <style>
-    html{background:#fff8e7;color:#0a0a0f}body{margin:0;font-family:"Comic Neue",system-ui,sans-serif}
-    .comic-header{border-bottom:3px solid #0a0a0f;background:#fff}.logo{font-family:"Bangers",system-ui,sans-serif}
+    html{--boot-paper:#fff8e7;--boot-ink:#0a0a0f;--boot-panel:#fff;background:var(--boot-paper);color:var(--boot-ink)}
+    html[data-theme=dark]{--boot-paper:#12121a;--boot-ink:#f4f1ea;--boot-panel:#1c1c28}
+    body{margin:0;font-family:"Comic Neue",system-ui,sans-serif;background:var(--boot-paper);color:var(--boot-ink)}
+    .comic-header{border-bottom:3px solid var(--boot-ink);background:var(--boot-panel)}.logo{font-family:"Bangers",system-ui,sans-serif}
   </style>
   <link rel="preload" as="style" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous"></noscript>
