@@ -13,6 +13,10 @@
       {{ end }}
     </nav>
     <div class="header-tools">
+      <a class="header-search-link" href="{{ "/search/" | relURL }}" aria-label="{{ i18n "search" | default "Search" }}">
+        <span aria-hidden="true">⌕</span>
+        <span>{{ i18n "search" | default "Search" }}</span>
+      </a>
       <button type="button" class="theme-toggle" data-theme-toggle aria-label="{{ i18n "toggle_theme" | default "Toggle color theme" }}">
         <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">☀</span>
         <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">☾</span>

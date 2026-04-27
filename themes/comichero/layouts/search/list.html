@@ -25,6 +25,19 @@
           return null;
         }
       });
+
+      var params = new URLSearchParams(window.location.search);
+      var q = (params.get("q") || "").trim();
+      if (q) {
+        window.setTimeout(function () {
+          var input = document.querySelector("#search-ui input[type='search']");
+          if (input) {
+            input.value = q;
+            input.dispatchEvent(new Event("input", { bubbles: true }));
+            input.focus();
+          }
+        }, 80);
+      }
     }
   });
 </script>

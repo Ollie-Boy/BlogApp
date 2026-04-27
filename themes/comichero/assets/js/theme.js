@@ -287,18 +287,6 @@
     });
   });
 
-  var tagSearch = document.querySelector("[data-tag-search]");
-  if (tagSearch) {
-    var tags = Array.prototype.slice.call(document.querySelectorAll(".tag-filter a.tag"));
-    tagSearch.addEventListener("input", function () {
-      var q = tagSearch.value.trim().toLowerCase();
-      tags.forEach(function (t) {
-        var show = !q || t.textContent.toLowerCase().indexOf(q) !== -1;
-        t.style.display = show ? "" : "none";
-      });
-    });
-  }
-
   /* Lightbox for content images */
   var lightbox = document.createElement("div");
   lightbox.className = "comic-lightbox";
@@ -313,7 +301,7 @@
     if (e.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
   });
 
-  /* Comic-style page enter transition */
+  /* Page enter transition */
   document.querySelectorAll("a[href]").forEach(function (a) {
     a.addEventListener("click", function (e) {
       var href = a.getAttribute("href") || "";
@@ -321,11 +309,7 @@
       var sameOrigin = href.startsWith("/") || href.indexOf(window.location.origin) === 0;
       if (!sameOrigin) return;
       e.preventDefault();
-      if (a.closest(".pagination, .article-nav, .episode-footer")) {
-        document.body.classList.add("page-flipping");
-      } else {
-        document.body.classList.add("page-entering");
-      }
+      document.body.classList.add("page-entering");
       window.setTimeout(function () {
         window.location.href = href;
       }, 210);
@@ -339,7 +323,7 @@
     });
   });
 
-  /* Keyboard shortcuts: j/k next-prev post, / focus search/filter */
+  /* Keyboard shortcuts: j/k next-prev post, / open search */
   document.addEventListener("keydown", function (e) {
     var tag = e.target && e.target.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (e.target && e.target.isContentEditable)) return;
@@ -352,11 +336,15 @@
       if (prev) { window.location.href = prev.getAttribute("href"); }
     }
     if (e.key === "/") {
-      var filter = document.querySelector("[data-tag-search]");
-      if (filter) {
-        e.preventDefault();
-        filter.focus();
+      e.preventDefault();
+      var query = "";
+      var active = document.activeElement;
+      if (active && active.tagName === "INPUT" && active.type === "search") {
+        query = (active.value || "").trim();
       }
+      var target = "/search/";
+      if (query) target += "?q=" + encodeURIComponent(query);
+      window.location.href = target;
     }
   });
 
