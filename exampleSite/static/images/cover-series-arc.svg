@@ -1,13 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="t d">
-  <title id="t">Series comic cover</title>
-  <desc id="d">Simple line style comic series cover.</desc>
-  <rect width="1200" height="630" fill="#152238"/>
-  <rect x="22" y="22" width="1156" height="586" fill="none" stroke="#ffd43b" stroke-width="8"/>
-  <rect x="82" y="84" width="700" height="204" fill="#101b2d" stroke="#ffd43b" stroke-width="6"/>
-  <text x="112" y="202" font-family="Bangers, Impact, sans-serif" font-size="92" fill="#f8fafc">SERIES ARC</text>
-  <path d="M120 462h220l76-92h220l76-76h220" fill="none" stroke="#ffd43b" stroke-width="8"/>
-  <circle cx="120" cy="462" r="10" fill="#ffd43b"/>
-  <circle cx="416" cy="370" r="10" fill="#ffd43b"/>
-  <circle cx="712" cy="294" r="10" fill="#ffd43b"/>
-  <circle cx="932" cy="294" r="10" fill="#ffd43b"/>
+  <title id="t">Series cover thumbnail placeholder</title>
+  <desc id="d">Comic thumbnail card style for series entries.</desc>
+  <rect width="1200" height="630" fill="#fff8e7"/>
+  <rect x="90" y="58" width="1020" height="514" rx="10" fill="#fff" stroke="#0a0a0f" stroke-width="8"/>
+  <rect x="130" y="98" width="940" height="238" rx="6" fill="#f2efff" stroke="#0a0a0f" stroke-width="5"/>
+  <path d="M190 238 H350 L430 170 H610 L700 230 H880 L960 182" fill="none" stroke="#0a0a0f" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M170 290 Q340 250 508 286 T850 286 T1020 286" fill="none" stroke="#0a0a0f" stroke-width="5" stroke-linecap="round"/>
+  <text x="140" y="394" font-family="Comic Neue, Arial, sans-serif" font-size="34" font-weight="700" fill="#564a7a">series · 2025-11-27</text>
+  <text x="140" y="456" font-family="Bangers, Impact, sans-serif" font-size="72" letter-spacing="1" fill="#0a0a0f">The Furry God</text>
+  <text x="140" y="512" font-family="Comic Neue, Arial, sans-serif" font-size="35" font-weight="700" fill="#2f2740">NGL, I LIKE THIS FURRY GOD SO MUCH!!!! Also da lil bird :3</text>
 </svg>
