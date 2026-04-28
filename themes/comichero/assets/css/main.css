@@ -2375,11 +2375,22 @@ pre.codesnippet code {
 }
 
 .comic-sidenote {
-  margin: 1rem 0;
+  width: min(20rem, 36%);
+  margin: 0.2rem 0 1rem 1rem;
   padding: 0.7rem 0.85rem;
   border-left: 8px solid var(--accent-2);
   background: color-mix(in srgb, var(--accent-2) 10%, var(--panel));
   box-shadow: 5px 5px 0 var(--line);
+  clear: both;
+}
+
+.comic-sidenote--right {
+  float: right;
+}
+
+.comic-sidenote--left {
+  float: left;
+  margin: 0.2rem 1rem 1rem 0;
 }
 
 .comic-sidenote__title {
@@ -2421,6 +2432,14 @@ pre.codesnippet code {
 
   .comic-villain-strip {
     grid-template-columns: 1fr;
+  }
+
+  .comic-sidenote,
+  .comic-sidenote--left,
+  .comic-sidenote--right {
+    float: none;
+    width: auto;
+    margin: 1rem 0;
   }
 }
 

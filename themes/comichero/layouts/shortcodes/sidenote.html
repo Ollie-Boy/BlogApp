@@ -1,7 +1,8 @@
 {{- $title := .Get "title" | default "Side note" -}}
 {{- $icon := .Get "icon" | default "✦" -}}
 {{- $class := .Get "class" -}}
-<aside class="comic-sidenote comic-panel {{ $class }}" role="note" aria-label="{{ $title }}">
+{{- $side := .Get "side" | default "right" -}}
+<aside class="comic-sidenote comic-sidenote--{{ $side }} comic-panel {{ $class }}" role="note" aria-label="{{ $title }}">
   <p class="comic-sidenote__title"><span aria-hidden="true">{{ $icon }}</span> {{ $title }}</p>
   <div class="comic-sidenote__body">{{ .Inner | markdownify }}</div>
 </aside>
