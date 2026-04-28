@@ -3073,15 +3073,16 @@ pre.codesnippet code {
 .comic-steps__step {
   position: relative;
   margin-bottom: 1.25rem;
-  padding-top: 0.5rem;
+  padding-top: 0.75rem;
+  padding-left: 3rem;
   counter-increment: comic-step;
 }
 
 .comic-steps__step::before {
   content: counter(comic-step);
   position: absolute;
-  top: -0.6rem;
-  left: 0.75rem;
+  top: 0.55rem;
+  left: 0.6rem;
   width: 2rem;
   height: 2rem;
   display: grid;
@@ -3097,7 +3098,7 @@ pre.codesnippet code {
 }
 
 .comic-steps__body {
-  padding-top: 0.25rem;
+  padding-top: 0.1rem;
 }
 
 .comic-steps__body > *:first-child {
