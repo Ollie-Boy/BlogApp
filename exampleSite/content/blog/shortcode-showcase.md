@@ -113,7 +113,7 @@ Finish with the third step
 {{< codesnippet path="assets/snippets/divider.txt" />}}
 
 ### `toc`
-{{< toc title="On this page" >}}
+{{< toc title="On this page" >}}{{< /toc >}}
 {{< codesnippet path="assets/snippets/toc.txt" />}}
 
 ---
@@ -242,7 +242,7 @@ Inline: {{< sfx text="POW!" >}}
 
 {{< burst text="WHAM!" >}}
 
-{{< stamp text="Approved" >}}
+{{< stamp text="Approved" />}}
 
 {{< codesnippet path="assets/snippets/sfx.txt" />}}
 {{< codesnippet path="assets/snippets/burst.txt" />}}
