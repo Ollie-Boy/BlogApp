@@ -2409,22 +2409,23 @@ pre.codesnippet code {
 }
 
 .comic-sidenote-inline__note {
-  position: absolute;
-  top: calc(100% + 0.35rem);
-  width: min(17.5rem, 28vw);
+  position: relative;
+  width: min(17.5rem, 30vw);
   padding: 0.7rem 0.85rem;
   border-left: 8px solid var(--accent-2);
   background: color-mix(in srgb, var(--accent-2) 10%, var(--panel));
   box-shadow: 5px 5px 0 var(--line);
-  z-index: 3;
+  z-index: 1;
 }
 
 .comic-sidenote-inline--right .comic-sidenote-inline__note {
-  left: calc(100% + 1rem);
+  float: right;
+  margin: 0.2rem -18.5rem 0.9rem 1rem;
 }
 
 .comic-sidenote-inline--left .comic-sidenote-inline__note {
-  right: calc(100% + 1rem);
+  float: left;
+  margin: 0.2rem 1rem 0.9rem -18.5rem;
 }
 
 .comic-sidenote-inline__title {
