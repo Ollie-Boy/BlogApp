@@ -117,5 +117,7 @@ Big quote…
 Enemy note…
 {{< /villain-strip >}}
 {{< sidenote title="Lore note" icon="✦" side="right" >}}
+Arc day one clock freeze
+---
 The city clocks all stopped at **03:17** on arc day one.
 {{< /sidenote >}}

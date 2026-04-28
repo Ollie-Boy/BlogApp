@@ -2,7 +2,28 @@
 {{- $icon := .Get "icon" | default "✦" -}}
 {{- $class := .Get "class" -}}
 {{- $side := .Get "side" | default "right" -}}
-<aside class="comic-sidenote comic-sidenote--{{ $side }} comic-panel {{ $class }}" role="note" aria-label="{{ $title }}">
-  <p class="comic-sidenote__title"><span aria-hidden="true">{{ $icon }}</span> {{ $title }}</p>
-  <div class="comic-sidenote__body">{{ .Inner | markdownify }}</div>
-</aside>
+{{- $id := printf "sidenote-%d" .Ordinal -}}
+{{- $parts := split .Inner "---" -}}
+{{- $trigger := "[note]" -}}
+{{- $note := .Inner -}}
+{{- if ge (len $parts) 2 -}}
+  {{- $trigger = index $parts 0 | strings.TrimSpace -}}
+  {{- $note = delimit (after 1 $parts) "---" | strings.TrimSpace -}}
+{{- end -}}
+<span class="comic-sidenote-inline comic-sidenote-inline--{{ $side }} {{ $class }}" data-sidenote-wrap>
+  <button
+    type="button"
+    class="comic-sidenote-inline__trigger"
+    data-sidenote-toggle
+    aria-expanded="false"
+    aria-controls="{{ $id }}"
+    aria-label="Open sidenote: {{ $title }}"
+  >
+    <span class="comic-sidenote-inline__marker" aria-hidden="true">{{ $icon }}</span>
+    <span class="comic-sidenote-inline__text">{{ $trigger }}</span>
+  </button>
+  <aside id="{{ $id }}" class="comic-sidenote-inline__note comic-panel" data-sidenote-note role="note" aria-label="{{ $title }}">
+    <p class="comic-sidenote-inline__title">{{ $title }}</p>
+    <div class="comic-sidenote-inline__body">{{ $note | markdownify }}</div>
+  </aside>
+</span>

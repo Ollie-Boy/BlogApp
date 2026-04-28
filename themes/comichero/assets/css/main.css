@@ -2374,26 +2374,60 @@ pre.codesnippet code {
   margin: 0;
 }
 
-.comic-sidenote {
-  width: min(20rem, 36%);
-  margin: 0.2rem 0 1rem 1rem;
+.comic-sidenote-inline {
+  position: relative;
+  display: inline;
+}
+
+.comic-sidenote-inline__trigger {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  margin: 0 0.08rem;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  border-bottom: 2px dashed color-mix(in srgb, var(--accent-2) 55%, transparent);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.comic-sidenote-inline__marker {
+  display: inline-grid;
+  place-items: center;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--accent-2);
+  border-radius: 999px;
+  font-size: 0.62rem;
+  line-height: 1;
+}
+
+.comic-sidenote-inline__note {
+  position: absolute;
+  top: 1.5em;
+  width: min(21rem, 48vw);
   padding: 0.7rem 0.85rem;
   border-left: 8px solid var(--accent-2);
   background: color-mix(in srgb, var(--accent-2) 10%, var(--panel));
   box-shadow: 5px 5px 0 var(--line);
-  clear: both;
+  z-index: 3;
 }
 
-.comic-sidenote--right {
-  float: right;
+.comic-sidenote-inline--right .comic-sidenote-inline__note {
+  left: calc(100% + 1rem);
 }
 
-.comic-sidenote--left {
-  float: left;
-  margin: 0.2rem 1rem 1rem 0;
+.comic-sidenote-inline--left .comic-sidenote-inline__note {
+  right: calc(100% + 1rem);
 }
 
-.comic-sidenote__title {
+.comic-sidenote-inline__title {
   margin: 0 0 0.35rem;
   font-family: var(--font-display);
   font-size: 1rem;
@@ -2401,12 +2435,25 @@ pre.codesnippet code {
   text-transform: uppercase;
 }
 
-.comic-sidenote__body > *:first-child {
+.comic-sidenote-inline__body > *:first-child {
   margin-top: 0;
 }
 
-.comic-sidenote__body > *:last-child {
+.comic-sidenote-inline__body > *:last-child {
   margin-bottom: 0;
+}
+
+.comic-sidenote-inline:hover .comic-sidenote-inline__trigger,
+.comic-sidenote-inline:focus-within .comic-sidenote-inline__trigger {
+  color: var(--accent-2);
+  border-color: var(--accent-2);
+}
+
+.comic-sidenote-inline:hover .comic-sidenote-inline__note,
+.comic-sidenote-inline:focus-within .comic-sidenote-inline__note,
+.comic-sidenote-inline__note:hover {
+  outline: 2px dashed color-mix(in srgb, var(--accent-2) 60%, transparent);
+  outline-offset: 2px;
 }
 
 [data-theme="dark"]
@@ -2415,7 +2462,7 @@ pre.codesnippet code {
     .comic-thought-cloud__bubble,
     .comic-quote-bar,
     .comic-villain-strip,
-    .comic-sidenote
+    .comic-sidenote-inline__note
   ) {
   background: var(--token-shortcode-surface);
 }
@@ -2434,12 +2481,26 @@ pre.codesnippet code {
     grid-template-columns: 1fr;
   }
 
-  .comic-sidenote,
-  .comic-sidenote--left,
-  .comic-sidenote--right {
-    float: none;
+  .comic-sidenote-inline__trigger {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-color: color-mix(in srgb, var(--accent-2) 65%, transparent);
+  }
+
+  .comic-sidenote-inline__note {
+    display: none;
+    position: static;
     width: auto;
-    margin: 1rem 0;
+    margin: 0.55rem 0 0.8rem;
+  }
+
+  .comic-sidenote-inline.is-open .comic-sidenote-inline__note {
+    display: block;
+  }
+
+  .comic-sidenote-inline.is-open .comic-sidenote-inline__trigger {
+    color: var(--accent-2);
+    border-color: var(--accent-2);
   }
 }
 

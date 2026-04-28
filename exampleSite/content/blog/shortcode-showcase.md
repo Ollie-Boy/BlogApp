@@ -131,12 +131,14 @@ Appears whenever the city grid enters blackout mode.
 ### `sidenote` — compact inline lore / editor note
 
 {{< sidenote title="Lore note" icon="✦" side="right" >}}
+Arc day one clock freeze
+---
 The city clocks all stopped at **03:17** on arc day one.
 {{< /sidenote >}}
 
 {{< codesnippet path="assets/snippets/sidenote.txt" />}}
 
-Use `side="right"` (default) or `side="left"` to place the sidenote outside the main text column.
+Use `side="right"` (default) or `side="left"` to place the sidenote outside the main text column. Put the **trigger text** above `---`, and the note content below it.
 
 ---
 

@@ -237,6 +237,7 @@
 
   document.querySelectorAll(".prose pre").forEach(function (pre) {
     if (pre.closest(".codesnippet-wrap")) return;
+    if (pre.closest(".comic-sidenote-inline__note")) return;
     if (pre.querySelector(".code-copy-btn")) return;
     var btn = document.createElement("button");
     btn.type = "button";
@@ -262,6 +263,24 @@
           .writeText(text)
           .then(done)
           .catch(function () {});
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-sidenote-wrap]").forEach(function (wrap) {
+    var toggle = wrap.querySelector("[data-sidenote-toggle]");
+    var note = wrap.querySelector("[data-sidenote-note]");
+    if (!toggle || !note) return;
+    toggle.addEventListener("click", function () {
+      var mobile = window.matchMedia("(max-width: 780px)").matches;
+      if (!mobile) return;
+      var open = wrap.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    window.addEventListener("resize", function () {
+      if (!window.matchMedia("(max-width: 780px)").matches) {
+        wrap.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
       }
     });
   });
