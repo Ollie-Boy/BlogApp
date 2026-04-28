@@ -4010,3 +4010,67 @@ pre.codesnippet,
 .comic-video__speed .is-active {
   background: color-mix(in srgb, var(--accent) 80%, var(--panel));
 }
+
+/* Code toolbar layout like file source blocks */
+.code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  padding: 0.38rem 0.6rem;
+  border: var(--stroke) solid var(--line);
+  border-bottom: 0;
+  background: color-mix(in srgb, var(--accent-2) 10%, var(--panel));
+}
+
+.code-toolbar + pre.code-enhanced {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.code-toolbar .code-copy-btn {
+  position: static;
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  margin-left: auto;
+  font-size: 0.72rem;
+  padding: 0.28rem 0.6rem;
+}
+
+.code-toolbar .code-collapse-btn {
+  margin-left: 0;
+}
+
+.code-toolbar .code-lang-badge {
+  position: static;
+  right: auto;
+  left: auto;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  box-shadow: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+/* Keep sidenote in outer margin like aside */
+@media (min-width: 781px) {
+  .comic-sidenote-inline__note {
+    position: relative;
+    top: auto !important;
+  }
+
+  .comic-sidenote-inline--right .comic-sidenote-inline__note {
+    float: right;
+    margin: 0.2rem -18.5rem 0.9rem 1rem;
+  }
+
+  .comic-sidenote-inline--left .comic-sidenote-inline__note {
+    float: left;
+    margin: 0.2rem 1rem 0.9rem -18.5rem;
+  }
+}

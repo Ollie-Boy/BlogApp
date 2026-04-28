@@ -517,36 +517,55 @@
       toast.classList.remove("is-show");
     }, 1200);
   }
+
   document.querySelectorAll(".prose pre code, .codesnippet code").forEach(function (code) {
     var pre = code.closest("pre");
     if (!pre) return;
     if (pre.closest(".comic-sidenote-inline__note")) return;
     pre.classList.add("code-enhanced");
+
     var lang = "";
     code.className.split(/\s+/).forEach(function (c) {
       if (c.indexOf("language-") === 0) lang = c.slice(9);
     });
-    if (lang) {
+
+    var toolbar = pre.previousElementSibling;
+    if (!toolbar || !toolbar.classList.contains("code-toolbar")) {
+      toolbar = document.createElement("div");
+      toolbar.className = "code-toolbar";
+      pre.parentNode.insertBefore(toolbar, pre);
+    }
+
+    if (lang && !toolbar.querySelector(".code-lang-badge")) {
       var badge = document.createElement("span");
       badge.className = "code-lang-badge";
-      if (["txt", "text", "go"].indexOf(lang.toLowerCase()) !== -1) badge.classList.add("is-plain");
+      if (["txt", "text", "go"].indexOf(lang.toLowerCase()) !== -1) {
+        badge.classList.add("is-plain");
+      }
       badge.textContent = lang;
-      pre.appendChild(badge);
+      toolbar.appendChild(badge);
     }
+
+    var copyBtn = pre.querySelector(".code-copy-btn");
+    if (copyBtn && copyBtn.parentElement !== toolbar) {
+      toolbar.appendChild(copyBtn);
+    }
+
     var lines = (code.textContent || "").split("\n").length;
-    if (lines > 20) {
+    if (lines > 20 && !toolbar.querySelector(".code-collapse-btn")) {
       pre.classList.add("is-collapsed");
       var toggle = document.createElement("button");
       toggle.type = "button";
       toggle.className = "code-copy-btn code-collapse-btn";
       toggle.textContent = "Expand code";
-      pre.appendChild(toggle);
+      toolbar.appendChild(toggle);
       toggle.addEventListener("click", function () {
         var open = pre.classList.toggle("is-collapsed");
         toggle.textContent = open ? "Expand code" : "Collapse code";
       });
     }
   });
+
   document.querySelectorAll(".code-copy-btn,[data-copy-target]").forEach(function (b) {
     b.addEventListener("click", function () {
       window.setTimeout(function () {
@@ -554,13 +573,17 @@
       }, 30);
     });
   });
+
   document.querySelectorAll(".code-copy-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var pre = btn.closest("pre");
+      var pre = btn.closest(".code-toolbar")
+        ? btn.closest(".code-toolbar").nextElementSibling
+        : btn.closest("pre");
       if (!pre) return;
       var txt = (pre.textContent || "").replace(/^[\$#>]\s?/gm, "");
-      if (navigator.clipboard && navigator.clipboard.writeText)
+      if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(txt).catch(function () {});
+      }
     });
   });
 
@@ -593,24 +616,6 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "n" || e.key === "N") document.body.classList.toggle("sidenote-hidden");
   });
-
-  /* Sidenotes outside box + avoid overlap */
-  function layoutSidenotes() {
-    var used = [];
-    document.querySelectorAll(".comic-sidenote-inline__note").forEach(function (note) {
-      if (window.matchMedia("(max-width: 780px)").matches) return;
-      var top = note.getBoundingClientRect().top + window.scrollY;
-      var h = note.offsetHeight;
-      used.forEach(function (u) {
-        if (Math.abs(top - u.top) < h + 12) top = u.top + u.h + 14;
-      });
-      note.style.top = top + "px";
-      used.push({ top: top, h: h });
-    });
-  }
-  window.addEventListener("load", layoutSidenotes);
-  window.addEventListener("resize", layoutSidenotes);
-  window.addEventListener("scroll", layoutSidenotes, { passive: true });
 
   /* series page progress + unread */
   var sList = document.querySelector("[data-series-list]");
