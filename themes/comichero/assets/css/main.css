@@ -841,9 +841,8 @@ body.comichero-body.site-shell {
 a.tag--series {
   text-decoration: none;
   color: var(--line);
-  border-bottom: 3px solid transparent;
   transition:
-    border-color 0.2s ease,
+    box-shadow 0.2s ease,
     transform 0.2s ease,
     color 0.2s ease;
 }
@@ -854,7 +853,7 @@ a.tag--series {
 
 a.tag--series:hover,
 a.tag--series:focus-visible {
-  border-color: var(--accent);
+  box-shadow: inset 0 -3px 0 var(--accent);
   transform: skewX(-4deg);
   color: var(--accent);
   outline: none;
@@ -3741,7 +3740,7 @@ pre.is-collapsed {
 a.tag--series,
 .tag-filter .tag,
 .article-meta__tags .tag {
-  border-bottom: 0;
+  border-bottom: 2px solid var(--line);
   transform: none;
 }
 
