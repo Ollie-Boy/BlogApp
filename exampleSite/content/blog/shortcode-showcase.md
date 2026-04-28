@@ -77,7 +77,7 @@ Finish with the third step
 
 ### `video`
 
-{{< video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" caption="Video frame style follows theme controls." >}}
+{{< video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" caption="Video frame style follows theme controls." />}}
 
 {{< codesnippet path="assets/snippets/video.txt" />}}
 
