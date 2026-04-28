@@ -3,8 +3,8 @@
   <header class="page-header comic-panel comic-panel--hero comic-panel--lined page-shell-panel">
     <p class="article-kicker">{{ i18n "series_label" | default "Series" }}</p>
     <h1 class="page-title sfx-pop">{{ .Title }}</h1>
-    <p class="lead">推荐阅读顺序：按时间从早到晚。</p>
-    <label><input type="checkbox" data-series-unread> 只看未读</label>
+    <p class="lead">Recommended reading order: earliest to latest.</p>
+    <label><input type="checkbox" data-series-unread> Unread only</label>
     <div class="series-readbar"><span data-series-readbar></span></div>
     {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
   </header>
@@ -18,6 +18,6 @@
     </li>
     {{ end }}
   </ol>
-  <section class="comic-panel"><h3>剧情时间线视图</h3><ul>{{ range .Pages.ByDate }}<li>{{ .Date.Format "2006" }} — <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}</ul></section>
+  <section class="comic-panel"><h3>Story timeline</h3><ul>{{ range .Pages.ByDate }}<li>{{ .Date.Format "2006" }} — <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}</ul></section>
 </div>
 {{ end }}

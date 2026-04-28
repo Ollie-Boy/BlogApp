@@ -48,11 +48,13 @@
     });
   }
 
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
-    if (!getStored(THEME_KEY)) {
-      applyTheme(e.matches ? "dark" : "light");
-    }
-  });
+  function applyTimeThemeIfAuto() {
+    if (getStored(THEME_KEY)) return;
+    var hour = new Date().getHours();
+    applyTheme(hour >= 19 || hour < 7 ? "dark" : "light");
+  }
+  applyTimeThemeIfAuto();
+  window.setInterval(applyTimeThemeIfAuto, 5 * 60 * 1000);
 
   /* Back to top */
   var btt = document.querySelector("[data-back-to-top]");
@@ -471,7 +473,8 @@
       try {
         localStorage.removeItem(THEME_KEY);
       } catch (err) {}
-      applyTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      var h = new Date().getHours();
+      applyTheme(h >= 19 || h < 7 ? "dark" : "light");
     });
   });
 
@@ -517,6 +520,7 @@
   document.querySelectorAll(".prose pre code, .codesnippet code").forEach(function (code) {
     var pre = code.closest("pre");
     if (!pre) return;
+    if (pre.closest(".comic-sidenote-inline__note")) return;
     pre.classList.add("code-enhanced");
     var lang = "";
     code.className.split(/\s+/).forEach(function (c) {
@@ -525,6 +529,7 @@
     if (lang) {
       var badge = document.createElement("span");
       badge.className = "code-lang-badge";
+      if (["txt", "text", "go"].indexOf(lang.toLowerCase()) !== -1) badge.classList.add("is-plain");
       badge.textContent = lang;
       pre.appendChild(badge);
     }
@@ -533,19 +538,19 @@
       pre.classList.add("is-collapsed");
       var toggle = document.createElement("button");
       toggle.type = "button";
-      toggle.className = "code-collapse-btn";
-      toggle.textContent = "展开长代码";
+      toggle.className = "code-copy-btn code-collapse-btn";
+      toggle.textContent = "Expand code";
       pre.appendChild(toggle);
       toggle.addEventListener("click", function () {
         var open = pre.classList.toggle("is-collapsed");
-        toggle.textContent = open ? "展开长代码" : "收起代码";
+        toggle.textContent = open ? "Expand code" : "Collapse code";
       });
     }
   });
   document.querySelectorAll(".code-copy-btn,[data-copy-target]").forEach(function (b) {
     b.addEventListener("click", function () {
       window.setTimeout(function () {
-        showToast("复制成功");
+        showToast("Copied");
       }, 30);
     });
   });
@@ -558,16 +563,6 @@
         navigator.clipboard.writeText(txt).catch(function () {});
     });
   });
-
-  var lineToggleBtn = document.createElement("button");
-  lineToggleBtn.type = "button";
-  lineToggleBtn.className = "line-toggle-global btn btn--ghost";
-  lineToggleBtn.textContent = "行号开关";
-  lineToggleBtn.addEventListener("click", function () {
-    document.body.classList.toggle("show-code-lines");
-  });
-  var ui = document.getElementById("comichero-ui");
-  if (ui) ui.appendChild(lineToggleBtn);
 
   /* Lightbox keyboard gallery */
   var lightboxImgs = Array.prototype.slice.call(
@@ -663,7 +658,7 @@
     var out = d.querySelector("[data-vote-result]");
     function render() {
       var v = getStored(k) || "";
-      if (out) out.textContent = v ? "你投了 " + v.toUpperCase() : "还没有投票";
+      if (out) out.textContent = v ? "You voted " + v.toUpperCase() : "No vote yet";
     }
     d.querySelectorAll("[data-vote-option]").forEach(function (b) {
       b.addEventListener("click", function () {
@@ -672,16 +667,6 @@
       });
     });
     render();
-  });
-
-  /* battle timeline collapse */
-  document.querySelectorAll("[data-battle-timeline]").forEach(function (bt) {
-    var btn = bt.querySelector("[data-battle-toggle]");
-    if (!btn) return;
-    btn.addEventListener("click", function () {
-      var c = bt.classList.toggle("is-collapsed");
-      btn.textContent = c ? "Expand" : "Collapse";
-    });
   });
 
   /* background reacts to mouse + scroll progress */

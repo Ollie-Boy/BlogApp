@@ -24,8 +24,10 @@
       try {
         var s = localStorage.getItem("comichero-theme");
         if (s === "dark" || s === "light") document.documentElement.setAttribute("data-theme", s);
-        else if (window.matchMedia("(prefers-color-scheme: dark)").matches)
-          document.documentElement.setAttribute("data-theme", "dark");
+        else {
+          var h = new Date().getHours();
+          document.documentElement.setAttribute("data-theme", h >= 19 || h < 7 ? "dark" : "light");
+        }
       } catch (e) {}
     })();
   </script>
