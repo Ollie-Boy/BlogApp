@@ -841,10 +841,23 @@ body.comichero-body.site-shell {
 a.tag--series {
   text-decoration: none;
   color: var(--line);
+  border-bottom: 3px solid transparent;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
 [data-theme="dark"] a.tag--series {
   color: #f4f1ea;
+}
+
+a.tag--series:hover,
+a.tag--series:focus-visible {
+  border-color: var(--accent);
+  transform: skewX(-4deg);
+  color: var(--accent);
+  outline: none;
 }
 
 /* Article shell — keeps single column layout */
@@ -1259,7 +1272,19 @@ a.tag--series {
   font-weight: 800;
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 3px solid var(--accent-2);
+  border-bottom: 3px solid transparent;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.comic-series-issues__link:hover,
+.comic-series-issues__link:focus-visible {
+  border-color: var(--accent-2);
+  transform: skewX(-4deg);
+  color: var(--accent-2);
+  outline: none;
 }
 
 .comic-series-issues__date {
@@ -1501,8 +1526,20 @@ pre.codesnippet code {
   font-weight: 800;
   color: var(--ink);
   text-decoration: none;
-  border-bottom: 3px solid var(--accent);
+  border-bottom: 3px solid transparent;
   max-width: 45%;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.article-nav__link:hover,
+.article-nav__link:focus-visible {
+  border-color: var(--accent);
+  transform: skewX(-4deg);
+  color: var(--accent);
+  outline: none;
 }
 
 /* Docs layout */
