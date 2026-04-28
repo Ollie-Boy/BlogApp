@@ -7,10 +7,14 @@
 {{- $clean := strings.TrimPrefix "/" $src -}}
 {{- $res := resources.Get $clean -}}
 {{- if and $res (ne $res.MediaType.SubType "svg") -}}
-  {{- $small := $res.Fill "480x270 webp q85" -}}
-  {{- $mid := $res.Fill "768x432 webp q85" -}}
-  {{- $big := $res.Fill "1200x675 webp q85" -}}
-  <img class="{{ $class }}" src="{{ $mid.RelPermalink }}" srcset="{{ $small.RelPermalink }} 480w, {{ $mid.RelPermalink }} 768w, {{ $big.RelPermalink }} 1200w" sizes="(max-width: 900px) 100vw, 640px" alt="{{ $alt }}" loading="{{ $loading }}" width="{{ $w }}" height="{{ $h }}">
+  {{- $avif := $res.Fill "768x432 avif q70" -}}
+  {{- $webp := $res.Fill "768x432 webp q85" -}}
+  {{- $jpg := $res.Fill "768x432 q85" -}}
+  <picture>
+    <source srcset="{{ $avif.RelPermalink }}" type="image/avif">
+    <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+    <img class="{{ $class }}" src="{{ $jpg.RelPermalink }}" alt="{{ $alt }}" loading="{{ $loading }}" width="{{ $w }}" height="{{ $h }}">
+  </picture>
 {{- else -}}
   <img class="{{ $class }}" src="{{ $src | relURL }}" alt="{{ $alt }}" loading="{{ $loading }}" width="{{ $w }}" height="{{ $h }}">
 {{- end -}}

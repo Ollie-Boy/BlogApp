@@ -1,6 +1,7 @@
 {{- $from := .Get "from" | default "" -}}
+{{- $tone := .Get "tone" | default "accent" -}}
 {{- $class := .Get "class" -}}
-<blockquote class="comic-quote-bar {{ $class }}">
+<blockquote class="comic-quote-bar comic-quote-bar--{{ $tone }} {{ $class }}">
   <p class="comic-quote-bar__text">{{ .Inner | markdownify }}</p>
   {{ with $from }}<footer class="comic-quote-bar__from">— {{ . }}</footer>{{ end }}
 </blockquote>

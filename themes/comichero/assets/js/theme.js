@@ -454,4 +454,244 @@
     });
     if (getStored(SFX_MUTE_KEY) === "1") board.setAttribute("data-sfx-muted", "1");
   });
+
+  /* Sticky shrink nav */
+  var header = document.querySelector(".site-header");
+  function updateHeaderShrink() {
+    if (!header) return;
+    header.classList.toggle("is-shrink", (window.scrollY || 0) > 24);
+  }
+  window.addEventListener("scroll", updateHeaderShrink, { passive: true });
+  updateHeaderShrink();
+
+  /* System-follow theme with manual override cycle */
+  document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
+    btn.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+      try {
+        localStorage.removeItem(THEME_KEY);
+      } catch (err) {}
+      applyTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    });
+  });
+
+  /* Global media mute memory */
+  var MEDIA_MUTE_KEY = "comichero-media-muted";
+  var mediaMuted = getStored(MEDIA_MUTE_KEY) === "1";
+  document.querySelectorAll("audio,video").forEach(function (m) {
+    m.muted = mediaMuted;
+    m.addEventListener("volumechange", function () {
+      setStored(MEDIA_MUTE_KEY, m.muted ? "1" : "0");
+    });
+  });
+
+  /* Video speed quick buttons */
+  document.querySelectorAll("[data-video-speed]").forEach(function (panel) {
+    var video = panel.parentElement && panel.parentElement.querySelector("video");
+    if (!video) return;
+    panel.querySelectorAll("[data-speed]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var rate = Number(b.getAttribute("data-speed") || "1");
+        if (!isFinite(rate) || rate <= 0) rate = 1;
+        video.playbackRate = rate;
+        panel.querySelectorAll("[data-speed]").forEach(function (x) {
+          x.classList.remove("is-active");
+        });
+        b.classList.add("is-active");
+      });
+    });
+  });
+
+  /* Enhanced code blocks */
+  var toast = document.createElement("div");
+  toast.className = "code-toast";
+  document.body.appendChild(toast);
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("is-show");
+    window.clearTimeout(showToast._t);
+    showToast._t = window.setTimeout(function () {
+      toast.classList.remove("is-show");
+    }, 1200);
+  }
+  document.querySelectorAll(".prose pre code, .codesnippet code").forEach(function (code) {
+    var pre = code.closest("pre");
+    if (!pre) return;
+    pre.classList.add("code-enhanced");
+    var lang = "";
+    code.className.split(/\s+/).forEach(function (c) {
+      if (c.indexOf("language-") === 0) lang = c.slice(9);
+    });
+    if (lang) {
+      var badge = document.createElement("span");
+      badge.className = "code-lang-badge";
+      badge.textContent = lang;
+      pre.appendChild(badge);
+    }
+    var lines = (code.textContent || "").split("\n").length;
+    if (lines > 20) {
+      pre.classList.add("is-collapsed");
+      var toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "code-collapse-btn";
+      toggle.textContent = "展开长代码";
+      pre.appendChild(toggle);
+      toggle.addEventListener("click", function () {
+        var open = pre.classList.toggle("is-collapsed");
+        toggle.textContent = open ? "展开长代码" : "收起代码";
+      });
+    }
+  });
+  document.querySelectorAll(".code-copy-btn,[data-copy-target]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      window.setTimeout(function () {
+        showToast("复制成功");
+      }, 30);
+    });
+  });
+  document.querySelectorAll(".code-copy-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var pre = btn.closest("pre");
+      if (!pre) return;
+      var txt = (pre.textContent || "").replace(/^[\$#>]\s?/gm, "");
+      if (navigator.clipboard && navigator.clipboard.writeText)
+        navigator.clipboard.writeText(txt).catch(function () {});
+    });
+  });
+
+  var lineToggleBtn = document.createElement("button");
+  lineToggleBtn.type = "button";
+  lineToggleBtn.className = "line-toggle-global btn btn--ghost";
+  lineToggleBtn.textContent = "行号开关";
+  lineToggleBtn.addEventListener("click", function () {
+    document.body.classList.toggle("show-code-lines");
+  });
+  var ui = document.getElementById("comichero-ui");
+  if (ui) ui.appendChild(lineToggleBtn);
+
+  /* Lightbox keyboard gallery */
+  var lightboxImgs = Array.prototype.slice.call(
+    document.querySelectorAll(".article-content img, .prose img")
+  );
+  var lightboxIndex = -1;
+  function openLightboxAt(i) {
+    if (!lightboxImgs[i]) return;
+    lightboxIndex = i;
+    lightboxImg.src = lightboxImgs[i].currentSrc || lightboxImgs[i].src;
+    lightboxImg.alt = lightboxImgs[i].alt || "";
+    lightbox.classList.add("is-open");
+  }
+  lightboxImgs.forEach(function (img, i) {
+    img.addEventListener("click", function () {
+      openLightboxAt(i);
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (!lightbox.classList.contains("is-open")) return;
+    if (e.key === "ArrowLeft" && lightboxImgs.length)
+      openLightboxAt((lightboxIndex - 1 + lightboxImgs.length) % lightboxImgs.length);
+    if (e.key === "ArrowRight" && lightboxImgs.length)
+      openLightboxAt((lightboxIndex + 1) % lightboxImgs.length);
+  });
+
+  /* Sidenote keyboard n + focus mode */
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "n" || e.key === "N") document.body.classList.toggle("sidenote-hidden");
+  });
+
+  /* Sidenotes outside box + avoid overlap */
+  function layoutSidenotes() {
+    var used = [];
+    document.querySelectorAll(".comic-sidenote-inline__note").forEach(function (note) {
+      if (window.matchMedia("(max-width: 780px)").matches) return;
+      var top = note.getBoundingClientRect().top + window.scrollY;
+      var h = note.offsetHeight;
+      used.forEach(function (u) {
+        if (Math.abs(top - u.top) < h + 12) top = u.top + u.h + 14;
+      });
+      note.style.top = top + "px";
+      used.push({ top: top, h: h });
+    });
+  }
+  window.addEventListener("load", layoutSidenotes);
+  window.addEventListener("resize", layoutSidenotes);
+  window.addEventListener("scroll", layoutSidenotes, { passive: true });
+
+  /* series page progress + unread */
+  var sList = document.querySelector("[data-series-list]");
+  if (sList) {
+    var items = Array.prototype.slice.call(sList.querySelectorAll("[data-series-item]"));
+    var key = "comichero-series-read:" + window.location.pathname;
+    var read = [];
+    try {
+      read = JSON.parse(getStored(key) || "[]");
+    } catch (e) {}
+    items.forEach(function (it) {
+      var slug = it.getAttribute("data-slug");
+      if (read.indexOf(slug) !== -1) it.classList.add("is-read");
+      var a = it.querySelector("a");
+      if (a)
+        a.addEventListener("click", function () {
+          if (read.indexOf(slug) === -1) {
+            read.push(slug);
+            setStored(key, JSON.stringify(read));
+          }
+        });
+    });
+    var rb = document.querySelector("[data-series-readbar]");
+    if (rb && items.length)
+      rb.style.width =
+        (
+          (items.filter(function (x) {
+            return x.classList.contains("is-read");
+          }).length /
+            items.length) *
+          100
+        ).toFixed(2) + "%";
+    var unread = document.querySelector("[data-series-unread]");
+    if (unread)
+      unread.addEventListener("change", function () {
+        items.forEach(function (it) {
+          it.style.display = unread.checked && it.classList.contains("is-read") ? "none" : "";
+        });
+      });
+  }
+
+  /* dialogue vote */
+  document.querySelectorAll("[data-dialogue-ab]").forEach(function (d) {
+    var k = "comichero-vote:" + (d.getAttribute("data-vote-key") || "x");
+    var out = d.querySelector("[data-vote-result]");
+    function render() {
+      var v = getStored(k) || "";
+      if (out) out.textContent = v ? "你投了 " + v.toUpperCase() : "还没有投票";
+    }
+    d.querySelectorAll("[data-vote-option]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        setStored(k, b.getAttribute("data-vote-option"));
+        render();
+      });
+    });
+    render();
+  });
+
+  /* battle timeline collapse */
+  document.querySelectorAll("[data-battle-timeline]").forEach(function (bt) {
+    var btn = bt.querySelector("[data-battle-toggle]");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var c = bt.classList.toggle("is-collapsed");
+      btn.textContent = c ? "Expand" : "Collapse";
+    });
+  });
+
+  /* background reacts to mouse + scroll progress */
+  function updateBg(e) {
+    var px = e ? e.clientX / Math.max(1, window.innerWidth) : 0.5;
+    var py = (window.scrollY || 0) / Math.max(1, document.body.scrollHeight - window.innerHeight);
+    root.style.setProperty("--bg-x", String((px * 100).toFixed(2)) + "%");
+    root.style.setProperty("--bg-y", String((py * 100).toFixed(2)) + "%");
+  }
+  window.addEventListener("mousemove", updateBg, { passive: true });
+  window.addEventListener("scroll", updateBg, { passive: true });
+  updateBg();
 })();

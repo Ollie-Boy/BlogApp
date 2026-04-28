@@ -9,7 +9,9 @@
     "lint:css:fix": "stylelint \"themes/comichero/assets/css/**/*.css\" --fix",
     "validate:frontmatter": "python3 scripts/validate_frontmatter.py",
     "lighthouse": "node scripts/lighthouse.mjs",
-    "build:search": "pagefind --site exampleSite/public"
+    "build:search": "pagefind --site exampleSite/public",
+    "docs:shortcodes": "node scripts/generate_shortcode_docs.mjs",
+    "check:links": "hugo --source exampleSite --themesDir themes --printPathWarnings --printUnusedTemplates"
   },
   "devDependencies": {
     "lighthouse": "^12.3.0",

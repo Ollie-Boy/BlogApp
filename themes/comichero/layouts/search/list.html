@@ -2,203 +2,224 @@
 <div class="container section">
   <header class="page-header comic-panel comic-panel--hero comic-panel--lined page-shell-panel">
     <h1 class="page-title sfx-pop">{{ .Title }}</h1>
-    {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
+    {{ with .Content }}
+    <div class="prose lead">{{ . }}</div>
+    {{ end }}
   </header>
-  <section class="comic-panel search-page">
+  <section class="comic-panel search-page" data-search-app>
     <form class="search-page__form" data-search-form role="search">
       <label class="visually-hidden" for="search-query">Search</label>
-      <input id="search-query" class="search-page__input" type="search" name="q" placeholder="Search posts, docs, and series..." autocomplete="off">
+      <input
+        id="search-query"
+        class="search-page__input"
+        type="search"
+        name="q"
+        placeholder="Search posts, docs, and series..."
+        autocomplete="off"
+      />
+      <select data-filter-section>
+        <option value="">All sections</option>
+      </select>
+      <input class="search-page__input" type="text" placeholder="tag filter" data-filter-tag />
+      <select data-sort>
+        <option value="relevance">Relevant</option>
+        <option value="time">Latest</option>
+      </select>
       <button class="btn btn--primary" type="submit">Search</button>
     </form>
+    <div class="search-page__history" data-search-history></div>
     <p class="search-page__meta" data-search-meta></p>
     <ul class="search-page__results" data-search-results></ul>
+    <div class="search-page__recommend" data-search-recommend></div>
   </section>
 </div>
-{{ end }}
-
-{{ define "scripts" }}
+{{ end }} {{ define "scripts" }}
 <script defer>
   window.addEventListener("DOMContentLoaded", function () {
-    var params = new URLSearchParams(window.location.search);
-    var initialQuery = (params.get("q") || "").trim();
-    var input = document.getElementById("search-query");
-    var form = document.querySelector("[data-search-form]");
-    var meta = document.querySelector("[data-search-meta]");
-    var results = document.querySelector("[data-search-results]");
-
-    if (input && initialQuery) {
-      input.value = initialQuery;
-    }
-
-    function escapeHtml(text) {
-      return String(text || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
-
-    function setMeta(text) {
-      if (meta) meta.textContent = text;
-    }
-
-    function splitTokens(query) {
-      return String(query || "")
-        .trim()
+    const SYN = { js: ["javascript", "node"], ai: ["llm", "gpt"] };
+    const params = new URLSearchParams(location.search);
+    const input = document.getElementById("search-query");
+    const form = document.querySelector("[data-search-form]");
+    const meta = document.querySelector("[data-search-meta]");
+    const results = document.querySelector("[data-search-results]");
+    const secSel = document.querySelector("[data-filter-section]");
+    const tagIn = document.querySelector("[data-filter-tag]");
+    const sortSel = document.querySelector("[data-sort]");
+    const rec = document.querySelector("[data-search-recommend]");
+    const hist = document.querySelector("[data-search-history]");
+    let idx = -1,
+      rows = [];
+    function tok(q) {
+      return (q || "")
         .toLowerCase()
+        .trim()
         .split(/\s+/)
-        .filter(Boolean);
+        .filter(Boolean)
+        .flatMap((t) =>
+          [t].concat(
+            Object.keys(SYN)
+              .filter((k) => k === t || SYN[k].includes(t))
+              .flatMap((k) => [k].concat(SYN[k]))
+          )
+        );
     }
-
-    function escapeRegExp(text) {
-      return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }
-
-    function highlight(text, tokens) {
-      var out = escapeHtml(text || "");
-      if (!tokens.length) return out;
-      tokens.forEach(function (token) {
-        var re = new RegExp("(" + escapeRegExp(token) + ")", "gi");
-        out = out.replace(re, "<mark>$1</mark>");
-      });
-      return out;
-    }
-
-    function excerptAroundMatch(text, tokens) {
-      var source = String(text || "");
-      if (!source) return "";
-      var lower = source.toLowerCase();
-      var idx = -1;
-      tokens.forEach(function (token) {
-        var hit = lower.indexOf(token);
-        if (hit !== -1 && (idx === -1 || hit < idx)) idx = hit;
-      });
-      if (idx === -1) idx = 0;
-      var start = Math.max(0, idx - 46);
-      var end = Math.min(source.length, idx + 120);
-      var slice = source.slice(start, end).trim();
-      if (start > 0) slice = "… " + slice;
-      if (end < source.length) slice = slice + " …";
-      return slice;
-    }
-
-    function renderResults(items, query) {
-      if (!results) return;
-      results.innerHTML = "";
-      var tokens = splitTokens(query);
-      if (!tokens.length) {
-        setMeta("");
-        return;
-      }
-      if (!items.length) {
-        setMeta("No matches found.");
-        return;
-      }
-      setMeta("Found " + items.length + " result(s).");
-      items.slice(0, 40).forEach(function (item) {
-        var body = item.body_text || "";
-        var excerpt = excerptAroundMatch(body, tokens);
-        var li = document.createElement("li");
-        li.className = "search-page__item";
-        li.innerHTML =
-          '<a href="' +
-          escapeHtml(item.url) +
-          '" class="search-page__link">' +
-          '<strong>' +
-          highlight(item.title || "", tokens) +
-          "</strong>" +
-          '<span>' +
-          highlight(excerpt || item.section || "", tokens) +
-          "</span>" +
-          "</a>";
-        results.appendChild(li);
-      });
-    }
-
-    fetch("{{ "/index.json" | relURL }}")
-      .then(function (res) { return res.json(); })
-      .then(function (json) {
-        var items = Array.isArray(json.items) ? json.items : [];
-        function runSearch(query) {
-          var tokens = splitTokens(query);
-          var q = query.trim();
-          var filtered = items.filter(function (item) {
-            if (!tokens.length) return false;
-            var title = String(item.title || "").toLowerCase();
-            var body = String(item.body_text || "").toLowerCase();
-            return tokens.every(function (token) {
-              return title.indexOf(token) !== -1 || body.indexOf(token) !== -1;
-            });
-          });
-          renderResults(filtered, q);
+    function dist1(a, b) {
+      if (Math.abs(a.length - b.length) > 1) return 9;
+      let i = 0,
+        j = 0,
+        d = 0;
+      while (i < a.length && j < b.length) {
+        if (a[i] === b[j]) {
+          i++;
+          j++;
+          continue;
         }
-        if (form && input) {
-          form.addEventListener("submit", function (e) {
+        d++;
+        if (d > 1) return d;
+        if (a.length > b.length) i++;
+        else if (a.length < b.length) j++;
+        else {
+          i++;
+          j++;
+        }
+      }
+      return d + (a.length - i) + (b.length - j);
+    }
+    function mark(t, ts) {
+      let o = t || "";
+      ts.forEach((x, i) => {
+        if (!x) return;
+        const cls = "lv" + ((i % 3) + 1);
+        o = o.split(x).join('<mark class=\"' + cls + '\">' + x + "</mark>");
+        o = o
+          .split(x.toUpperCase())
+          .join('<mark class=\"' + cls + '\">' + x.toUpperCase() + "</mark>");
+      });
+      return o;
+    }
+    function saveHistory(q) {
+      if (!q) return;
+      let h = [];
+      try {
+        h = JSON.parse(localStorage.getItem("comichero-search-h") || "[]");
+      } catch (e) {}
+      h = [q].concat(h.filter((v) => v !== q)).slice(0, 8);
+      localStorage.setItem("comichero-search-h", JSON.stringify(h));
+      renderHistory(h);
+    }
+    function renderHistory(h) {
+      hist.innerHTML = "";
+      if (!h.length) return;
+      hist.innerHTML =
+        "<strong>最近搜索：</strong> " +
+        h
+          .map((v) => '<button type="button" class="tag" data-h="' + v + '">' + v + "</button>")
+          .join(" ");
+    }
+    fetch('{{ "/index.json" | relURL }}')
+      .then((r) => r.json())
+      .then((j) => {
+        const items = j.items || [];
+        const secs = [...new Set(items.map((i) => i.section).filter(Boolean))];
+        secs.forEach((s) => {
+          const o = document.createElement("option");
+          o.value = s;
+          o.textContent = s;
+          secSel.appendChild(o);
+        });
+        function score(it, ts) {
+          const txt = ((it.title || "") + " " + (it.body_text || "")).toLowerCase();
+          let sc = 0;
+          ts.forEach((t) => {
+            if (txt.includes(t)) sc += 6;
+            else {
+              const words = txt.split(/\W+/).slice(0, 180);
+              if (words.some((w) => dist1(w, t) <= 1)) sc += 2;
+            }
+          });
+          return sc;
+        }
+        function run() {
+          const q = input.value.trim();
+          const ts = tok(q);
+          idx = -1;
+          rec.innerHTML = "";
+          let out = items.map((it) => ({ it, s: score(it, ts) })).filter((v) => v.s > 0);
+          if (secSel.value) out = out.filter((v) => v.it.section === secSel.value);
+          if (tagIn.value.trim())
+            out = out.filter((v) =>
+              (v.it.tags || []).join(" ").toLowerCase().includes(tagIn.value.trim().toLowerCase())
+            );
+          out.sort((a, b) =>
+            sortSel.value === "time"
+              ? new Date(b.it.date_published) - new Date(a.it.date_published)
+              : b.s - a.s
+          );
+          rows = out.slice(0, 40);
+          results.innerHTML = "";
+          if (!q) {
+            meta.textContent = "";
+            return;
+          }
+          meta.textContent = "Found " + rows.length + " result(s).";
+          if (!rows.length) {
+            const picks = items
+              .sort((a, b) => new Date(b.date_published) - new Date(a.date_published))
+              .slice(0, 4);
+            rec.innerHTML =
+              "<p>No result，推荐阅读：</p><ul>" +
+              picks.map((p) => '<li><a href="' + p.url + '">' + p.title + "</a></li>").join("") +
+              "</ul>";
+          }
+          rows.forEach((r, i) => {
+            const li = document.createElement("li");
+            li.className = "search-page__item";
+            li.innerHTML =
+              '<a class="search-page__link" href="' +
+              r.it.url +
+              '"><strong>' +
+              mark(r.it.title, ts) +
+              "</strong><span>" +
+              mark(r.it.summary || r.it.section || "", ts) +
+              "</span></a>";
+            li.dataset.i = i;
+            results.appendChild(li);
+          });
+          if (q) saveHistory(q);
+          history.replaceState({}, "", q ? "/search/?q=" + encodeURIComponent(q) : "/search/");
+        }
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          run();
+        });
+        input.addEventListener("input", run);
+        [secSel, sortSel, tagIn].forEach((el) => el.addEventListener("change", run));
+        document.addEventListener("keydown", (e) => {
+          if (document.activeElement !== input) return;
+          if (e.key === "ArrowDown") {
             e.preventDefault();
-            var q = input.value.trim();
-            runSearch(q);
-            var nextUrl = q ? ("/search/?q=" + encodeURIComponent(q)) : "/search/";
-            window.history.replaceState({}, "", nextUrl);
-          });
-        }
-        if (initialQuery) {
-          runSearch(initialQuery);
-        }
+            idx = Math.min(rows.length - 1, idx + 1);
+          }
+          if (e.key === "ArrowUp") {
+            e.preventDefault();
+            idx = Math.max(0, idx - 1);
+          }
+          if (e.key === "Enter" && idx >= 0 && rows[idx]) location.href = rows[idx].it.url;
+          [...results.children].forEach((li, n) => li.classList.toggle("is-active", n === idx));
+        });
+        hist.addEventListener("click", (e) => {
+          const b = e.target.closest("[data-h]");
+          if (!b) return;
+          input.value = b.getAttribute("data-h");
+          run();
+        });
+        try {
+          renderHistory(JSON.parse(localStorage.getItem("comichero-search-h") || "[]"));
+        } catch (e) {}
+        input.value = (params.get("q") || "").trim();
+        if (input.value) run();
       })
-      .catch(function () {
-        setMeta("Search index failed to load.");
-      });
+      .catch(() => (meta.textContent = "Search index failed to load."));
   });
 </script>
-<style>
-  .search-page__form {
-    display: flex;
-    gap: 0.65rem;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 0.75rem;
-  }
-  .search-page__input {
-    flex: 1 1 18rem;
-    min-width: 16rem;
-    border: var(--stroke) solid var(--line);
-    padding: 0.55rem 0.75rem;
-    font: inherit;
-    background: var(--panel);
-    color: var(--ink);
-  }
-  .search-page__meta {
-    margin: 0.5rem 0 1rem;
-    font-weight: 700;
-  }
-  .search-page__results {
-    list-style: none;
-    margin: 1rem 0 0;
-    padding: 0;
-    display: grid;
-    gap: 0.65rem;
-  }
-  .search-page__item {
-    border: var(--stroke) solid var(--line);
-    background: var(--panel);
-    box-shadow: 4px 4px 0 var(--line);
-  }
-  .search-page__link {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    padding: 0.7rem 0.85rem;
-    text-decoration: none;
-    color: inherit;
-  }
-  .search-page__link span {
-    color: var(--muted);
-  }
-  .search-page mark {
-    background: color-mix(in srgb, #ffeb3b 70%, var(--panel));
-    color: inherit;
-    padding: 0 0.15em;
-  }
-</style>
 {{ end }}

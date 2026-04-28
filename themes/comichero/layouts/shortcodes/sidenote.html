@@ -1,5 +1,7 @@
 {{- $title := .Get "title" | default "Side note" -}}
-{{- $icon := .Get "icon" | default "✦" -}}
+{{- $iconLib := dict "star" "✦" "info" "ℹ" "alert" "⚠" "idea" "💡" "pin" "📌" -}}
+{{- $iconKey := .Get "iconSet" | default "star" -}}
+{{- $icon := .Get "icon" | default (index $iconLib $iconKey) | default "✦" -}}
 {{- $class := .Get "class" -}}
 {{- $side := .Get "side" | default "right" -}}
 {{- $id := printf "sidenote-%d" .Ordinal -}}
@@ -10,7 +12,7 @@
   {{- $trigger = index $parts 0 | strings.TrimSpace -}}
   {{- $note = delimit (after 1 $parts) "---" | strings.TrimSpace -}}
 {{- end -}}
-<span class="comic-sidenote-inline comic-sidenote-inline--{{ $side }} {{ $class }}" data-sidenote-wrap>
+<span class="comic-sidenote-inline comic-sidenote-inline--{{ $side }} {{ $class }}" data-sidenote-wrap data-sidenote-id="{{ $id }}">
   <button
     type="button"
     class="comic-sidenote-inline__trigger"

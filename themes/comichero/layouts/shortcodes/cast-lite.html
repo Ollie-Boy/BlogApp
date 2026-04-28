@@ -1,6 +1,7 @@
 {{- $name := .Get "name" | default "Unknown" -}}
 {{- $role := .Get "role" | default "Role" -}}
 {{- $img := .Get "img" -}}
+{{- $detail := .Get "detail" | default "" -}}
 {{- $class := .Get "class" -}}
 <article class="comic-cast-lite comic-panel {{ $class }}" aria-label="Character intro">
   {{ with $img }}<img class="comic-cast-lite__avatar" src="{{ . | relURL }}" alt="{{ $name }}" loading="lazy">{{ end }}
@@ -8,5 +9,6 @@
     <h4 class="comic-cast-lite__name">{{ $name }}</h4>
     <p class="comic-cast-lite__role">{{ $role }}</p>
     {{ with .Inner }}<div class="comic-cast-lite__desc">{{ . | markdownify }}</div>{{ end }}
+    {{ with $detail }}<div class="comic-cast-lite__detail">{{ . | markdownify }}</div>{{ end }}
   </div>
 </article>

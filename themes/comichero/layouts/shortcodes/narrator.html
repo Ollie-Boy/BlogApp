@@ -1,6 +1,7 @@
 {{- $title := .Get "title" | default "Narrator" -}}
+{{- $tone := .Get "tone" | default "calm" -}}
 {{- $class := .Get "class" -}}
-<aside class="comic-narrator comic-panel {{ $class }}" role="note" aria-label="Narration">
+<aside class="comic-narrator comic-panel comic-narrator--{{ $tone }} {{ $class }}" role="note" aria-label="Narration">
   <p class="comic-narrator__title">{{ $title }}</p>
   <div class="comic-narrator__body">{{ .Inner | markdownify }}</div>
 </aside>

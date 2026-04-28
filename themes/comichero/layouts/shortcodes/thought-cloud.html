@@ -1,6 +1,8 @@
 {{- $from := .Get "from" | default "Inner voice" -}}
+{{- $avatar := .Get "avatar" -}}
 {{- $class := .Get "class" -}}
 <aside class="comic-thought-cloud {{ $class }}" role="note" aria-label="Thought">
+  {{ with $avatar }}<img class="comic-thought-cloud__avatar" src="{{ . | relURL }}" alt="{{ $from }}" loading="lazy">{{ end }}
   <p class="comic-thought-cloud__label">{{ $from }}</p>
   <div class="comic-thought-cloud__bubble">{{ .Inner | markdownify }}</div>
 </aside>

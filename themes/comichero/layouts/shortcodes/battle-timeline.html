@@ -1,11 +1,15 @@
 {{- $title := .Get "title" | default "Battle Timeline" -}}
 {{- $class := .Get "class" -}}
-{{- $rows := split .Inner "\n" -}}
-<section class="comic-battle-timeline {{ $class }}">
-  <h3 class="comic-battle-timeline__title">{{ $title }}</h3>
+{{- $rows := split .Inner "
+" -}}
+<section class="comic-battle-timeline {{ $class }}" data-battle-timeline>
+  <div class="comic-battle-timeline__head">
+    <h3 class="comic-battle-timeline__title">{{ $title }}</h3>
+    <button type="button" class="btn btn--ghost" data-battle-toggle>Collapse</button>
+  </div>
   <ol class="comic-battle-timeline__list" role="list">
     {{ range $rows }}
-      {{ $line := trim . " \r\t" }}
+      {{ $line := trim . " 	" }}
       {{ if $line }}
         {{ $parts := split $line "|" }}
         {{ if ge (len $parts) 3 }}

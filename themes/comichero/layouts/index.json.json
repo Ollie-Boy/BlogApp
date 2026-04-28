@@ -15,7 +15,8 @@
       "date_published": {{ $p.Date.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
       "section": {{ $p.Section | jsonify }},
       "summary": {{ ($p.Params.summary | default $p.Description | default $p.Summary | plainify) | jsonify }},
-      "body_text": {{ $rawBody | jsonify }}
+      "body_text": {{ $rawBody | jsonify }},
+      "tags": {{ ($p.Params.tags | default (slice)) | jsonify }}
     }
     {{- end -}}
   ]

@@ -4,14 +4,10 @@
     <p class="burst burst--lg sfx-pop" aria-hidden="true"><span class="burst__text">404</span></p>
     <h1 class="page-title">{{ i18n "page_not_found" | default "Page not found" }}</h1>
     <p class="lead">{{ i18n "page_not_found_body" | default "That page vanished like a speech bubble in the wind." }}</p>
-    <div class="hero__actions">
-      <a class="btn btn--primary" href="{{ "/" | relURL }}">{{ i18n "go_home" | default "Back home" }}</a>
-    </div>
-    <div class="mini-strip" aria-hidden="true">
-      <div class="mini-strip__panel">CLUE?</div>
-      <div class="mini-strip__panel">PAGE LOST!</div>
-      <div class="mini-strip__panel">KEEP READING →</div>
-    </div>
+    <form action="{{ "search/" | relURL }}" method="get" class="search-page__form"><input class="search-page__input" name="q" type="search" placeholder="Search directly..."><button class="btn btn--primary" type="submit">Search</button></form>
+    <p>Try these:</p>
+    <ul>{{ range first 5 (where site.RegularPages "Section" "blog") }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}</ul>
+    <div class="hero__actions"><a class="btn btn--primary" href="{{ "/" | relURL }}">{{ i18n "go_home" | default "Back home" }}</a></div>
   </div>
 </div>
 {{ end }}
