@@ -239,7 +239,6 @@
 
   document.querySelectorAll(".prose pre").forEach(function (pre) {
     if (pre.closest(".codesnippet-wrap")) return;
-    if (pre.closest(".comic-sidenote-inline__note")) return;
     if (pre.querySelector(".code-copy-btn")) return;
     var btn = document.createElement("button");
     btn.type = "button";
@@ -265,24 +264,6 @@
           .writeText(text)
           .then(done)
           .catch(function () {});
-      }
-    });
-  });
-
-  document.querySelectorAll("[data-sidenote-wrap]").forEach(function (wrap) {
-    var toggle = wrap.querySelector("[data-sidenote-toggle]");
-    var note = wrap.querySelector("[data-sidenote-note]");
-    if (!toggle || !note) return;
-    toggle.addEventListener("click", function () {
-      var mobile = window.matchMedia("(max-width: 780px)").matches;
-      if (!mobile) return;
-      var open = wrap.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    window.addEventListener("resize", function () {
-      if (!window.matchMedia("(max-width: 780px)").matches) {
-        wrap.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
       }
     });
   });
@@ -488,23 +469,6 @@
     });
   });
 
-  /* Video speed quick buttons */
-  document.querySelectorAll("[data-video-speed]").forEach(function (panel) {
-    var video = panel.parentElement && panel.parentElement.querySelector("video");
-    if (!video) return;
-    panel.querySelectorAll("[data-speed]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var rate = Number(b.getAttribute("data-speed") || "1");
-        if (!isFinite(rate) || rate <= 0) rate = 1;
-        video.playbackRate = rate;
-        panel.querySelectorAll("[data-speed]").forEach(function (x) {
-          x.classList.remove("is-active");
-        });
-        b.classList.add("is-active");
-      });
-    });
-  });
-
   /* Enhanced code blocks */
   var toast = document.createElement("div");
   toast.className = "code-toast";
@@ -521,44 +485,15 @@
   document.querySelectorAll(".prose pre code, .codesnippet code").forEach(function (code) {
     var pre = code.closest("pre");
     if (!pre) return;
-    if (pre.closest(".comic-sidenote-inline__note")) return;
     pre.classList.add("code-enhanced");
-
-    var lang = "";
-    code.className.split(/\s+/).forEach(function (c) {
-      if (c.indexOf("language-") === 0) lang = c.slice(9);
-    });
-
-    var toolbar = pre.previousElementSibling;
-    if (!toolbar || !toolbar.classList.contains("code-toolbar")) {
-      toolbar = document.createElement("div");
-      toolbar.className = "code-toolbar";
-      pre.parentNode.insertBefore(toolbar, pre);
-    }
-
-    if (lang && !toolbar.querySelector(".code-lang-badge")) {
-      var badge = document.createElement("span");
-      badge.className = "code-lang-badge";
-      if (["txt", "text", "go"].indexOf(lang.toLowerCase()) !== -1) {
-        badge.classList.add("is-plain");
-      }
-      badge.textContent = lang;
-      toolbar.appendChild(badge);
-    }
-
-    var copyBtn = pre.querySelector(".code-copy-btn");
-    if (copyBtn && copyBtn.parentElement !== toolbar) {
-      toolbar.appendChild(copyBtn);
-    }
-
     var lines = (code.textContent || "").split("\n").length;
-    if (lines > 20 && !toolbar.querySelector(".code-collapse-btn")) {
+    if (lines > 20 && !pre.querySelector(".code-collapse-btn")) {
       pre.classList.add("is-collapsed");
       var toggle = document.createElement("button");
       toggle.type = "button";
       toggle.className = "code-copy-btn code-collapse-btn";
       toggle.textContent = "Expand code";
-      toolbar.appendChild(toggle);
+      pre.appendChild(toggle);
       toggle.addEventListener("click", function () {
         var open = pre.classList.toggle("is-collapsed");
         toggle.textContent = open ? "Expand code" : "Collapse code";
@@ -576,9 +511,7 @@
 
   document.querySelectorAll(".code-copy-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var pre = btn.closest(".code-toolbar")
-        ? btn.closest(".code-toolbar").nextElementSibling
-        : btn.closest("pre");
+      var pre = btn.closest("pre");
       if (!pre) return;
       var txt = (pre.textContent || "").replace(/^[\$#>]\s?/gm, "");
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -610,11 +543,6 @@
       openLightboxAt((lightboxIndex - 1 + lightboxImgs.length) % lightboxImgs.length);
     if (e.key === "ArrowRight" && lightboxImgs.length)
       openLightboxAt((lightboxIndex + 1) % lightboxImgs.length);
-  });
-
-  /* Sidenote keyboard n + focus mode */
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "n" || e.key === "N") document.body.classList.toggle("sidenote-hidden");
   });
 
   /* series page progress + unread */

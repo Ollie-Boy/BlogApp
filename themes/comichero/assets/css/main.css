@@ -2374,135 +2374,6 @@ pre.codesnippet code {
   margin: 0;
 }
 
-.comic-sidenote-inline {
-  position: relative;
-  display: inline;
-}
-
-.comic-sidenote-inline__trigger {
-  appearance: none;
-  border: 0;
-  background: none;
-  padding: 0;
-  margin: 0 0.04rem;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  border-bottom: 1px dotted color-mix(in srgb, var(--accent-2) 38%, transparent);
-  transition:
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.comic-sidenote-inline__marker {
-  display: inline-grid;
-  place-items: center;
-  width: 0.85rem;
-  height: 0.85rem;
-  border: 1.5px solid color-mix(in srgb, var(--accent-2) 68%, var(--line));
-  border-radius: 999px;
-  font-size: 0.5rem;
-  line-height: 1;
-}
-
-.comic-sidenote-inline__note {
-  position: relative;
-  width: min(17.5rem, 30vw);
-  padding: 0.7rem 0.85rem;
-  border-left: 8px solid var(--accent-2);
-  background: color-mix(in srgb, var(--accent-2) 10%, var(--panel));
-  box-shadow: 5px 5px 0 var(--line);
-  z-index: 1;
-}
-
-.comic-sidenote-inline--right .comic-sidenote-inline__note {
-  float: right;
-  margin: 0.2rem -18.5rem 0.9rem 1rem;
-}
-
-.comic-sidenote-inline--left .comic-sidenote-inline__note {
-  float: left;
-  margin: 0.2rem 1rem 0.9rem -18.5rem;
-}
-
-.comic-sidenote-inline__title {
-  margin: 0 0 0.35rem;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.comic-sidenote-inline__body > *:first-child {
-  margin-top: 0;
-}
-
-.comic-sidenote-inline__body > *:last-child {
-  margin-bottom: 0;
-}
-
-.comic-sidenote-inline:hover .comic-sidenote-inline__trigger,
-.comic-sidenote-inline:focus-within .comic-sidenote-inline__trigger {
-  color: color-mix(in srgb, var(--accent-2) 78%, var(--ink));
-  border-color: color-mix(in srgb, var(--accent-2) 62%, transparent);
-}
-
-.comic-sidenote-inline:hover .comic-sidenote-inline__note,
-.comic-sidenote-inline:focus-within .comic-sidenote-inline__note,
-.comic-sidenote-inline__note:hover {
-  outline: 1px dashed color-mix(in srgb, var(--accent-2) 40%, transparent);
-  outline-offset: 1px;
-}
-
-[data-theme="dark"]
-  :is(
-    .comic-narrator,
-    .comic-thought-cloud__bubble,
-    .comic-quote-bar,
-    .comic-villain-strip,
-    .comic-sidenote-inline__note
-  ) {
-  background: var(--token-shortcode-surface);
-}
-
-@media (max-width: 780px) {
-  .comic-dialogue-ab__grid,
-  .comic-relation-mini__row {
-    grid-template-columns: 1fr;
-  }
-
-  .comic-battle-timeline__item {
-    grid-template-columns: 1fr;
-  }
-
-  .comic-villain-strip {
-    grid-template-columns: 1fr;
-  }
-
-  .comic-sidenote-inline__trigger {
-    border-bottom-color: color-mix(in srgb, var(--accent-2) 45%, transparent);
-  }
-
-  .comic-sidenote-inline__note {
-    display: none;
-    position: static;
-    width: auto;
-    margin: 0.55rem 0 0.8rem;
-  }
-
-  .comic-sidenote-inline.is-open .comic-sidenote-inline__note {
-    display: block;
-  }
-
-  .comic-sidenote-inline.is-open .comic-sidenote-inline__trigger {
-    color: color-mix(in srgb, var(--accent-2) 76%, var(--ink));
-    border-color: color-mix(in srgb, var(--accent-2) 60%, transparent);
-  }
-}
-
 /* Stamp — editorial seal / corner badge (inline-friendly) */
 .comic-stamp {
   display: inline-block;
@@ -3112,13 +2983,15 @@ pre.codesnippet code {
 /* Video shortcode */
 .comic-video {
   margin: 2rem 0;
-  max-width: min(100%, 800px);
+  max-width: min(100%, 840px);
+  border: var(--stroke) solid var(--line);
+  background: var(--panel);
+  box-shadow: 8px 8px 0 var(--line);
 }
 
 .comic-video__frame {
-  border: var(--stroke) solid var(--line);
-  box-shadow: 8px 8px 0 var(--line);
-  background: var(--line);
+  border-bottom: var(--stroke) solid var(--line);
+  background: #0b0f16;
   overflow: hidden;
   line-height: 0;
 }
@@ -3131,13 +3004,12 @@ pre.codesnippet code {
 }
 
 .comic-video__caption {
-  margin: 0.65rem 0 0;
-  padding: 0.5rem 0.65rem;
-  border: 2px solid var(--line);
-  background: var(--panel);
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  border: 0;
+  background: color-mix(in srgb, var(--accent-2) 8%, var(--panel));
   font-weight: 700;
-  font-size: 0.95rem;
-  box-shadow: 3px 3px 0 var(--line);
+  font-size: 0.9rem;
 }
 
 /* Pullquote */
@@ -3725,17 +3597,6 @@ body {
   margin: 0.4rem 0 0;
 }
 
-.comic-video__speed {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-  margin-top: 0.55rem;
-}
-.comic-video__speed .is-active {
-  background: var(--accent);
-  color: #fff;
-}
-
 .code-toast {
   position: fixed;
   left: 50%;
@@ -3753,42 +3614,8 @@ body {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
-.code-enhanced {
-  counter-reset: codeline;
-}
-body.show-code-lines .code-enhanced code {
-  display: block;
-}
-body.show-code-lines .code-enhanced code > span,
-body.show-code-lines .code-enhanced code .line {
-  display: block;
-}
-body.show-code-lines .code-enhanced code > span::before,
-body.show-code-lines .code-enhanced code .line::before {
-  counter-increment: codeline;
-  content: counter(codeline);
-  display: inline-block;
-  width: 2.2em;
-  margin-right: 0.8em;
-  opacity: 0.45;
-}
-.code-lang-badge {
-  position: absolute;
-  left: 0.6rem;
-  top: 0.55rem;
-  font-size: 0.68rem;
-  font-weight: 800;
-  padding: 0.12rem 0.4rem;
-  border: 2px solid var(--line);
-  background: var(--panel);
-}
 .code-collapse-btn {
-  position: absolute;
   right: 5.9rem;
-  top: 0.5rem;
-  border: 2px solid var(--line);
-  background: var(--panel);
-  font-size: 0.72rem;
 }
 pre.is-collapsed {
   max-height: 18rem;
@@ -3893,43 +3720,6 @@ pre.is-collapsed {
 .article-content {
   overflow: visible;
 }
-.comic-sidenote-inline {
-  position: relative;
-}
-@media (min-width: 781px) {
-  .comic-sidenote-inline__note {
-    position: absolute;
-    margin: 0;
-    top: 0;
-  }
-  .comic-sidenote-inline--right .comic-sidenote-inline__note {
-    left: calc(100% + 1.2rem);
-  }
-  .comic-sidenote-inline--left .comic-sidenote-inline__note {
-    right: calc(100% + 1.2rem);
-  }
-  .comic-sidenote-inline::after {
-    content: "";
-    position: absolute;
-    top: 0.85em;
-    width: 1rem;
-    border-top: 2px dashed color-mix(in srgb, var(--accent-2) 55%, var(--line));
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .comic-sidenote-inline--right::after {
-    right: -1rem;
-  }
-  .comic-sidenote-inline--left::after {
-    left: -1rem;
-  }
-  .comic-sidenote-inline:hover::after {
-    opacity: 1;
-  }
-}
-body.sidenote-hidden .comic-sidenote-inline__note {
-  display: none !important;
-}
 
 .line-toggle-global {
   position: fixed;
@@ -3978,99 +3768,6 @@ pre.codesnippet,
   word-break: break-word;
 }
 
-.code-lang-badge {
-  right: 0.6rem;
-  left: auto;
-  border: 0;
-  background: color-mix(in srgb, var(--line) 82%, transparent);
-  color: var(--paper);
-  text-transform: uppercase;
-  box-shadow: none;
-}
-
-.code-lang-badge.is-plain {
-  background: transparent;
-  color: color-mix(in srgb, var(--paper) 78%, var(--line));
-}
-
 .code-copy-btn.code-collapse-btn {
   right: 4.9rem;
-}
-
-.comic-video__speed {
-  margin-top: 0.45rem;
-  gap: 0.3rem;
-}
-
-.comic-video__speed .btn {
-  padding: 0.25rem 0.55rem;
-  font-size: 0.74rem;
-}
-
-.comic-video__speed .is-active {
-  background: color-mix(in srgb, var(--accent) 80%, var(--panel));
-}
-
-/* Code toolbar layout like file source blocks */
-.code-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.45rem;
-  margin-top: 1rem;
-  margin-bottom: 0;
-  padding: 0.38rem 0.6rem;
-  border: var(--stroke) solid var(--line);
-  border-bottom: 0;
-  background: color-mix(in srgb, var(--accent-2) 10%, var(--panel));
-}
-
-.code-toolbar + pre.code-enhanced {
-  margin-top: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.code-toolbar .code-copy-btn {
-  position: static;
-  opacity: 1;
-  pointer-events: auto;
-  transform: none;
-  margin-left: auto;
-  font-size: 0.72rem;
-  padding: 0.28rem 0.6rem;
-}
-
-.code-toolbar .code-collapse-btn {
-  margin-left: 0;
-}
-
-.code-toolbar .code-lang-badge {
-  position: static;
-  right: auto;
-  left: auto;
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  box-shadow: none;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-}
-
-/* Keep sidenote in outer margin like aside */
-@media (min-width: 781px) {
-  .comic-sidenote-inline__note {
-    position: relative;
-    top: auto !important;
-  }
-
-  .comic-sidenote-inline--right .comic-sidenote-inline__note {
-    float: right;
-    margin: 0.2rem -18.5rem 0.9rem 1rem;
-  }
-
-  .comic-sidenote-inline--left .comic-sidenote-inline__note {
-    float: left;
-    margin: 0.2rem 1rem 0.9rem -18.5rem;
-  }
 }
