@@ -153,11 +153,11 @@ Patch kit | 1
 {{< codesnippet path="assets/snippets/inventory.txt" />}}
 
 ### `button`
-{{< button href="/docs/" style="primary" text="Open docs" >}}
+{{< button href="/docs/" style="primary" text="Open docs" />}}
 {{< codesnippet path="assets/snippets/button.txt" />}}
 
 ### `file`
-{{< file path="assets/snippets/panel.txt" lang="txt" title="snippet/panel.txt" >}}
+{{< file path="assets/snippets/panel.txt" lang="txt" title="snippet/panel.txt" />}}
 {{< codesnippet path="assets/snippets/file.txt" />}}
 
 ### `spoiler`
