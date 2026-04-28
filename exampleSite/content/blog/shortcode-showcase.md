@@ -105,7 +105,7 @@ Finish with the third step
 {{< codesnippet path="assets/snippets/steps.txt" />}}
 
 ### `chapter`
-{{< chapter label="Arc 1" title="Cold Open" subtitle="Into the storm" >}}{{< /chapter >}}
+{{< chapter label="Arc 1" title="Cold Open" subtitle="Into the storm" >}}
 {{< codesnippet path="assets/snippets/chapter.txt" />}}
 
 ### `divider`
