@@ -116,3 +116,6 @@ Big quote…
 {{< villain-strip name="Villain" threat="High" >}}
 Enemy note…
 {{< /villain-strip >}}
+{{< sidenote title="Lore note" icon="✦" >}}
+The city clocks all stopped at **03:17** on arc day one.
+{{< /sidenote >}}

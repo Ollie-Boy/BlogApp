@@ -128,6 +128,14 @@ Appears whenever the city grid enters blackout mode.
 
 {{< codesnippet path="assets/snippets/villain-strip.txt" />}}
 
+### `sidenote` — compact inline lore / editor note
+
+{{< sidenote title="Lore note" icon="✦" >}}
+The city clocks all stopped at **03:17** on arc day one.
+{{< /sidenote >}}
+
+{{< codesnippet path="assets/snippets/sidenote.txt" />}}
+
 ---
 
 ## `stamp` — small seal (pairs with inner text or `text` param)
@@ -584,6 +592,7 @@ Ensure spoiler body remains readable and border contrast is clear.
 | `battle-timeline`| Beat-by-beat battle timeline |
 | `quote-bar`    | Cinematic emphasized quote bar |
 | `villain-strip`| Villain spotlight warning strip |
+| `sidenote`     | Compact inline lore/editor note |
 
 **One file with every call (for bulk copy):**
 

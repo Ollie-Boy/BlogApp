@@ -2374,8 +2374,38 @@ pre.codesnippet code {
   margin: 0;
 }
 
+.comic-sidenote {
+  margin: 1rem 0;
+  padding: 0.7rem 0.85rem;
+  border-left: 8px solid var(--accent-2);
+  background: color-mix(in srgb, var(--accent-2) 10%, var(--panel));
+  box-shadow: 5px 5px 0 var(--line);
+}
+
+.comic-sidenote__title {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.comic-sidenote__body > *:first-child {
+  margin-top: 0;
+}
+
+.comic-sidenote__body > *:last-child {
+  margin-bottom: 0;
+}
+
 [data-theme="dark"]
-  :is(.comic-narrator, .comic-thought-cloud__bubble, .comic-quote-bar, .comic-villain-strip) {
+  :is(
+    .comic-narrator,
+    .comic-thought-cloud__bubble,
+    .comic-quote-bar,
+    .comic-villain-strip,
+    .comic-sidenote
+  ) {
   background: var(--token-shortcode-surface);
 }
 

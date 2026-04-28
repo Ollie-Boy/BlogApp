@@ -1,0 +1,3 @@
+{{< sidenote title="Lore note" icon="✦" >}}
+The city clocks all stopped at **03:17** on arc day one.
+{{< /sidenote >}}
