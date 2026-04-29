@@ -79,4 +79,5 @@ See the blog post **Shortcode gallery** for live examples and `codesnippet` copy
 
 ## Next
 
-See [Customization](/docs/customization/) for menus and theme options.
+- See [Customization](/docs/customization/) for menus and theme options.
+- See [iPhone publishing workflow (Working Copy + Obsidian)](/docs/iphone-publishing-workflow/) for mobile authoring and publish steps.
