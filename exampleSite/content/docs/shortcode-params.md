@@ -1,4 +1,8 @@
-# Shortcode Parameter Reference (Auto-generated)
+---
+title: "Shortcode Parameter Reference (Auto-generated)"
+date: 2026-04-30
+description: "Auto-generated parameter reference for all ComicHero shortcodes."
+---
 
 ## aside.html
 - Parameters: `side`, `class`
@@ -137,4 +141,3 @@
 
 ## warning-strip.html
 - Parameters: `level`, `text`, `class`
-
