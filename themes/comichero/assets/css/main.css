@@ -1575,6 +1575,23 @@ pre.codesnippet code {
   color: var(--muted);
 }
 
+
+.doc-toc {
+  max-height: min(62vh, calc(100vh - 14rem));
+  overflow: auto;
+  padding-right: 0.35rem;
+  scrollbar-width: thin;
+}
+
+.doc-toc::-webkit-scrollbar {
+  width: 8px;
+}
+
+.doc-toc::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--line) 65%, transparent);
+  border-radius: 999px;
+}
+
 .doc-toc nav ul {
   margin: 0;
   padding-left: 1rem;

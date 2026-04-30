@@ -204,11 +204,17 @@
       var target = id ? document.getElementById(id) : null;
       if (target) headingMap.push({ link: a, target: target });
     });
+    var tocWrap = document.querySelector(".doc-toc");
     function setActive(link) {
       tocLinks.forEach(function (a) {
         a.classList.remove("is-active");
       });
-      if (link) link.classList.add("is-active");
+      if (!link) return;
+      link.classList.add("is-active");
+      if (tocWrap) {
+        var top = link.offsetTop - tocWrap.clientHeight * 0.35;
+        tocWrap.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
     }
     function updateActiveToc() {
       if (!headingMap.length) return;
