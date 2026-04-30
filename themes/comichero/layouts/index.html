@@ -31,10 +31,13 @@
     <li>
       <article class="comic-card comic-card--post">
         <a href="{{ $p.RelPermalink }}" class="comic-card__link">
-          {{ $cover := $p.Params.image | default "/images/placeholder-comic.svg" }}
+          {{ with $p.Params.image }}
           <div class="comic-card__thumb">
-            {{ partial "smart-image.html" (dict "src" $cover "alt" $p.LinkTitle "loading" "lazy" "width" "640" "height" "360") }}
+            {{ partial "smart-image.html" (dict "src" . "alt" $p.LinkTitle "loading" "lazy" "width" "640" "height" "360") }}
           </div>
+          {{ else }}
+          <div class="comic-card__thumb comic-card__thumb--placeholder" aria-hidden="true"></div>
+          {{ end }}
           <div class="comic-card__body">
             <span class="comic-card__meta">{{ $p.Section }} · {{ $p.Date.Format "2006-01-02" }}</span>
             <h3 class="comic-card__title">{{ $p.LinkTitle }}</h3>

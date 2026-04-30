@@ -5,7 +5,7 @@ description: "First issue in the demo series."
 tags: ["series-demo"]
 series: ["Comic Hero Tales"]
 issue: 1
-image: "/images/placeholder-comic.svg"
+image: "/images/cover-series-arc.svg"
 ---
 
 Welcome to **issue 1**. Use the footer cards to jump to the next episode or a random post.
