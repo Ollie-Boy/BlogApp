@@ -3,7 +3,7 @@ title: "Shortcode showcase (complete reference)"
 date: 2026-04-25
 description: "Live render + copy snippet for the full ComicHero shortcode set."
 tags: ["theme", "hugo", "shortcodes"]
-image: "/images/cover-blog-wind.svg"
+image: "/images/placeholder-comic.svg"
 ---
 
 This page is a **complete shortcode reference**.

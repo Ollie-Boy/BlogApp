@@ -38,7 +38,7 @@ description: ""
 summary: ""
 series: []
 issue:
-image: ""
+image: "/images/placeholder-comic.svg"
 ---
 ```
 

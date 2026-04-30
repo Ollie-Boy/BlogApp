@@ -1,6 +1,7 @@
 ---
 title: "004-第四卷 第三次国内革命战争时期"
 date: 2026-04-24
+draft: true
 description: "毛泽东选集卷次正文。"
 tags: ["series-demo", "anthology"]
 ---

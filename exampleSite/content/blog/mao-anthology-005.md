@@ -1,6 +1,7 @@
 ---
 title: "005-第五卷 社会主义革命和社会主义建设时期（一）"
 date: 2026-04-25
+draft: true
 description: "毛泽东选集卷次正文。"
 tags: ["series-demo", "anthology"]
 ---

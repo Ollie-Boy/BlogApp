@@ -1,6 +1,7 @@
 ---
 title: "006-第六卷 社会主义革命和社会主义建设时期（二）〖非官方版本〗"
 date: 2026-04-26
+draft: true
 description: "毛泽东选集卷次正文。"
 tags: ["series-demo", "anthology"]
 ---

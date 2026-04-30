@@ -5,5 +5,5 @@ draft: true
 tags: ["blog"]
 description: ""
 summary: ""
-image: ""
+image: "/images/placeholder-comic.svg"
 ---
