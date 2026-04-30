@@ -1621,6 +1621,15 @@ pre.codesnippet code {
   font-size: 0.9rem;
 }
 
+
+.doc-toc-progress__meta {
+  margin: 0 0 0.4rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
 .doc-toc-progress {
   height: 6px;
   border: 2px solid var(--line);

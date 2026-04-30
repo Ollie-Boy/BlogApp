@@ -205,12 +205,19 @@
       if (target) headingMap.push({ link: a, target: target });
     });
     var tocWrap = document.querySelector(".doc-toc");
+    var tocCurrent = document.querySelector("[data-doc-toc-current]");
+    var tocTotal = document.querySelector("[data-doc-toc-total]");
+    if (tocTotal) tocTotal.textContent = String(headingMap.length);
     function setActive(link) {
       tocLinks.forEach(function (a) {
         a.classList.remove("is-active");
       });
       if (!link) return;
       link.classList.add("is-active");
+      if (tocCurrent) {
+        var idx = tocLinks.indexOf(link);
+        tocCurrent.textContent = String(idx >= 0 ? idx + 1 : 0);
+      }
       if (tocWrap) {
         var top = link.offsetTop - tocWrap.clientHeight * 0.35;
         tocWrap.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
