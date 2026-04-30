@@ -3,8 +3,6 @@ title: "007-第七卷 文化大革命时期〖非官方版本〗"
 date: 2026-04-27
 description: "毛泽东选集卷次正文。"
 tags: ["series-demo", "anthology"]
-series: ["007-第七卷 文化大革命时期〖非官方版本〗"]
-issue: 7
 ---
 
 007-第七卷 文化大革命时期〖非官方版本〗

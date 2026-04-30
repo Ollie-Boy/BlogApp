@@ -3,8 +3,6 @@ title: "003-第三卷 抗日战争时期（下）"
 date: 2026-04-23
 description: "毛泽东选集卷次正文。"
 tags: ["series-demo", "anthology"]
-series: ["003-第三卷 抗日战争时期（下）"]
-issue: 3
 ---
 
 003-第三卷 抗日战争时期（下）

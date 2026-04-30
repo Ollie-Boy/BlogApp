@@ -558,63 +558,6 @@
       openLightboxAt((lightboxIndex + 1) % lightboxImgs.length);
   });
 
-  /* series page progress + unread */
-  var sList = document.querySelector("[data-series-list]");
-  if (sList) {
-    var items = Array.prototype.slice.call(sList.querySelectorAll("[data-series-item]"));
-    var key = "comichero-series-read:" + window.location.pathname;
-    var read = [];
-    try {
-      read = JSON.parse(getStored(key) || "[]");
-    } catch (e) {}
-    items.forEach(function (it) {
-      var slug = it.getAttribute("data-slug");
-      if (read.indexOf(slug) !== -1) it.classList.add("is-read");
-      var a = it.querySelector("a");
-      if (a)
-        a.addEventListener("click", function () {
-          if (read.indexOf(slug) === -1) {
-            read.push(slug);
-            setStored(key, JSON.stringify(read));
-          }
-        });
-    });
-    var rb = document.querySelector("[data-series-readbar]");
-    if (rb && items.length)
-      rb.style.width =
-        (
-          (items.filter(function (x) {
-            return x.classList.contains("is-read");
-          }).length /
-            items.length) *
-          100
-        ).toFixed(2) + "%";
-    var unread = document.querySelector("[data-series-unread]");
-    if (unread)
-      unread.addEventListener("change", function () {
-        items.forEach(function (it) {
-          it.style.display = unread.checked && it.classList.contains("is-read") ? "none" : "";
-        });
-      });
-  }
-
-  /* dialogue vote */
-  document.querySelectorAll("[data-dialogue-ab]").forEach(function (d) {
-    var k = "comichero-vote:" + (d.getAttribute("data-vote-key") || "x");
-    var out = d.querySelector("[data-vote-result]");
-    function render() {
-      var v = getStored(k) || "";
-      if (out) out.textContent = v ? "You voted " + v.toUpperCase() : "No vote yet";
-    }
-    d.querySelectorAll("[data-vote-option]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        setStored(k, b.getAttribute("data-vote-option"));
-        render();
-      });
-    });
-    render();
-  });
-
   /* background reacts to mouse + scroll progress */
   function updateBg(e) {
     var px = e ? e.clientX / Math.max(1, window.innerWidth) : 0.5;

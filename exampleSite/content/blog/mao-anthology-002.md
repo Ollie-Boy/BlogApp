@@ -3,8 +3,6 @@ title: "002-第二卷 抗日战争时期（上）"
 date: 2026-04-22
 description: "毛泽东选集卷次正文。"
 tags: ["series-demo", "anthology"]
-series: ["002-第二卷 抗日战争时期（上）"]
-issue: 2
 ---
 
 002-第二卷 抗日战争时期（上）

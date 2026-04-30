@@ -8,9 +8,7 @@
     {{ range $term := .Data.Terms.Alphabetical }}
     <li>
       <a href="{{ $term.Page.RelPermalink }}" class="comic-card comic-card--section">
-        <span class="comic-card__tag">{{ i18n "series_label" | default "Series" }}</span>
         <h2 class="comic-card__title">{{ $term.Page.Title }}</h2>
-        <p class="comic-card__desc">{{ $term.Count }} {{ i18n "issues" | default "issues" }}</p>
       </a>
     </li>
     {{ end }}

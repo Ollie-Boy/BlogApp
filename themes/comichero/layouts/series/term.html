@@ -4,8 +4,6 @@
     <p class="article-kicker">{{ i18n "series_label" | default "Series" }}</p>
     <h1 class="page-title sfx-pop">{{ .Title }}</h1>
     <p class="lead">Recommended reading order: earliest to latest.</p>
-    <label><input type="checkbox" data-series-unread> Unread only</label>
-    <div class="series-readbar"><span data-series-readbar></span></div>
     {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
   </header>
   <ol class="comic-series-issues" role="list" data-series-list>

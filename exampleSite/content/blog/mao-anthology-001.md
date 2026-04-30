@@ -3,8 +3,6 @@ title: "001-第一卷 国内革命战争时期"
 date: 2026-04-21
 description: "毛泽东选集卷次正文。"
 tags: ["series-demo", "anthology"]
-series: ["001-第一卷 国内革命战争时期"]
-issue: 1
 ---
 
 001-第一卷 国内革命战争时期
