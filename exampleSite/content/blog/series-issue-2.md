@@ -5,7 +5,7 @@ description: "Second issue — tests next/prev in the series footer."
 tags: ["series-demo"]
 series: ["Comic Hero Tales"]
 issue: 2
-image: "/images/cover-series-arc.svg"
+image: "/images/It%20Is%20Rennnnnnnnny%20Time/stitch-Thank-you-gif.gif"
 ---
 
 You made it to **issue 2**. Open the Series page to see the reading order and issue links.

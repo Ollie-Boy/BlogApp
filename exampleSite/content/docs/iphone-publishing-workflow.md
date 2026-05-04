@@ -38,7 +38,7 @@ description: ""
 summary: ""
 series: []
 issue:
-image: "/images/placeholder-comic.svg"
+image: "/images/It%20Is%20Rennnnnnnnny%20Time/stitch-Thank-you-gif.gif"
 ---
 ```
 

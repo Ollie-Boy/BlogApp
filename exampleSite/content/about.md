@@ -13,7 +13,7 @@ This blog is my public notebook: learning notes, build logs, random ideas, and o
 I prefer shipping small things consistently instead of waiting for “perfect.”
 {{< /note >}}
 
-{{< character-card name="Li Xiang / Ollie" img="/images/placeholder-comic.svg" faction="Builder mode" ability="Learn fast, build often" debut="Student developer" >}}
+{{< character-card name="Li Xiang / Ollie" img="/images/It%20Is%20Rennnnnnnnny%20Time/stitch-Thank-you-gif.gif" faction="Builder mode" ability="Learn fast, build often" debut="Student developer" >}}
 I’m currently focused on **Java** and **Go**, and I’m learning by building real projects.
 This Hugo site is part of that process: I use it to practice writing, structuring content, and theme customization.
 {{< /character-card >}}

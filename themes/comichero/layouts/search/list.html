@@ -7,7 +7,7 @@
   <section class="comic-panel search-page">
     <form class="search-page__form" data-search-form role="search">
       <label class="visually-hidden" for="search-query">Search</label>
-      <input id="search-query" class="search-page__input" type="search" name="q" placeholder="Search posts, docs, and series..." autocomplete="off">
+      <input id="search-query" class="search-page__input" type="search" name="q" placeholder="{{ site.Params.comichero.searchPlaceholder | default "Search posts, docs, and series..." }}" autocomplete="off">
       <button class="btn btn--primary" type="submit">Search</button>
     </form>
     <p class="search-page__meta" data-search-meta></p>
