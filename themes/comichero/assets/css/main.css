@@ -54,10 +54,10 @@
   --wcag-node-fg: #101010;
   --wcag-node-center-bg: #8a6a00;
   --wcag-node-center-fg: #ffffff;
-  --crayon-mint: #bff3e4;
-  --crayon-sky: #7db8ff;
-  --crayon-butter: #ffe48a;
-  --crayon-ink: rgba(10, 10, 15, 0.24);
+  --fusion-neon: #7dd3ff;
+  --fusion-glow: rgba(125, 211, 255, 0.35);
+  --fusion-violet: #8b5cf6;
+  --fusion-grid: rgba(69, 123, 157, 0.16);
 }
 
 
@@ -83,10 +83,10 @@
   --wcag-node-fg: #f4f5ff;
   --wcag-node-center-bg: #5b4a0c;
   --wcag-node-center-fg: #fff4c2;
-  --crayon-mint: #21463f;
-  --crayon-sky: #274d7a;
-  --crayon-butter: #5f5021;
-  --crayon-ink: rgba(255, 255, 255, 0.16);
+  --fusion-neon: #8fe7ff;
+  --fusion-glow: rgba(116, 192, 252, 0.28);
+  --fusion-violet: #a78bfa;
+  --fusion-grid: rgba(116, 192, 252, 0.16);
 }
 
 
@@ -122,25 +122,13 @@ body.comichero-body.site-shell {
   line-height: 1.65;
   color: var(--ink);
   background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 15% -10%, color-mix(in srgb, var(--fusion-neon) 22%, transparent), transparent 34%),
+    radial-gradient(circle at 90% 0%, color-mix(in srgb, var(--fusion-violet) 18%, transparent), transparent 30%),
+    linear-gradient(transparent 95%, var(--fusion-grid) 95%),
+    linear-gradient(90deg, transparent 95%, var(--fusion-grid) 95%);
+  background-size: auto, auto, 20px 20px, 20px 20px;
   position: relative;
-}
-
-
-
-body.comichero-body.site-shell::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 20% 12%, color-mix(in srgb, var(--crayon-butter) 62%, transparent) 0 18%, transparent 45%),
-    radial-gradient(circle at 86% 8%, color-mix(in srgb, var(--crayon-sky) 48%, transparent) 0 16%, transparent 44%),
-    radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--crayon-mint) 48%, transparent) 0 24%, transparent 55%),
-    repeating-linear-gradient(72deg, transparent 0 11px, color-mix(in srgb, var(--crayon-mint) 45%, transparent) 12px 15px),
-    repeating-linear-gradient(-18deg, transparent 0 10px, color-mix(in srgb, var(--crayon-sky) 35%, transparent) 11px 14px),
-    var(--paper);
-  opacity: 0.72;
 }
 
 .main-grow {
