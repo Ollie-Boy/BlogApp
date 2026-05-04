@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Comic sci-fi icon 2">
+  <defs>
+    <linearGradient id="b2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a2238"/><stop offset="1" stop-color="#506e9f"/></linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#b2)"/>
+  <path d="M54 370c58-88 186-172 404-168" stroke="#9cd0ff" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <path d="M64 400c121-111 221-148 387-154-96 73-190 123-312 167z" fill="#ffd776"/>
+  <circle cx="364" cy="170" r="44" fill="#ffeeb8"/>
+  <path d="M154 122l40 18-27 35z" fill="#fff" opacity=".85"/>
+  <path d="M194 330l170-38" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
+</svg>
