@@ -38,7 +38,7 @@ description: ""
 summary: ""
 series: []
 issue:
-image: "/images/It%20Is%20Rennnnnnnnny%20Time/stitch-Thank-you-gif.gif"
+image: "https://avatars.githubusercontent.com/u/65850182?v=4&size=64"
 ---
 ```
 

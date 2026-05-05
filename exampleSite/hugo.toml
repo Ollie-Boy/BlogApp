@@ -6,7 +6,7 @@ themesDir = "../themes"
 
 [params]
   description = "Demo site: blog, docs, and series in one comic-book layout."
-  og_image = "/images/It%20Is%20Rennnnnnnnny%20Time/stitch-Thank-you-gif.gif"
+  og_image = "https://avatars.githubusercontent.com/u/65850182?v=4&size=64"
 
 [taxonomies]
   tag = "tags"

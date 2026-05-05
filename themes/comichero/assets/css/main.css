@@ -98,7 +98,7 @@
 
 html {
   scroll-behavior: smooth;
-  height: 100%;
+  min-height: 100%;
   scrollbar-gutter: stable;
 }
 
@@ -112,9 +112,8 @@ html.theme-transition body {
 /* Sticky footer: main grows so the bar sits flush with the viewport bottom */
 body.comichero-body.site-shell {
   margin: 0;
-  min-height: 100%;
-  height: 100%;
-  overflow-y: scroll;
+  min-height: 100vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   font-family: var(--font-body);

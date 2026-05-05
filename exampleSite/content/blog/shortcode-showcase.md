@@ -3,7 +3,7 @@ title: "Shortcode showcase (complete reference)"
 date: 2026-04-25
 description: "Live render + copy snippet for the full ComicHero shortcode set."
 tags: ["theme", "hugo", "shortcodes"]
-image: "/images/placeholder-comic.svg"
+image: "https://avatars.githubusercontent.com/u/65850182?v=4&size=64"
 ---
 
 This page is a **complete shortcode reference**.
@@ -121,7 +121,7 @@ Finish with the third step
 ## Media and comparison
 
 ### `figure`
-{{< figure src="/images/placeholder-comic.svg" alt="Placeholder" caption="Theme-compatible image frame." >}}
+{{< figure src="https://avatars.githubusercontent.com/u/65850182?v=4&size=64" alt="Placeholder" caption="Theme-compatible image frame." >}}
 {{< codesnippet path="assets/snippets/figure.txt" />}}
 
 ### `video`

@@ -1,1 +1,1 @@
-{{< figure src="/images/placeholder-comic.svg" alt="Demo art" caption="Optional **caption** supports Markdown." tilt="true" >}}
+{{< figure src="https://avatars.githubusercontent.com/u/65850182?v=4&size=64" alt="Demo art" caption="Optional **caption** supports Markdown." tilt="true" >}}

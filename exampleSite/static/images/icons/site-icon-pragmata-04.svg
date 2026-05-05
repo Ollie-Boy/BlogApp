@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Comic sci-fi icon 4">
-  <rect width="512" height="512" rx="96" fill="#2a3e66"/>
-  <path d="M0 430c120-54 231-78 512-86v168H0z" fill="#1b2a49"/>
-  <circle cx="350" cy="156" r="50" fill="#fff3c4"/>
-  <path d="M70 355c88-76 197-132 382-136-119 93-228 145-367 171z" fill="#ffd873"/>
-  <path d="M124 188c42-25 90-45 144-58" stroke="#a6d7ff" stroke-width="12" fill="none" stroke-linecap="round"/>
-  <path d="M156 404l200-46" stroke="#ffffff" stroke-width="14" stroke-linecap="round"/>
-</svg>

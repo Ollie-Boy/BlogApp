@@ -3,7 +3,7 @@ title: "First panel: why this theme exists"
 date: 2026-04-20
 description: "A loud intro post with shortcodes and a cover image."
 tags: ["theme", "hugo"]
-image: "/images/placeholder-comic.svg"
+image: "https://avatars.githubusercontent.com/u/65850182?v=4&size=64"
 ---
 
 This post shows the **single** layout: hero image, tags, and body typography.

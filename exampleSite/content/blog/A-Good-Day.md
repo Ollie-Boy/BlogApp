@@ -14,4 +14,4 @@ tags = ["Life",]
 
 Nothing actually happened today but it is truly a good day. :smile:
 
-![happy-cat-happy-happy-cat](/images/placeholder-comic.svg)
+![happy-cat-happy-happy-cat](https://avatars.githubusercontent.com/u/65850182?v=4&size=64)

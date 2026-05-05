@@ -5,14 +5,14 @@ description: "First issue in the demo series."
 tags: ["series-demo"]
 series: ["Comic Hero Tales"]
 issue: 1
-image: "/images/placeholder-comic.svg"
+image: "https://avatars.githubusercontent.com/u/65850182?v=4&size=64"
 ---
 
 Welcome to **issue 1**. Use the footer cards to jump to the next episode or a random post.
 
 {{< chapter label="第 1 回" volume="Vol. 1" subtitle="The theme boots without *drama*." >}}
 
-{{< cast name="Editor" img="/images/placeholder-comic.svg" >}}
+{{< cast name="Editor" img="https://avatars.githubusercontent.com/u/65850182?v=4&size=64" >}}
 We print **loud** margins — theme toggle lives in the header too.
 {{< /cast >}}
 
