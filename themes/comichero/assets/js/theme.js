@@ -497,13 +497,7 @@
     var langClass = Array.prototype.find.call(code.classList, function (cn) {
       return cn.indexOf("language-") === 0;
     });
-    if (langClass && !pre.querySelector(".code-lang-badge")) {
-      var lang = langClass.replace(/^language-/, "").toUpperCase();
-      var badge = document.createElement("span");
-      badge.className = "code-lang-badge";
-      badge.textContent = lang;
-      pre.appendChild(badge);
-    }
+    if (langClass) pre.setAttribute("data-code-lang", langClass.replace(/^language-/, "").toUpperCase());
     var lines = (code.textContent || "").split("\n").length;
     if (lines > 20 && !pre.querySelector(".code-collapse-btn")) {
       pre.classList.add("is-collapsed");
