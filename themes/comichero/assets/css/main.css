@@ -124,10 +124,8 @@ body.comichero-body.site-shell {
   background-color: var(--paper);
   background-image:
     radial-gradient(circle at 15% -10%, color-mix(in srgb, var(--fusion-neon) 22%, transparent), transparent 34%),
-    radial-gradient(circle at 90% 0%, color-mix(in srgb, var(--fusion-violet) 18%, transparent), transparent 30%),
-    linear-gradient(transparent 95%, var(--fusion-grid) 95%),
-    linear-gradient(90deg, transparent 95%, var(--fusion-grid) 95%);
-  background-size: auto, auto, 20px 20px, 20px 20px;
+    radial-gradient(circle at 90% 0%, color-mix(in srgb, var(--fusion-violet) 18%, transparent), transparent 30%);
+  background-size: auto, auto;
   position: relative;
 }
 
@@ -3760,7 +3758,6 @@ pre.is-collapsed {
 a.tag--series,
 .tag-filter .tag,
 .article-meta__tags .tag {
-  border-bottom: 2px solid currentColor;
   transform: none;
 }
 

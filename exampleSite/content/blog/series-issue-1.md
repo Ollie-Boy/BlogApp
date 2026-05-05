@@ -5,14 +5,14 @@ description: "First issue in the demo series."
 tags: ["series-demo"]
 series: ["Comic Hero Tales"]
 issue: 1
-image: "/images/It%20Is%20Rennnnnnnnny%20Time/stitch-Thank-you-gif.gif"
+image: "/images/placeholder-comic.svg"
 ---
 
 Welcome to **issue 1**. Use the footer cards to jump to the next episode or a random post.
 
 {{< chapter label="第 1 回" volume="Vol. 1" subtitle="The theme boots without *drama*." >}}
 
-{{< cast name="Editor" img="/images/It%20Is%20Rennnnnnnnny%20Time/stitch-Thank-you-gif.gif" >}}
+{{< cast name="Editor" img="/images/placeholder-comic.svg" >}}
 We print **loud** margins — theme toggle lives in the header too.
 {{< /cast >}}
 
