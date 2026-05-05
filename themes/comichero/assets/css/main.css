@@ -2769,24 +2769,21 @@ pre.codesnippet code {
   gap: 1rem;
   margin: 2rem 0;
   clear: both;
-}
-
-.comic-grid-cells--cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.comic-grid-cells--cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.comic-grid-cells--cols-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  --comic-grid-cols: 2;
+  --comic-grid-min: 12rem;
+  grid-template-columns: repeat(var(--comic-grid-cols), minmax(0, 1fr));
+  width: 100%;
+  max-width: 100%;
 }
 
 @media (max-width: 720px) {
-  .comic-grid-cells--cols-2,
-  .comic-grid-cells--cols-3,
-  .comic-grid-cells--cols-4 {
+  .comic-grid-cells {
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .comic-grid-cells {
     grid-template-columns: 1fr;
   }
 }
@@ -2912,7 +2909,8 @@ pre.codesnippet code {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  padding: 0.3rem 0.55rem;
+  min-height: 2rem;
+  padding: 0.35rem 0.65rem;
   border: 2px solid var(--line);
   background: var(--accent);
   color: #fff;
@@ -2961,6 +2959,7 @@ pre.codesnippet code {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  min-height: 2rem;
   padding: 0.35rem 0.65rem;
   border: 2px solid var(--line);
   background: var(--accent);
@@ -3646,7 +3645,7 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 .code-collapse-btn {
-  right: 5.9rem;
+  right: 5.4rem;
 }
 pre.is-collapsed {
   max-height: 18rem;
@@ -3785,5 +3784,5 @@ pre.codesnippet,
 }
 
 .code-copy-btn.code-collapse-btn {
-  right: 4.9rem;
+  right: 5.4rem;
 }

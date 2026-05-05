@@ -108,6 +108,7 @@ description: "Auto-generated shortcode parameter reference."
 ## `grid`
 - `class`
 - `cols`
+- `size`
 
 ## `inventory`
 - `class`

@@ -1,4 +1,4 @@
-{{ $cols := .Get "cols" | default "2" }}
+{{ $colsRaw := .Get "cols" | default (.Get "size" | default "2") }}
 {{ $class := .Get "class" | default "" }}
 {{ $raw := .Inner }}
 {{ $parts := split $raw "\n---\n" }}
@@ -8,7 +8,14 @@
 {{ if eq (len $parts) 1 }}
   {{ $parts = split $raw "---" }}
 {{ end }}
-<div class="comic-grid-cells comic-grid-cells--cols-{{ $cols }} {{ $class }}" role="group">
+{{ $colsStr := printf "%v" $colsRaw }}
+{{ $colsParts := split (lower $colsStr) "x" }}
+{{ $colsCandidate := cond (gt (len $colsParts) 1) (index $colsParts 0) $colsStr }}
+{{ $colsClean := replaceRE "[^0-9]" "" $colsCandidate }}
+{{ $cols := int (default "2" $colsClean) }}
+{{ if lt $cols 1 }}{{ $cols = 1 }}{{ end }}
+{{ if gt $cols 8 }}{{ $cols = 8 }}{{ end }}
+<div class="comic-grid-cells {{ $class }}" style="--comic-grid-cols: {{ $cols }};" role="group">
   {{ range $parts }}
     {{ $cell := trim . " \n\r\t" }}
     {{ if $cell }}

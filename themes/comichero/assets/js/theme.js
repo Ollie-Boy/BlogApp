@@ -498,11 +498,11 @@
       var toggle = document.createElement("button");
       toggle.type = "button";
       toggle.className = "code-copy-btn code-collapse-btn";
-      toggle.textContent = "Expand code";
+      toggle.textContent = "Expand";
       pre.appendChild(toggle);
       toggle.addEventListener("click", function () {
         var open = pre.classList.toggle("is-collapsed");
-        toggle.textContent = open ? "Expand code" : "Collapse code";
+        toggle.textContent = open ? "Expand" : "Collapse";
       });
     }
   });
