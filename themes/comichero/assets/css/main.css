@@ -3623,7 +3623,8 @@ body {
       hsl(var(--bg-hue-2) 92% 84%),
       hsl(var(--bg-hue-3) 82% 82%)
     );
-  background-attachment: fixed;
+  background-attachment: scroll;
+  background-size: 100% 100vh;
   transition: background-image 0.35s linear;
 }
 .site-header {
