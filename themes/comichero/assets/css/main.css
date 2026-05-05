@@ -60,7 +60,6 @@
   --fusion-grid: rgba(69, 123, 157, 0.16);
 }
 
-
 [data-theme="dark"] {
   --ink: #f4f1ea;
   --paper: #12121a;
@@ -88,7 +87,6 @@
   --fusion-violet: #a78bfa;
   --fusion-grid: rgba(116, 192, 252, 0.16);
 }
-
 
 *,
 *::before,
@@ -122,8 +120,16 @@ body.comichero-body.site-shell {
   color: var(--ink);
   background-color: var(--paper);
   background-image:
-    radial-gradient(circle at 15% -10%, color-mix(in srgb, var(--fusion-neon) 22%, transparent), transparent 34%),
-    radial-gradient(circle at 90% 0%, color-mix(in srgb, var(--fusion-violet) 18%, transparent), transparent 30%);
+    radial-gradient(
+      circle at 15% -10%,
+      color-mix(in srgb, var(--fusion-neon) 22%, transparent),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 90% 0%,
+      color-mix(in srgb, var(--fusion-violet) 18%, transparent),
+      transparent 30%
+    );
   background-size: auto, auto;
   position: relative;
 }
@@ -1588,7 +1594,6 @@ pre.codesnippet code {
   color: var(--muted);
 }
 
-
 .doc-toc {
   max-height: min(62vh, calc(100vh - 14rem));
   overflow: auto;
@@ -1633,7 +1638,6 @@ pre.codesnippet code {
   color: var(--muted);
   font-size: 0.9rem;
 }
-
 
 .doc-toc-progress {
   height: 6px;
@@ -3602,16 +3606,25 @@ pre.codesnippet code {
 :root {
   --bg-x: 50%;
   --bg-y: 0%;
+  --bg-hue-1: 205;
+  --bg-hue-2: 255;
+  --bg-hue-3: 300;
 }
 body {
   background-image:
     radial-gradient(
       circle at var(--bg-x) var(--bg-y),
-      color-mix(in srgb, var(--accent-2) 18%, transparent),
+      hsl(var(--bg-hue-3) 88% 76% / 0.26),
       transparent 34%
     ),
-    linear-gradient(180deg, color-mix(in srgb, var(--paper) 95%, var(--accent) 5%), var(--paper));
+    linear-gradient(
+      180deg,
+      hsl(var(--bg-hue-1) 100% 88%),
+      hsl(var(--bg-hue-2) 92% 84%),
+      hsl(var(--bg-hue-3) 82% 82%)
+    );
   background-attachment: fixed;
+  transition: background-image 0.35s linear;
 }
 .site-header {
   position: sticky;
@@ -3666,7 +3679,6 @@ pre.is-collapsed {
 .search-page__recommend ul {
   margin: 0.4rem 0 0;
 }
-
 
 .comic-thought-cloud__avatar {
   width: 44px;

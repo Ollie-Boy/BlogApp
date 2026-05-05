@@ -488,7 +488,8 @@
     var langClass = Array.prototype.find.call(code.classList, function (cn) {
       return cn.indexOf("language-") === 0;
     });
-    if (langClass) pre.setAttribute("data-code-lang", langClass.replace(/^language-/, "").toUpperCase());
+    if (langClass)
+      pre.setAttribute("data-code-lang", langClass.replace(/^language-/, "").toUpperCase());
     var lines = (code.textContent || "").split("\n").length;
     if (lines > 20 && !pre.querySelector(".code-collapse-btn")) {
       pre.classList.add("is-collapsed");
@@ -520,11 +521,15 @@
     buttons.forEach(function (btn) {
       btn.addEventListener("click", function () {
         var pick = btn.getAttribute("data-pick") || btn.getAttribute("data-vote-option") || "";
-        var label = btn.closest(".comic-dialogue-ab__panel")?.querySelector(".comic-dialogue-ab__label");
+        var label = btn
+          .closest(".comic-dialogue-ab__panel")
+          ?.querySelector(".comic-dialogue-ab__label");
         var txt = (label && label.textContent) || btn.textContent || pick;
         result.textContent = "You chose: " + txt.trim();
         result.classList.add("is-active");
-        buttons.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+        buttons.forEach(function (b) {
+          b.classList.toggle("is-active", b === btn);
+        });
       });
     });
   });
@@ -569,8 +574,13 @@
   function updateBg(e) {
     var px = e ? e.clientX / Math.max(1, window.innerWidth) : 0.5;
     var py = (window.scrollY || 0) / Math.max(1, document.body.scrollHeight - window.innerHeight);
+    var hueShift = py * 160;
+
     root.style.setProperty("--bg-x", String((px * 100).toFixed(2)) + "%");
     root.style.setProperty("--bg-y", String((py * 100).toFixed(2)) + "%");
+    root.style.setProperty("--bg-hue-1", String((205 + hueShift).toFixed(1)));
+    root.style.setProperty("--bg-hue-2", String((255 + hueShift * 0.9).toFixed(1)));
+    root.style.setProperty("--bg-hue-3", String((300 + hueShift * 0.75).toFixed(1)));
   }
   window.addEventListener("mousemove", updateBg, { passive: true });
   window.addEventListener("scroll", updateBg, { passive: true });
