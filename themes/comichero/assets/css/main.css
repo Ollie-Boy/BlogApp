@@ -98,6 +98,11 @@ html {
   scroll-behavior: smooth;
   min-height: 100%;
   scrollbar-gutter: stable;
+  overscroll-behavior-y: none;
+}
+
+body {
+  overscroll-behavior-y: none;
 }
 
 html.theme-transition,
