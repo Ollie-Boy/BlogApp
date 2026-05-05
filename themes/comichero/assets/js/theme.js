@@ -445,15 +445,6 @@
     if (getStored(SFX_MUTE_KEY) === "1") board.setAttribute("data-sfx-muted", "1");
   });
 
-  /* Sticky shrink nav */
-  var header = document.querySelector(".site-header");
-  function updateHeaderShrink() {
-    if (!header) return;
-    header.classList.toggle("is-shrink", (window.scrollY || 0) > 24);
-  }
-  window.addEventListener("scroll", updateHeaderShrink, { passive: true });
-  updateHeaderShrink();
-
   /* System-follow theme with manual override cycle */
   document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
     btn.addEventListener("contextmenu", function (e) {

@@ -2907,6 +2907,7 @@ pre.codesnippet code {
   font-family: var(--font-body);
   font-weight: 800;
   font-size: 0.72rem;
+  line-height: 1.1;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   min-height: 2rem;
@@ -2956,7 +2957,8 @@ pre.codesnippet code {
   z-index: 2;
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
+  line-height: 1.1;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   min-height: 2rem;
@@ -3615,12 +3617,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 88;
-  transition:
-    padding 0.2s ease,
-    box-shadow 0.2s ease;
-}
-.site-header.is-shrink .site-header__inner {
-  padding-block: 0.35rem;
 }
 .hero__recent-update {
   font-weight: 800;
