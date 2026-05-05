@@ -10,9 +10,11 @@
     {{ if $intro }}<div class="prose lead"><p>{{ $intro }}</p></div>{{ end }}
     {{ end }}
     {{ if eq .Section "blog" }}
+    {{ $allTagsLabel := site.Params.comichero.labels.allTags | default "All" }}
+    {{ $blogTagLimit := site.Params.comichero.blogTagLimit | default 8 }}
     <div class="tag-filter">
-      <a class="tag tag--series" href="{{ "/blog/" | relURL }}">All</a>
-      {{ range first 8 site.Taxonomies.tags.ByCount }}
+      <a class="tag tag--series" href="{{ "/blog/" | relURL }}">{{ $allTagsLabel }}</a>
+      {{ range first $blogTagLimit site.Taxonomies.tags.ByCount }}
       <a class="tag tag--series" href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
       {{ end }}
     </div>
@@ -20,7 +22,8 @@
   </header>
 
   {{ if .Sections }}
-  <section class="section-grid section-grid--sections" aria-label="Sections">
+  {{ $sectionsAriaLabel := site.Params.comichero.labels.sectionsAria | default "Sections" }}
+  <section class="section-grid section-grid--sections" aria-label="{{ $sectionsAriaLabel }}">
     {{ range $section := .Sections.ByWeight }}
     <a href="{{ $section.RelPermalink }}" class="comic-card comic-card--section">
       <span class="comic-card__tag">{{ $section.Section | humanize }}</span>

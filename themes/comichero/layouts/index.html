@@ -9,7 +9,8 @@
       <p class="hero__subtitle">{{ site.Params.comichero.heroSubtitle | default site.Params.description }}</p>
       <div class="hero__actions">
       {{ $lastUpdated := (index (first 1 (sort site.RegularPages "Lastmod" "desc")) 0) }}
-      {{ with $lastUpdated }}<p class="hero__recent-update">Last updated: {{ .Lastmod.Format "2006-01-02 15:04" }}</p>{{ end }}
+      {{ $lastUpdatedPrefix := site.Params.comichero.labels.lastUpdated | default "Last updated:" }}
+      {{ with $lastUpdated }}<p class="hero__recent-update">{{ $lastUpdatedPrefix }} {{ .Lastmod.Format "2006-01-02 15:04" }}</p>{{ end }}
 
         {{ range site.Menus.hero }}
         <a href="{{ .URL }}" class="btn btn--primary">{{ .Name }}</a>
@@ -27,7 +28,8 @@
   <h2 class="section-heading sfx-tilt">{{ site.Params.comichero.latestHeading | default "Latest stories" }}</h2>
   <ul class="comic-grid comic-grid--home comic-grid--book" role="list">
     {{ $types := site.Params.comichero.homeTypes | default (slice "blog") }}
-    {{ range $p := first 6 (where site.RegularPages "Type" "in" $types) }}
+    {{ $homeCardLimit := site.Params.comichero.homeCardLimit | default 6 }}
+    {{ range $p := first $homeCardLimit (where site.RegularPages "Type" "in" $types) }}
     <li>
       <article class="comic-card comic-card--post">
         <a href="{{ $p.RelPermalink }}" class="comic-card__link">

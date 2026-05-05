@@ -1,4 +1,4 @@
-{{ $title := .Get "title" | default "" }}
+{{ $title := .Get "title" | default (site.Params.comichero.shortcodeDefaults.panelTitle | default "") }}
 {{ $class := .Get "class" | default "" }}
 <div class="comic-shortcode-panel comic-panel {{ $class }}">
   {{ if $title }}<div class="comic-shortcode-panel__title">{{ $title }}</div>{{ end }}

@@ -25,6 +25,21 @@ themesDir = "../themes"
   githubUser = "Ollie-Boy"
   searchPlaceholder = "Search posts, docs, and series..."
   defaultThumbnail = "/images/furry-god-thumb.svg"
+  homeCardLimit = 6
+  blogTagLimit = 8
+
+  [params.comichero.labels]
+  lastUpdated = "Last updated:"
+  allTags = "All"
+  sectionsAria = "Sections"
+  paginationAria = "Pagination"
+  prev = "← Prev"
+  next = "Next →"
+  tocTitle = "On this page"
+  tocEmpty = "Add headings to show a table of contents."
+
+  [params.comichero.shortcodeDefaults]
+  panelTitle = ""
 
   [params.comichero.sectionIntro]
   blog = "Browse the latest posts — this is where I share coding notes, life updates, and new experiments."
