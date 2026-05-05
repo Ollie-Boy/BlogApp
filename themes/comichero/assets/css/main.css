@@ -3609,19 +3609,21 @@ pre.codesnippet code {
   --bg-hue-1: 205;
   --bg-hue-2: 255;
   --bg-hue-3: 300;
+  --bg-glow-alpha: 0.38;
 }
+
 body {
   background-image:
     radial-gradient(
       circle at var(--bg-x) var(--bg-y),
-      hsl(var(--bg-hue-3) 88% 76% / 0.26),
+      hsl(var(--bg-hue-3) 96% 72% / var(--bg-glow-alpha)),
       transparent 34%
     ),
     linear-gradient(
       180deg,
-      hsl(var(--bg-hue-1) 100% 88%),
-      hsl(var(--bg-hue-2) 92% 84%),
-      hsl(var(--bg-hue-3) 82% 82%)
+      hsl(var(--bg-hue-1) 100% 84%),
+      hsl(var(--bg-hue-2) 100% 74%),
+      hsl(var(--bg-hue-3) 98% 66%)
     );
   background-attachment: scroll;
   background-size: 100% 100vh;

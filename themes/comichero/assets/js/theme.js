@@ -574,13 +574,16 @@
   function updateBg(e) {
     var px = e ? e.clientX / Math.max(1, window.innerWidth) : 0.5;
     var py = (window.scrollY || 0) / Math.max(1, document.body.scrollHeight - window.innerHeight);
-    var hueShift = py * 160;
+    var progress = Math.min(1, Math.max(0, py));
+    var hueCycle = progress * 320;
+    var wave = Math.sin(progress * Math.PI * 2);
 
     root.style.setProperty("--bg-x", String((px * 100).toFixed(2)) + "%");
     root.style.setProperty("--bg-y", String((py * 100).toFixed(2)) + "%");
-    root.style.setProperty("--bg-hue-1", String((205 + hueShift).toFixed(1)));
-    root.style.setProperty("--bg-hue-2", String((255 + hueShift * 0.9).toFixed(1)));
-    root.style.setProperty("--bg-hue-3", String((300 + hueShift * 0.75).toFixed(1)));
+    root.style.setProperty("--bg-hue-1", String((195 + hueCycle).toFixed(1)));
+    root.style.setProperty("--bg-hue-2", String((255 + hueCycle * 1.05).toFixed(1)));
+    root.style.setProperty("--bg-hue-3", String((320 + hueCycle * 1.12).toFixed(1)));
+    root.style.setProperty("--bg-glow-alpha", String((0.25 + (wave + 1) * 0.15).toFixed(3)));
   }
   window.addEventListener("mousemove", updateBg, { passive: true });
   window.addEventListener("scroll", updateBg, { passive: true });
