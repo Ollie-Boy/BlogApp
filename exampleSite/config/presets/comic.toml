@@ -1,0 +1,14 @@
+[params.comichero]
+heroSfx = "KAPOW!"
+homeCardLimit = 8
+blogTagLimit = 10
+
+[params.comichero.labels]
+lastUpdated = "Last updated:"
+allTags = "All"
+sectionsAria = "Comic sections"
+paginationAria = "Comic pagination"
+prev = "← Prev"
+next = "Next →"
+tocTitle = "On this page"
+tocEmpty = "Add headings to show a table of contents."

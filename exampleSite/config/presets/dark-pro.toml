@@ -1,0 +1,15 @@
+[params.comichero]
+defaultTheme = "dark"
+heroSfx = "NOVA"
+homeCardLimit = 6
+blogTagLimit = 12
+
+[params.comichero.labels]
+lastUpdated = "Sync:"
+allTags = "All topics"
+sectionsAria = "Sections"
+paginationAria = "Pagination"
+prev = "← Newer"
+next = "Older →"
+tocTitle = "Outline"
+tocEmpty = "No outline available."

@@ -1,0 +1,14 @@
+[params.comichero]
+heroSfx = "GO"
+homeCardLimit = 4
+blogTagLimit = 5
+
+[params.comichero.labels]
+lastUpdated = "Updated:"
+allTags = "All"
+sectionsAria = "Sections"
+paginationAria = "Pagination"
+prev = "Prev"
+next = "Next"
+tocTitle = "Contents"
+tocEmpty = "No headings yet."
