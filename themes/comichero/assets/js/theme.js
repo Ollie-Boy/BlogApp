@@ -244,6 +244,7 @@
   }
 
   document.querySelectorAll(".prose pre").forEach(function (pre) {
+    if (pre.closest(".comic-aside")) return;
     if (pre.closest(".codesnippet-wrap")) return;
     if (pre.querySelector(".code-copy-btn")) return;
     var btn = document.createElement("button");
@@ -491,7 +492,18 @@
   document.querySelectorAll(".prose pre code, .codesnippet code").forEach(function (code) {
     var pre = code.closest("pre");
     if (!pre) return;
+    if (pre.closest(".comic-aside")) return;
     pre.classList.add("code-enhanced");
+    var langClass = Array.prototype.find.call(code.classList, function (cn) {
+      return cn.indexOf("language-") === 0;
+    });
+    if (langClass && !pre.querySelector(".code-lang-badge")) {
+      var lang = langClass.replace(/^language-/, "").toUpperCase();
+      var badge = document.createElement("span");
+      badge.className = "code-lang-badge";
+      badge.textContent = lang;
+      pre.appendChild(badge);
+    }
     var lines = (code.textContent || "").split("\n").length;
     if (lines > 20 && !pre.querySelector(".code-collapse-btn")) {
       pre.classList.add("is-collapsed");
@@ -512,6 +524,23 @@
       window.setTimeout(function () {
         showToast("Copied");
       }, 30);
+    });
+  });
+
+  /* dialogue-ab choice feedback */
+  document.querySelectorAll("[data-dialogue-ab]").forEach(function (box) {
+    var buttons = box.querySelectorAll("[data-pick],[data-vote-option]");
+    var result = box.querySelector("[data-vote-result]");
+    if (!buttons.length || !result) return;
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var pick = btn.getAttribute("data-pick") || btn.getAttribute("data-vote-option") || "";
+        var label = btn.closest(".comic-dialogue-ab__panel")?.querySelector(".comic-dialogue-ab__label");
+        var txt = (label && label.textContent) || btn.textContent || pick;
+        result.textContent = "You chose: " + txt.trim();
+        result.classList.add("is-active");
+        buttons.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+      });
     });
   });
 
