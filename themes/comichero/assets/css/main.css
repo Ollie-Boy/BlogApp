@@ -3614,6 +3614,9 @@ pre.codesnippet code {
   --bg-hue-2: 255;
   --bg-hue-3: 300;
   --bg-glow-alpha: 0.38;
+  --bg-stop-1: 84%;
+  --bg-stop-2: 74%;
+  --bg-stop-3: 66%;
 }
 
 body {
@@ -3625,15 +3628,73 @@ body {
     ),
     linear-gradient(
       180deg,
-      hsl(var(--bg-hue-1) 100% 84%),
-      hsl(var(--bg-hue-2) 100% 74%),
-      hsl(var(--bg-hue-3) 98% 66%)
+      hsl(var(--bg-hue-1) 100% var(--bg-stop-1)),
+      hsl(var(--bg-hue-2) 100% var(--bg-stop-2)),
+      hsl(var(--bg-hue-3) 98% var(--bg-stop-3))
     );
   background-attachment: scroll;
   background-repeat: no-repeat;
   background-size: 100% 180vh;
   transition: background-image 0.35s linear;
 }
+
+.site-footer {
+  position: relative;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -72px;
+  height: 72px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--panel) 58%, transparent)
+  );
+}
+
+.comic-card,
+.article-content pre,
+.highlight,
+.comic-file-block {
+  position: relative;
+  overflow: hidden;
+}
+
+.comic-card::after,
+.article-content pre::after,
+.highlight::after,
+.comic-file-block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.065;
+  background-image: radial-gradient(circle at 1px 1px, rgb(0 0 0 / 0.26) 1px, transparent 0);
+  background-size: 5px 5px;
+  mix-blend-mode: multiply;
+}
+
+.back-to-top.is-speeding {
+  animation: btt-pulse 380ms ease-out;
+}
+
+@keyframes btt-pulse {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-2px, -2px) scale(1.06);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
 .site-header {
   position: sticky;
   top: 0;
