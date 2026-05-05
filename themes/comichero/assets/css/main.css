@@ -2951,7 +2951,7 @@ pre.codesnippet code {
 
 .codesnippet-copy {
   position: absolute;
-  top: 0.5rem;
+  top: 2.15rem;
   right: 0.5rem;
   z-index: 2;
   font-family: var(--font-body);
