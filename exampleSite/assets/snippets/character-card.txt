@@ -1,3 +1,3 @@
-{{< character-card name="Captain Mira" img="https://avatars.githubusercontent.com/u/65850182?v=4&size=64" faction="Sky Guard" ability="Photon Dash" debut="Issue #1" >}}
+{{< character-card name="Captain Mira" img="/images/furry-god-thumb.svg" faction="Sky Guard" ability="Photon Dash" debut="Issue #1" >}}
 Tactical leader who specializes in rapid flank maneuvers.
 {{< /character-card >}}

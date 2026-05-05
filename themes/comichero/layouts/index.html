@@ -31,7 +31,8 @@
     <li>
       <article class="comic-card comic-card--post">
         <a href="{{ $p.RelPermalink }}" class="comic-card__link">
-          {{ with $p.Params.image }}
+          {{ $thumb := $p.Params.image | default site.Params.comichero.defaultThumbnail }}
+          {{ with $thumb }}
           <div class="comic-card__thumb">
             {{ partial "smart-image.html" (dict "src" . "alt" $p.LinkTitle "loading" "lazy" "width" "640" "height" "360") }}
           </div>

@@ -64,7 +64,7 @@ Event B
 {{< /timeline >}}
 {{< choice aText="Route A" aHref="#a" bText="Route B" bHref="#b" >}}{{< /choice >}}
 {{< stats label="Threat" value="82" trend="up" change="+6" >}}{{< /stats >}}
-{{< character-card name="Captain Mira" img="https://avatars.githubusercontent.com/u/65850182?v=4&size=64" faction="Sky Guard" ability="Photon Dash" debut="Issue #1" >}}
+{{< character-card name="Captain Mira" img="/images/furry-god-thumb.svg" faction="Sky Guard" ability="Photon Dash" debut="Issue #1" >}}
 Profile text…
 {{< /character-card >}}
 {{< warning-strip level="spoiler" text="Major spoiler below." >}}{{< /warning-strip >}}

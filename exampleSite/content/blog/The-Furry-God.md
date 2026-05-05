@@ -6,6 +6,7 @@ draft = false
 # menu = "main"
 description = ""
 tags = ["life"]
+image = "/images/furry-god-thumb.svg"
 +++
 
 NGL, I LIKE THIS FURRY GOD SO MUCH!!!!

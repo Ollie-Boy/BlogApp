@@ -10,4 +10,4 @@ tags = ["life","friend"]
 
 So shy I am and don't know what to say so I write it down here to remember this day forever(As long as I still run this web :3 )
 
-![stitch-Thank-you-gif](https://avatars.githubusercontent.com/u/65850182?v=4&size=64)
+![stitch-Thank-you-gif](/images/furry-god-thumb.svg)

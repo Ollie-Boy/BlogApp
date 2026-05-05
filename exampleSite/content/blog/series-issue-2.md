@@ -5,7 +5,7 @@ description: "Second issue — tests next/prev in the series footer."
 tags: ["series-demo"]
 series: ["Comic Hero Tales"]
 issue: 2
-image: "https://avatars.githubusercontent.com/u/65850182?v=4&size=64"
+image: "/images/furry-god-thumb.svg"
 ---
 
 You made it to **issue 2**. Open the Series page to see the reading order and issue links.

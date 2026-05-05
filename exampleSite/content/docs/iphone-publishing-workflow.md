@@ -38,7 +38,7 @@ description: ""
 summary: ""
 series: []
 issue:
-image: "https://avatars.githubusercontent.com/u/65850182?v=4&size=64"
+image: "/images/furry-god-thumb.svg"
 ---
 ```
 

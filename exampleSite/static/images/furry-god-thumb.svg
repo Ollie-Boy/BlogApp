@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="The Furry God thumbnail">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2a1f4d"/>
+      <stop offset="55%" stop-color="#5a34a1"/>
+      <stop offset="100%" stop-color="#f59f00"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="210" cy="150" r="90" fill="#ffffff22"/>
+  <circle cx="980" cy="470" r="120" fill="#ffffff1f"/>
+  <text x="80" y="280" fill="#fff" font-family="Arial, sans-serif" font-size="86" font-weight="700">THE FURRY GOD</text>
+  <text x="82" y="360" fill="#ffe066" font-family="Arial, sans-serif" font-size="44">Default blog thumbnail</text>
+</svg>

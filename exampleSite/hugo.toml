@@ -6,7 +6,7 @@ themesDir = "../themes"
 
 [params]
   description = "Demo site: blog, docs, and series in one comic-book layout."
-  og_image = "https://avatars.githubusercontent.com/u/65850182?v=4&size=64"
+  og_image = "/images/furry-god-thumb.svg"
 
 [taxonomies]
   tag = "tags"
@@ -24,6 +24,7 @@ themesDir = "../themes"
   homeTypes = ["blog"]
   githubUser = "Ollie-Boy"
   searchPlaceholder = "Search posts, docs, and series..."
+  defaultThumbnail = "/images/furry-god-thumb.svg"
 
   [params.comichero.sectionIntro]
   blog = "Browse the latest posts — this is where I share coding notes, life updates, and new experiments."
