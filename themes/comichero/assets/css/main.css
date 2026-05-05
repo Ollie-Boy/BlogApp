@@ -3828,6 +3828,10 @@ pre.code-enhanced .code-copy-btn {
   top: 2.15rem;
 }
 
+.prose pre .code-copy-btn {
+  top: 2.15rem;
+}
+
 .comic-dialogue-ab [data-pick].is-active,
 .comic-dialogue-ab [data-vote-option].is-active {
   outline: 3px solid color-mix(in srgb, var(--accent) 70%, #fff 30%);
