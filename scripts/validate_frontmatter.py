@@ -63,6 +63,15 @@ def main() -> int:
         if date and not DATE_RE.match(date):
             bad.append((md, f"invalid date format `{date}` (expect YYYY-MM-DD)"))
 
+        schema_version = get_value(fm, "schema_version") or "1"
+        if schema_version not in {"1"}:
+            bad.append((md, f"unsupported schema_version `{schema_version}`"))
+
+        series = get_value(fm, "series")
+        issue = get_value(fm, "issue")
+        if series and not issue:
+            bad.append((md, "series post missing `issue`"))
+
         image = get_value(fm, "image")
         if image and not is_http_url(image) and not exists_local_ref(image, md):
             bad.append((md, f"image not found: {image}"))

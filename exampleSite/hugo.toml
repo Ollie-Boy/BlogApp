@@ -41,6 +41,28 @@ themesDir = "../themes"
   [params.comichero.shortcodeDefaults]
   panelTitle = ""
 
+  [params.comichero.ui]
+  heroTitle = "wind in the sky"
+  heroSubtitle = "A personal notebook of code, ideas, and small experiments drifting forward one post at a time."
+  heroSfx = "KAPOW!"
+  latestHeading = "Fresh off the press"
+
+    [params.comichero.ui.labels]
+    lastUpdated = "Last updated:"
+    allTags = "All"
+    sectionsAria = "Sections"
+    paginationAria = "Pagination"
+    prev = "← Prev"
+    next = "Next →"
+
+  [params.comichero.layout]
+  homeTypes = ["blog"]
+  homeCardLimit = 6
+  blogTagLimit = 8
+
+  [params.comichero.media]
+  defaultThumbnail = "/images/furry-god-thumb.svg"
+
   [params.comichero.sectionIntro]
   blog = "Browse the latest posts — this is where I share coding notes, life updates, and new experiments."
   docs = "Guides, setup notes, and references for building and customizing the site."

@@ -1,7 +1,7 @@
 {{ if or .Paginator.HasPrev .Paginator.HasNext }}
-{{ $paginationAria := site.Params.comichero.labels.paginationAria | default "Pagination" }}
-{{ $prevLabel := site.Params.comichero.labels.prev | default "← Prev" }}
-{{ $nextLabel := site.Params.comichero.labels.next | default "Next →" }}
+{{ $paginationAria := site.Params.comichero.ui.labels.paginationAria | default site.Params.comichero.labels.paginationAria | default "Pagination" }}
+{{ $prevLabel := site.Params.comichero.ui.labels.prev | default site.Params.comichero.labels.prev | default "← Prev" }}
+{{ $nextLabel := site.Params.comichero.ui.labels.next | default site.Params.comichero.labels.next | default "Next →" }}
 <nav class="pagination comic-panel" aria-label="{{ $paginationAria }}">
   {{ if .Paginator.HasPrev }}
   <a class="btn btn--ghost" href="{{ .Paginator.Prev.URL }}">{{ $prevLabel }}</a>

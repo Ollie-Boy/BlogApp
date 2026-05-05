@@ -10,8 +10,8 @@
     {{ if $intro }}<div class="prose lead"><p>{{ $intro }}</p></div>{{ end }}
     {{ end }}
     {{ if eq .Section "blog" }}
-    {{ $allTagsLabel := site.Params.comichero.labels.allTags | default "All" }}
-    {{ $blogTagLimit := site.Params.comichero.blogTagLimit | default 8 }}
+    {{ $allTagsLabel := site.Params.comichero.ui.labels.allTags | default site.Params.comichero.labels.allTags | default "All" }}
+    {{ $blogTagLimit := site.Params.comichero.layout.blogTagLimit | default site.Params.comichero.blogTagLimit | default 8 }}
     <div class="tag-filter">
       <a class="tag tag--series" href="{{ "/blog/" | relURL }}">{{ $allTagsLabel }}</a>
       {{ range first $blogTagLimit site.Taxonomies.tags.ByCount }}
@@ -22,7 +22,7 @@
   </header>
 
   {{ if .Sections }}
-  {{ $sectionsAriaLabel := site.Params.comichero.labels.sectionsAria | default "Sections" }}
+  {{ $sectionsAriaLabel := site.Params.comichero.ui.labels.sectionsAria | default site.Params.comichero.labels.sectionsAria | default "Sections" }}
   <section class="section-grid section-grid--sections" aria-label="{{ $sectionsAriaLabel }}">
     {{ range $section := .Sections.ByWeight }}
     <a href="{{ $section.RelPermalink }}" class="comic-card comic-card--section">
@@ -44,7 +44,7 @@
     <li>
       <article class="comic-card comic-card--post">
         <a href="{{ $p.RelPermalink }}" class="comic-card__link">
-          {{ $thumb := $p.Params.image | default site.Params.comichero.defaultThumbnail }}
+          {{ $thumb := $p.Params.image | default site.Params.comichero.media.defaultThumbnail | default site.Params.comichero.defaultThumbnail }}
           {{ with $thumb }}
           <div class="comic-card__thumb">
             {{ partial "smart-image.html" (dict "src" . "alt" $p.LinkTitle "loading" "lazy" "width" "640" "height" "360") }}

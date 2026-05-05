@@ -35,3 +35,19 @@ python scripts/validate_frontmatter.py
 ```
 
 This checks required front matter fields, date format, and image-link existence.
+
+## Content schema
+
+- default schema: `schema_version = 1`
+- required fields: `title`, `date`, `description`
+- if `series` exists then `issue` is required
+
+## Author workflow
+
+Optional local hook:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+This enables pre-commit validation and shortcode-doc regeneration.
