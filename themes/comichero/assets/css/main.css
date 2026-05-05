@@ -3657,18 +3657,12 @@ body {
   );
 }
 
-.comic-card,
-.article-content pre,
-.highlight,
-.comic-file-block {
+.comic-card {
   position: relative;
   overflow: hidden;
 }
 
-.comic-card::after,
-.article-content pre::after,
-.highlight::after,
-.comic-file-block::after {
+.comic-card::after {
   content: "";
   position: absolute;
   inset: 0;
