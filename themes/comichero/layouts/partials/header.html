@@ -20,3 +20,26 @@
     </div>
   </div>
 </header>
+{{ $music := site.Params.comichero.music }}
+{{ if and $music $music.enabled }}
+<section class="bgm-dock bgm-dock--header comic-panel" data-bgm-dock>
+  <div class="bgm-dock__head">
+    <strong>{{ $music.title | default "Background music" }}</strong>
+    <button type="button" class="btn btn--ghost bgm-dock__toggle" data-bgm-toggle>Play</button>
+  </div>
+  {{ with $music.src }}
+  <audio data-bgm-audio preload="none" controls>
+    <source src="{{ . | relURL }}">
+  </audio>
+  {{ end }}
+  {{ with $music.embed }}
+  <div class="bgm-dock__embed">
+    <iframe src="{{ . }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  {{ end }}
+  {{ with $music.lyrics }}
+  <pre class="bgm-lyrics" data-bgm-lyrics-raw>{{ . }}</pre>
+  <ol class="bgm-lyrics__list" data-bgm-lyrics></ol>
+  {{ end }}
+</section>
+{{ end }}

@@ -4444,6 +4444,7 @@ pre.code-enhanced:hover::before {
 }
 
 .bgm-dock{position:fixed;left:1rem;bottom:1rem;z-index:88;max-width:min(92vw,22rem);padding:.7rem;background:var(--panel)}
+.bgm-dock--header{top:.75rem;bottom:auto;z-index:120}
 .bgm-dock__head{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.45rem}
 .bgm-dock audio{width:100%}
 .bgm-dock__embed iframe{width:100%;min-height:180px;border:var(--stroke) solid var(--line);background:#000}
@@ -4451,4 +4452,4 @@ pre.code-enhanced:hover::before {
 .bgm-lyrics__list{max-height:7.5rem;overflow:auto;margin:.5rem 0 0;padding-left:1rem;font-size:.82rem}
 .bgm-lyrics__list li{opacity:.55}
 .bgm-lyrics__list li.is-active{opacity:1;color:var(--accent);font-weight:800}
-@media (max-width: 900px){.bgm-dock{left:.5rem;right:.5rem;max-width:none}}
+@media (max-width: 900px){.bgm-dock{left:.5rem;right:.5rem;max-width:none}.bgm-dock--header{top:.5rem}}
