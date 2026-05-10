@@ -1,4 +1,4 @@
-{{< dialogue-ab title="Checkpoint Choice" aLabel="A 路线" bLabel="B 路线" >}}
+{{< dialogue-ab title="Checkpoint Choice" aLabel="Route A" bLabel="Route B" >}}
 Walk in with forged credentials.
 ---
 Cut power first, then breach from the roof.

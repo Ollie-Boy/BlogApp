@@ -22,12 +22,14 @@
   <script>
     (function () {
       try {
-        var s = localStorage.getItem("comichero-theme");
-        if (s === "dark" || s === "light") document.documentElement.setAttribute("data-theme", s);
-        else {
-          var h = new Date().getHours();
-          document.documentElement.setAttribute("data-theme", h >= 19 || h < 7 ? "dark" : "light");
+        var mode = localStorage.getItem("comichero-theme-mode");
+        var saved = localStorage.getItem("comichero-theme");
+        if (mode === "manual" && (saved === "dark" || saved === "light")) {
+          document.documentElement.setAttribute("data-theme", saved);
+          return;
         }
+        var h = new Date().getHours();
+        document.documentElement.setAttribute("data-theme", h >= 19 || h < 7 ? "dark" : "light");
       } catch (e) {}
     })();
   </script>

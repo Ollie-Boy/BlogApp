@@ -1,1 +1,1 @@
-{{< chapter label="第 3 回" volume="Vol. 1" subtitle="Optional **subtitle**." >}}
+{{< chapter label="Issue 3" volume="Vol. 1" subtitle="Optional **subtitle**." >}}
