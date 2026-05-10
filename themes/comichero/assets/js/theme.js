@@ -1,6 +1,5 @@
 (function () {
   var THEME_KEY = "comichero-theme";
-  var THEME_MODE_KEY = "comichero-theme-mode";
   var SFX_MUTE_KEY = "comichero-sfx-muted";
   var root = document.documentElement;
 
@@ -30,35 +29,18 @@
     return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
   }
 
-  function themeMode() {
-    return getStored(THEME_MODE_KEY) || "auto";
-  }
-
   function updateThemeToggleLabels() {
-    var mode = themeMode();
+    var theme = currentTheme();
     document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
-      var label = btn.querySelector("[data-theme-mode-label]");
-      if (label) label.textContent = mode === "auto" ? "Auto" : currentTheme();
-      btn.setAttribute("data-theme-mode", mode);
-      btn.setAttribute("aria-label", "Theme mode: " + (mode === "auto" ? "Auto" : currentTheme()));
-      btn.setAttribute("title", "Theme mode: " + (mode === "auto" ? "Auto" : currentTheme()));
+      btn.setAttribute("aria-label", "Theme: " + theme + ". Click to switch.");
+      btn.setAttribute("title", "Theme: " + theme);
     });
   }
 
   function toggleTheme() {
-    var mode = themeMode();
-    if (mode === "auto") {
-      applyTheme("light");
-      setStored(THEME_KEY, "light");
-      setStored(THEME_MODE_KEY, "manual");
-    } else if (currentTheme() === "light") {
-      applyTheme("dark");
-      setStored(THEME_KEY, "dark");
-      setStored(THEME_MODE_KEY, "manual");
-    } else {
-      setStored(THEME_MODE_KEY, "auto");
-      applyTheme(localTimeTheme());
-    }
+    var next = currentTheme() === "light" ? "dark" : "light";
+    applyTheme(next);
+    setStored(THEME_KEY, next);
     updateThemeToggleLabels();
   }
 
@@ -75,19 +57,7 @@
     });
   }
 
-  function localTimeTheme() {
-    var hour = new Date().getHours();
-    return hour >= 19 || hour < 7 ? "dark" : "light";
-  }
-
-  function applyTimeThemeIfAuto() {
-    if (themeMode() === "manual") return;
-    applyTheme(localTimeTheme());
-    updateThemeToggleLabels();
-  }
-  applyTimeThemeIfAuto();
   updateThemeToggleLabels();
-  window.setInterval(applyTimeThemeIfAuto, 5 * 60 * 1000);
 
   /* Back to top */
   var btt = document.querySelector("[data-back-to-top]");
@@ -516,19 +486,6 @@
     if (getStored(SFX_MUTE_KEY) === "1") board.setAttribute("data-sfx-muted", "1");
   });
 
-  /* System-follow theme with manual override cycle */
-  document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
-    btn.addEventListener("contextmenu", function (e) {
-      e.preventDefault();
-      try {
-        localStorage.removeItem(THEME_KEY);
-        localStorage.setItem(THEME_MODE_KEY, "auto");
-      } catch (err) {}
-      applyTheme(localTimeTheme());
-      updateThemeToggleLabels();
-    });
-  });
-
   /* Global media mute memory */
   var MEDIA_MUTE_KEY = "comichero-media-muted";
   var mediaMuted = getStored(MEDIA_MUTE_KEY) === "1";
@@ -802,4 +759,38 @@
     { passive: true }
   );
   updateBg();
+
+  var bgmAudio = document.querySelector("[data-bgm-audio]");
+  var bgmBtn = document.querySelector("[data-bgm-toggle]");
+  var rawLyrics = document.querySelector("[data-bgm-lyrics-raw]");
+  var lyricList = document.querySelector("[data-bgm-lyrics]");
+  if (bgmAudio && bgmBtn) {
+    var BGM_KEY = "comichero-bgm-on";
+    var parsed = [];
+    if (rawLyrics && lyricList) {
+      var lines = (rawLyrics.textContent || "").split("\n");
+      lines.forEach(function (line) {
+        var m = line.match(/^\s*\[(\d{1,2}):(\d{2})(?:\.(\d{1,2}))?\]\s*(.*)$/);
+        if (!m) return;
+        var t = Number(m[1]) * 60 + Number(m[2]) + (m[3] ? Number(m[3]) / 100 : 0);
+        parsed.push({ time: t, text: m[4] || "…" });
+      });
+      parsed.sort(function (a, b) { return a.time - b.time; });
+      parsed.forEach(function (row) { var li = document.createElement("li"); li.textContent = row.text; lyricList.appendChild(li); });
+      rawLyrics.hidden = true;
+    }
+    function syncBtn() { bgmBtn.textContent = bgmAudio.paused ? "Play" : "Pause"; }
+    bgmBtn.addEventListener("click", function () { if (bgmAudio.paused) bgmAudio.play().catch(function () {}); else bgmAudio.pause(); });
+    bgmAudio.addEventListener("play", function () { setStored(BGM_KEY, "1"); syncBtn(); });
+    bgmAudio.addEventListener("pause", syncBtn);
+    bgmAudio.addEventListener("timeupdate", function () {
+      if (!parsed.length || !lyricList) return;
+      var idx = 0;
+      for (var i = 0; i < parsed.length; i++) if (bgmAudio.currentTime >= parsed[i].time) idx = i;
+      Array.prototype.forEach.call(lyricList.children, function (el, i) { el.classList.toggle("is-active", i === idx); });
+    });
+    if (getStored(BGM_KEY) === "1") bgmAudio.autoplay = true;
+    syncBtn();
+  }
+
 })();

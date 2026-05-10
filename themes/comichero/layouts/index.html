@@ -24,18 +24,6 @@
   </div>
 </section>
 
-{{ $featured := first 1 (where site.RegularPages "Type" "blog") }}
-{{ with index $featured 0 }}
-<section class="container section featured-post">
-  <article class="comic-panel featured-post__panel">
-    <p class="featured-post__eyebrow">Featured post</p>
-    <h2 class="featured-post__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    <p class="featured-post__meta">{{ .Date.Format "2006-01-02" }} · {{ .ReadingTime }} min · {{ .WordCount }} words</p>
-    {{ with .Description | default .Summary }}<p>{{ . | plainify | truncate 190 }}</p>{{ end }}
-  </article>
-</section>
-{{ end }}
-
 <div class="container section">
   <h2 class="section-heading sfx-tilt">{{ site.Params.comichero.ui.latestHeading | default site.Params.comichero.latestHeading | default "Latest stories" }}</h2>
   <ul class="comic-grid comic-grid--home comic-grid--book" role="list">
