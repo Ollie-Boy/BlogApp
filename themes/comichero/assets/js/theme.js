@@ -39,6 +39,7 @@
     document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
       var label = btn.querySelector("[data-theme-mode-label]");
       if (label) label.textContent = mode === "auto" ? "Auto" : currentTheme();
+      btn.setAttribute("data-theme-mode", mode);
       btn.setAttribute("aria-label", "Theme mode: " + (mode === "auto" ? "Auto" : currentTheme()));
       btn.setAttribute("title", "Theme mode: " + (mode === "auto" ? "Auto" : currentTheme()));
     });
@@ -285,6 +286,9 @@
   });
 
   document.querySelectorAll(".hero__sfx").forEach(function (sfx) {
+    sfx.addEventListener("mousedown", function (e) {
+      e.preventDefault();
+    });
     sfx.addEventListener("click", function () {
       sfx.classList.remove("is-bursting");
       void sfx.offsetWidth;
