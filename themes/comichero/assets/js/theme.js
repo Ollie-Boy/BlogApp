@@ -764,11 +764,16 @@
   var bgmBtn = document.querySelector("[data-bgm-toggle]");
   var rawLyrics = document.querySelector("[data-bgm-lyrics-raw]");
   var lyricList = document.querySelector("[data-bgm-lyrics]");
+  var lyricsUrlEl = document.querySelector("[data-bgm-lyrics-url]");
   if (bgmAudio && bgmBtn) {
     var BGM_KEY = "comichero-bgm-on";
+    var BGM_TIME_KEY = "comichero-bgm-time";
     var parsed = [];
-    if (rawLyrics && lyricList) {
-      var lines = (rawLyrics.textContent || "").split("\n");
+    function parseLyricsText(text) {
+      var lines = (text || "").split("\n");
+      parsed = [];
+      if (!lyricList) return;
+      lyricList.innerHTML = "";
       lines.forEach(function (line) {
         var m = line.match(/^\s*\[(\d{1,2}):(\d{2})(?:\.(\d{1,2}))?\]\s*(.*)$/);
         if (!m) return;
@@ -777,18 +782,33 @@
       });
       parsed.sort(function (a, b) { return a.time - b.time; });
       parsed.forEach(function (row) { var li = document.createElement("li"); li.textContent = row.text; lyricList.appendChild(li); });
+      lyricList.hidden = !parsed.length;
+    }
+    if (rawLyrics && lyricList) {
+      var lines = (rawLyrics.textContent || "").split("\n");
+      parseLyricsText(lines.join("\n"));
       rawLyrics.hidden = true;
+    }
+    if ((!parsed.length) && lyricsUrlEl && lyricsUrlEl.textContent) {
+      fetch(lyricsUrlEl.textContent.trim()).then(function (r) { return r.text(); }).then(parseLyricsText).catch(function () {});
     }
     function syncBtn() { bgmBtn.textContent = bgmAudio.paused ? "Play" : "Pause"; }
     bgmBtn.addEventListener("click", function () { if (bgmAudio.paused) bgmAudio.play().catch(function () {}); else bgmAudio.pause(); });
     bgmAudio.addEventListener("play", function () { setStored(BGM_KEY, "1"); syncBtn(); });
     bgmAudio.addEventListener("pause", syncBtn);
+    bgmAudio.addEventListener("timeupdate", function () { setStored(BGM_TIME_KEY, String(bgmAudio.currentTime || 0)); });
     bgmAudio.addEventListener("timeupdate", function () {
       if (!parsed.length || !lyricList) return;
       var idx = 0;
       for (var i = 0; i < parsed.length; i++) if (bgmAudio.currentTime >= parsed[i].time) idx = i;
       Array.prototype.forEach.call(lyricList.children, function (el, i) { el.classList.toggle("is-active", i === idx); });
     });
+    var savedTime = Number(getStored(BGM_TIME_KEY) || "0");
+    if (savedTime > 0) {
+      bgmAudio.addEventListener("loadedmetadata", function () {
+        try { bgmAudio.currentTime = Math.min(savedTime, Math.max(0, (bgmAudio.duration || savedTime) - 0.15)); } catch (e) {}
+      }, { once: true });
+    }
     if (getStored(BGM_KEY) === "1") bgmAudio.autoplay = true;
     syncBtn();
   }

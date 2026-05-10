@@ -7,6 +7,23 @@
       <span class="nav-toggle__bar"></span>
       <span class="visually-hidden">{{ i18n "menu" | default "Menu" }}</span>
     </button>
+    {{ $music := site.Params.comichero.music }}
+    {{ if and $music $music.enabled }}
+    <div class="header-mini-player comic-panel" data-bgm-dock>
+      <button type="button" class="header-mini-player__btn" data-bgm-toggle aria-label="Toggle music">♫</button>
+      <span class="header-mini-player__title">{{ $music.title | default "Now Playing" }}</span>
+      {{ with $music.src }}
+      <audio data-bgm-audio preload="metadata">
+        <source src="{{ . | relURL }}">
+      </audio>
+      {{ end }}
+      {{ with $music.embedHtml }}<div class="header-mini-player__embed">{{ . | safeHTML }}</div>{{ end }}
+      {{ with $music.embed }}<div class="header-mini-player__embed"><iframe src="{{ . }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>{{ end }}
+      {{ with $music.lyrics }}<pre class="bgm-lyrics" data-bgm-lyrics-raw>{{ . }}</pre>{{ end }}
+      {{ with $music.lyricsUrl }}<span hidden data-bgm-lyrics-url>{{ . }}</span>{{ end }}
+      <ol class="bgm-lyrics__list" data-bgm-lyrics hidden></ol>
+    </div>
+    {{ end }}
     <nav id="site-nav" class="site-nav" data-site-nav>
       {{ range site.Menus.main }}
       <a href="{{ .URL }}" class="site-nav__link{{ if $.IsMenuCurrent "main" . }} is-active{{ end }}">{{ .Name }}</a>
@@ -20,31 +37,3 @@
     </div>
   </div>
 </header>
-{{ $music := site.Params.comichero.music }}
-{{ if and $music $music.enabled }}
-<section class="bgm-dock bgm-dock--header comic-panel" data-bgm-dock>
-  <div class="bgm-dock__head">
-    <strong>{{ $music.title | default "Background music" }}</strong>
-    <button type="button" class="btn btn--ghost bgm-dock__toggle" data-bgm-toggle>Play</button>
-  </div>
-  {{ with $music.src }}
-  <audio data-bgm-audio preload="none" controls>
-    <source src="{{ . | relURL }}">
-  </audio>
-  {{ end }}
-  {{ with $music.embedHtml }}
-  <div class="bgm-dock__embed">
-    {{ . | safeHTML }}
-  </div>
-  {{ end }}
-  {{ with $music.embed }}
-  <div class="bgm-dock__embed">
-    <iframe src="{{ . }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-  </div>
-  {{ end }}
-  {{ with $music.lyrics }}
-  <pre class="bgm-lyrics" data-bgm-lyrics-raw>{{ . }}</pre>
-  <ol class="bgm-lyrics__list" data-bgm-lyrics></ol>
-  {{ end }}
-</section>
-{{ end }}
