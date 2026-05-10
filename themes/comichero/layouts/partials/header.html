@@ -32,6 +32,11 @@
     <source src="{{ . | relURL }}">
   </audio>
   {{ end }}
+  {{ with $music.embedHtml }}
+  <div class="bgm-dock__embed">
+    {{ . | safeHTML }}
+  </div>
+  {{ end }}
   {{ with $music.embed }}
   <div class="bgm-dock__embed">
     <iframe src="{{ . }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
