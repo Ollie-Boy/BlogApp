@@ -13,7 +13,7 @@ themesDir = "../themes"
   series = "series"
 
 [params.comichero]
-  defaultTheme = "light"
+  defaultTheme = "auto"
   googleFontsUrl = "https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
   useLocalFonts = true
   heroTitle = "wind in the sky"
@@ -128,3 +128,23 @@ themesDir = "../themes"
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+
+  [params.comichero.features]
+  dynamicBackground = true
+  backgroundIntensity = 1.0
+  reducedMotionFallback = true
+  linkInkHover = true
+  heroHalftone = true
+  heroClouds = true
+  heroSfxEasterEgg = true
+  featuredPost = true
+  cardReadingMeta = true
+  cardTags = true
+  cardStickers = true
+  tocCollapse = true
+  archiveStats = true
+  archiveHeatmap = true
+  lightboxCaptions = true
+  lightboxThumbnails = true
+  footerYear = true
+  featureFlags = true

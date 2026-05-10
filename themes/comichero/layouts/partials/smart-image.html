@@ -4,8 +4,12 @@
 {{- $loading := .loading | default "lazy" -}}
 {{- $w := .width | default "1200" -}}
 {{- $h := .height | default "630" -}}
+{{- $isRemote := or (strings.HasPrefix $src "https://") (strings.HasPrefix $src "http://") -}}
 {{- $clean := strings.TrimPrefix "/" $src -}}
-{{- $res := resources.Get $clean -}}
+{{- $res := false -}}
+{{- if not $isRemote -}}
+  {{- $res = resources.Get $clean -}}
+{{- end -}}
 {{- if and $res (ne $res.MediaType.SubType "svg") -}}
   {{- $avif := $res.Fill "768x432 avif q70" -}}
   {{- $webp := $res.Fill "768x432 webp q85" -}}
@@ -16,5 +20,5 @@
     <img class="{{ $class }}" src="{{ $jpg.RelPermalink }}" alt="{{ $alt }}" loading="{{ $loading }}" width="{{ $w }}" height="{{ $h }}">
   </picture>
 {{- else -}}
-  <img class="{{ $class }}" src="{{ $src | relURL }}" alt="{{ $alt }}" loading="{{ $loading }}" width="{{ $w }}" height="{{ $h }}">
+  <img class="{{ $class }}" src="{{ if $isRemote }}{{ $src }}{{ else }}{{ $src | relURL }}{{ end }}" alt="{{ $alt }}" loading="{{ $loading }}" width="{{ $w }}" height="{{ $h }}">
 {{- end -}}

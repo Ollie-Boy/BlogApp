@@ -5,9 +5,19 @@
     {{ with .Content }}<div class="prose lead">{{ . }}</div>{{ end }}
   </header>
   {{ $posts := where site.RegularPages "Type" "blog" }}
+  {{ $years := $posts.GroupByDate "2006" }}
+  <section class="comic-panel archives-stats" aria-label="Archive statistics">
+    <p><strong>{{ len $posts }}</strong> posts across <strong>{{ len $years }}</strong> year(s).</p>
+    <div class="archives-heatmap" aria-label="Monthly posting heatmap">
+      {{ range $posts.GroupByDate "2006-01" }}
+      {{ $count := len .Pages }}
+      <a class="archives-heatmap__cell archives-heatmap__cell--{{ cond (ge $count 4) "hot" (cond (ge $count 2) "warm" "cool") }}" href="#archive-{{ .Key }}" title="{{ .Key }}: {{ $count }} post(s)">{{ dateFormat "Jan" (printf "%s-01" .Key) }}</a>
+      {{ end }}
+    </div>
+  </section>
   {{ range $posts.GroupByDate "2006-01" }}
-  <section class="comic-panel archives-month">
-    <h2 class="section-heading">{{ .Key }}</h2>
+  <details id="archive-{{ .Key }}" class="comic-panel archives-month" open>
+    <summary class="archives-month__summary"><span>{{ .Key }}</span><span>{{ len .Pages }} post(s)</span></summary>
     <ul class="comic-series-issues" role="list">
       {{ range .Pages.ByDate.Reverse }}
       <li class="comic-series-issues__row">
@@ -17,7 +27,7 @@
       </li>
       {{ end }}
     </ul>
-  </section>
+  </details>
   {{ end }}
 </div>
 {{ end }}

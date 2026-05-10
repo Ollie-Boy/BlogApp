@@ -55,7 +55,7 @@ Line…
 {{< soundboard >}}
 POW|440
 {{< /soundboard >}}
-{{< chapter label="第 3 回" volume="Vol. 1" subtitle="Subtitle" >}}
+{{< chapter label="Issue 3" volume="Vol. 1" subtitle="Subtitle" >}}
 {{< codesnippet path="assets/snippets/panel.txt" />}}
 {{< timeline title="Timeline" >}}
 Event A

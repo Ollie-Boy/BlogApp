@@ -12,6 +12,7 @@
       {{ $from := cond (gt $rt 1) (sub $rt 1) 1 }}
       {{ $to := add $rt 1 }}
       <span>{{ $from }}-{{ $to }} min read</span>
+      <span>{{ .WordCount }} words</span>
       {{ end }}
       {{ if and (eq .Section "blog") (ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) }}
       <span>{{ i18n "updated" | default "Updated" }} {{ .Lastmod.Format "Jan 2, 2006" }}</span>

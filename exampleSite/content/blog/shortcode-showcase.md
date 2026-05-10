@@ -14,6 +14,20 @@ For each block below:
 
 ---
 
+<div class="showcase-tools comic-panel" data-showcase-tools>
+  <label class="showcase-tools__label" for="showcase-filter">Filter shortcode examples</label>
+  <input id="showcase-filter" class="showcase-tools__input" type="search" placeholder="Type panel, figure, video, dialogue, grid..." data-showcase-filter>
+  <details class="showcase-tools__details" open>
+    <summary>Live snippet scratchpad</summary>
+    <textarea class="showcase-tools__textarea" data-showcase-editor>{{&lt; note type=&quot;tip&quot; title=&quot;Tip&quot; &gt;}}Edit this snippet, then copy it into a Markdown post.{{&lt; /note &gt;}}</textarea>
+    <pre class="showcase-tools__preview"><code data-showcase-preview></code></pre>
+  </details>
+  <details class="showcase-tools__details">
+    <summary>How to use this page</summary>
+    <p>Use the filter to narrow examples. Use the scratchpad to draft a shortcode. Hugo renders shortcodes during site build, so the browser preview intentionally shows the exact text you should paste into a post.</p>
+  </details>
+</div>
+
 ## Text and callouts
 
 ### `panel`

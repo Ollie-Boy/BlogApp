@@ -1,5 +1,6 @@
 (function () {
   var THEME_KEY = "comichero-theme";
+  var THEME_MODE_KEY = "comichero-theme-mode";
   var SFX_MUTE_KEY = "comichero-sfx-muted";
   var root = document.documentElement;
 
@@ -29,10 +30,35 @@
     return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
   }
 
+  function themeMode() {
+    return getStored(THEME_MODE_KEY) || "auto";
+  }
+
+  function updateThemeToggleLabels() {
+    var mode = themeMode();
+    document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
+      var label = btn.querySelector("[data-theme-mode-label]");
+      if (label) label.textContent = mode === "auto" ? "Auto" : currentTheme();
+      btn.setAttribute("aria-label", "Theme mode: " + (mode === "auto" ? "Auto" : currentTheme()));
+      btn.setAttribute("title", "Theme mode: " + (mode === "auto" ? "Auto" : currentTheme()));
+    });
+  }
+
   function toggleTheme() {
-    var next = currentTheme() === "dark" ? "light" : "dark";
-    applyTheme(next);
-    setStored(THEME_KEY, next);
+    var mode = themeMode();
+    if (mode === "auto") {
+      applyTheme("light");
+      setStored(THEME_KEY, "light");
+      setStored(THEME_MODE_KEY, "manual");
+    } else if (currentTheme() === "light") {
+      applyTheme("dark");
+      setStored(THEME_KEY, "dark");
+      setStored(THEME_MODE_KEY, "manual");
+    } else {
+      setStored(THEME_MODE_KEY, "auto");
+      applyTheme(localTimeTheme());
+    }
+    updateThemeToggleLabels();
   }
 
   document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
@@ -48,12 +74,18 @@
     });
   }
 
-  function applyTimeThemeIfAuto() {
-    if (getStored(THEME_KEY)) return;
+  function localTimeTheme() {
     var hour = new Date().getHours();
-    applyTheme(hour >= 19 || hour < 7 ? "dark" : "light");
+    return hour >= 19 || hour < 7 ? "dark" : "light";
+  }
+
+  function applyTimeThemeIfAuto() {
+    if (themeMode() === "manual") return;
+    applyTheme(localTimeTheme());
+    updateThemeToggleLabels();
   }
   applyTimeThemeIfAuto();
+  updateThemeToggleLabels();
   window.setInterval(applyTimeThemeIfAuto, 5 * 60 * 1000);
 
   /* Back to top */
@@ -243,6 +275,33 @@
     updateActiveToc();
   }
 
+  document.querySelectorAll("[data-toc-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var box = btn.closest("[data-comic-toc]");
+      if (!box) return;
+      var collapsed = box.classList.toggle("is-collapsed");
+      btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    });
+  });
+
+  document.querySelectorAll(".hero__sfx").forEach(function (sfx) {
+    sfx.addEventListener("click", function () {
+      sfx.classList.remove("is-bursting");
+      void sfx.offsetWidth;
+      sfx.classList.add("is-bursting");
+    });
+  });
+
+  function ensureCodeActions(container, className) {
+    var actions = container.querySelector(":scope > ." + className);
+    if (!actions) {
+      actions = document.createElement("div");
+      actions.className = className;
+      container.appendChild(actions);
+    }
+    return actions;
+  }
+
   document.querySelectorAll(".prose pre").forEach(function (pre) {
     if (pre.closest(".comic-aside")) return;
     if (pre.closest(".codesnippet-wrap")) return;
@@ -253,9 +312,10 @@
     btn.textContent = "Copy";
     btn.setAttribute("aria-label", "Copy code block");
     pre.style.position = "relative";
-    pre.appendChild(btn);
+    ensureCodeActions(pre, "code-actions").appendChild(btn);
     btn.addEventListener("click", function () {
-      var text = pre.textContent || "";
+      var code = pre.querySelector("code");
+      var text = (code && code.textContent) || pre.textContent || "";
       function done() {
         btn.textContent = "Copied!";
         btn.classList.add("is-copied");
@@ -318,9 +378,12 @@
   var lightbox = document.createElement("div");
   lightbox.className = "comic-lightbox";
   lightbox.innerHTML =
-    '<button type="button" class="comic-lightbox__close" aria-label="Close">×</button><img alt="">';
+    '<button type="button" class="comic-lightbox__close" aria-label="Close">×</button><a class="comic-lightbox__download" download>Download</a><img alt=""><p class="comic-lightbox__caption"></p><div class="comic-lightbox__thumbs" aria-label="Image thumbnails"></div>';
   document.body.appendChild(lightbox);
   var lightboxImg = lightbox.querySelector("img");
+  var lightboxCaption = lightbox.querySelector(".comic-lightbox__caption");
+  var lightboxDownload = lightbox.querySelector(".comic-lightbox__download");
+  var lightboxThumbs = lightbox.querySelector(".comic-lightbox__thumbs");
   function closeLightbox() {
     lightbox.classList.remove("is-open");
   }
@@ -336,6 +399,10 @@
     img.addEventListener("click", function () {
       lightboxImg.src = img.currentSrc || img.src;
       lightboxImg.alt = img.alt || "";
+      if (lightboxCaption)
+        lightboxCaption.textContent =
+          img.closest("figure")?.querySelector("figcaption")?.textContent || img.alt || "";
+      if (lightboxDownload) lightboxDownload.href = lightboxImg.src;
       lightbox.classList.add("is-open");
     });
   });
@@ -451,9 +518,10 @@
       e.preventDefault();
       try {
         localStorage.removeItem(THEME_KEY);
+        localStorage.setItem(THEME_MODE_KEY, "auto");
       } catch (err) {}
-      var h = new Date().getHours();
-      applyTheme(h >= 19 || h < 7 ? "dark" : "light");
+      applyTheme(localTimeTheme());
+      updateThemeToggleLabels();
     });
   });
 
@@ -488,18 +556,34 @@
     var langClass = Array.prototype.find.call(code.classList, function (cn) {
       return cn.indexOf("language-") === 0;
     });
-    if (langClass) pre.setAttribute("data-code-lang", langClass.replace(/^language-/, "").toUpperCase());
+    if (langClass)
+      pre.setAttribute("data-code-lang", langClass.replace(/^language-/, "").toUpperCase());
+    var wrap = pre.closest(".codesnippet-wrap");
+    var copyBtn = wrap && pre.id ? wrap.querySelector('[data-copy-target="' + pre.id + '"]') : null;
+    if (copyBtn) ensureCodeActions(wrap, "codesnippet-actions").appendChild(copyBtn);
+
     var lines = (code.textContent || "").split("\n").length;
-    if (lines > 20 && !pre.querySelector(".code-collapse-btn")) {
+    if (
+      lines > 20 &&
+      !pre.querySelector(".code-collapse-btn") &&
+      !(wrap && wrap.querySelector(".code-collapse-btn"))
+    ) {
       pre.classList.add("is-collapsed");
       var toggle = document.createElement("button");
       toggle.type = "button";
-      toggle.className = "code-copy-btn code-collapse-btn";
+      toggle.className = "code-collapse-btn";
       toggle.textContent = "Expand";
-      pre.appendChild(toggle);
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Expand code block");
+      var actions = wrap
+        ? ensureCodeActions(wrap, "codesnippet-actions")
+        : ensureCodeActions(pre, "code-actions");
+      actions.insertBefore(toggle, actions.firstChild);
       toggle.addEventListener("click", function () {
-        var open = pre.classList.toggle("is-collapsed");
-        toggle.textContent = open ? "Expand" : "Collapse";
+        var collapsed = pre.classList.toggle("is-collapsed");
+        toggle.textContent = collapsed ? "Expand" : "Collapse";
+        toggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+        toggle.setAttribute("aria-label", collapsed ? "Expand code block" : "Collapse code block");
       });
     }
   });
@@ -520,36 +604,95 @@
     buttons.forEach(function (btn) {
       btn.addEventListener("click", function () {
         var pick = btn.getAttribute("data-pick") || btn.getAttribute("data-vote-option") || "";
-        var label = btn.closest(".comic-dialogue-ab__panel")?.querySelector(".comic-dialogue-ab__label");
+        var label = btn
+          .closest(".comic-dialogue-ab__panel")
+          ?.querySelector(".comic-dialogue-ab__label");
         var txt = (label && label.textContent) || btn.textContent || pick;
         result.textContent = "You chose: " + txt.trim();
         result.classList.add("is-active");
-        buttons.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+        buttons.forEach(function (b) {
+          b.classList.toggle("is-active", b === btn);
+        });
       });
     });
   });
 
-  document.querySelectorAll(".code-copy-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var pre = btn.closest("pre");
-      if (!pre) return;
-      var txt = (pre.textContent || "").replace(/^[\$#>]\s?/gm, "");
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(txt).catch(function () {});
-      }
-    });
+  document.querySelectorAll("[data-showcase-tools]").forEach(function (tools) {
+    var filter = tools.querySelector("[data-showcase-filter]");
+    var editor = tools.querySelector("[data-showcase-editor]");
+    var preview = tools.querySelector("[data-showcase-preview]");
+    var article = tools.closest(".article-content") || document.querySelector(".article-content");
+    var sections = article
+      ? Array.prototype.slice.call(article.querySelectorAll("h2, h3")).map(function (heading) {
+          var nodes = [];
+          var node = heading.nextElementSibling;
+          while (node && !/^H[23]$/.test(node.tagName)) {
+            nodes.push(node);
+            node = node.nextElementSibling;
+          }
+          return { heading: heading, nodes: nodes };
+        })
+      : [];
+    function updatePreview() {
+      if (preview && editor) preview.textContent = editor.value;
+    }
+    function runFilter() {
+      var q = filter ? filter.value.trim().toLowerCase() : "";
+      sections.forEach(function (section) {
+        var haystack = [section.heading.textContent]
+          .concat(
+            section.nodes.map(function (node) {
+              return node.textContent || "";
+            })
+          )
+          .join(" ")
+          .toLowerCase();
+        var show = !q || haystack.indexOf(q) !== -1;
+        section.heading.hidden = !show;
+        section.nodes.forEach(function (node) {
+          node.hidden = !show;
+        });
+      });
+    }
+    if (filter) filter.addEventListener("input", runFilter);
+    if (editor) editor.addEventListener("input", updatePreview);
+    updatePreview();
   });
 
   /* Lightbox keyboard gallery */
   var lightboxImgs = Array.prototype.slice.call(
     document.querySelectorAll(".article-content img, .prose img")
   );
+  if (lightboxThumbs) {
+    lightboxImgs.forEach(function (img, i) {
+      var thumb = document.createElement("button");
+      thumb.type = "button";
+      thumb.className = "comic-lightbox__thumb";
+      thumb.style.backgroundImage = "url('" + (img.currentSrc || img.src) + "')";
+      thumb.setAttribute("aria-label", "Open image " + String(i + 1));
+      thumb.addEventListener("click", function () {
+        openLightboxAt(i);
+      });
+      lightboxThumbs.appendChild(thumb);
+    });
+  }
   var lightboxIndex = -1;
   function openLightboxAt(i) {
     if (!lightboxImgs[i]) return;
     lightboxIndex = i;
     lightboxImg.src = lightboxImgs[i].currentSrc || lightboxImgs[i].src;
     lightboxImg.alt = lightboxImgs[i].alt || "";
+    if (lightboxCaption)
+      lightboxCaption.textContent =
+        lightboxImgs[i].closest("figure")?.querySelector("figcaption")?.textContent ||
+        lightboxImgs[i].alt ||
+        "";
+    if (lightboxDownload) lightboxDownload.href = lightboxImg.src;
+    if (lightboxThumbs) {
+      Array.prototype.forEach.call(lightboxThumbs.children, function (thumb, index) {
+        thumb.classList.toggle("is-active", index === i);
+      });
+    }
     lightbox.classList.add("is-open");
   }
   lightboxImgs.forEach(function (img, i) {
@@ -566,13 +709,93 @@
   });
 
   /* background reacts to mouse + scroll progress */
-  function updateBg(e) {
-    var px = e ? e.clientX / Math.max(1, window.innerWidth) : 0.5;
-    var py = (window.scrollY || 0) / Math.max(1, document.body.scrollHeight - window.innerHeight);
-    root.style.setProperty("--bg-x", String((px * 100).toFixed(2)) + "%");
-    root.style.setProperty("--bg-y", String((py * 100).toFixed(2)) + "%");
+  var bgX = 0.5;
+  var bgY = 0;
+  var targetX = 0.5;
+  var targetY = 0;
+  var lastScrollY = window.scrollY || 0;
+  var lastScrollAt = performance.now();
+  var scrollVelocity = 0;
+  var rafId = 0;
+  var fxParams = new URLSearchParams(window.location.search);
+  var fxOff = fxParams.get("fx") === "off" || getStored("comichero-fx") === "off";
+  var bgIntensity = Math.max(
+    0.35,
+    Math.min(1.6, Number(getStored("comichero-bg-intensity") || "1"))
+  );
+  if (fxOff) root.setAttribute("data-fx", "off");
+
+  function paletteForProgress(progress, isDark) {
+    if (progress < 0.33) {
+      return isDark ? [218, 252, 286] : [198, 230, 264];
+    }
+    if (progress < 0.66) {
+      return isDark ? [256, 292, 330] : [242, 278, 316];
+    }
+    return isDark ? [182, 224, 266] : [30, 72, 112];
   }
+
+  function scheduleBg() {
+    if (rafId) return;
+    rafId = requestAnimationFrame(function () {
+      rafId = 0;
+      bgX += (targetX - bgX) * 0.16;
+      bgY += (targetY - bgY) * 0.12;
+      var progress = Math.min(1, Math.max(0, bgY));
+      var isDark = root.getAttribute("data-theme") === "dark";
+      var base = paletteForProgress(progress, isDark);
+      var cycle = progress * 120;
+      var wave = Math.sin(progress * Math.PI * 4);
+      var velocityBoost = fxOff ? 0 : Math.min(0.2, scrollVelocity * 0.0009) * bgIntensity;
+
+      root.style.setProperty("--bg-x", String((bgX * 100).toFixed(2)) + "%");
+      root.style.setProperty("--bg-y", String((bgY * 100).toFixed(2)) + "%");
+      root.style.setProperty("--bg-hue-1", String((base[0] + cycle * bgIntensity).toFixed(1)));
+      root.style.setProperty(
+        "--bg-hue-2",
+        String((base[1] + cycle * 0.9 * bgIntensity).toFixed(1))
+      );
+      root.style.setProperty(
+        "--bg-hue-3",
+        String((base[2] + cycle * 0.78 * bgIntensity).toFixed(1))
+      );
+      root.style.setProperty(
+        "--bg-glow-alpha",
+        String((0.18 + (wave + 1) * 0.11 * bgIntensity + velocityBoost).toFixed(3))
+      );
+      root.style.setProperty("--bg-stop-1", isDark ? "24%" : "84%");
+      root.style.setProperty("--bg-stop-2", isDark ? "20%" : "74%");
+      root.style.setProperty("--bg-stop-3", isDark ? "16%" : "66%");
+    });
+  }
+
+  function updateBg(e) {
+    targetX = e ? e.clientX / Math.max(1, window.innerWidth) : targetX;
+    targetY = (window.scrollY || 0) / Math.max(1, document.body.scrollHeight - window.innerHeight);
+    scheduleBg();
+  }
+
   window.addEventListener("mousemove", updateBg, { passive: true });
-  window.addEventListener("scroll", updateBg, { passive: true });
+  window.addEventListener(
+    "scroll",
+    function () {
+      var now = performance.now();
+      var currentY = window.scrollY || 0;
+      var dt = Math.max(1, now - lastScrollAt);
+      var direction = currentY > lastScrollY ? "down" : "up";
+      scrollVelocity = (Math.abs(currentY - lastScrollY) / dt) * 1000;
+      root.setAttribute("data-scroll-direction", direction);
+      lastScrollY = currentY;
+      lastScrollAt = now;
+      var bttBtn = document.querySelector("[data-back-to-top]");
+      if (bttBtn && scrollVelocity > 1100) {
+        bttBtn.classList.remove("is-speeding");
+        void bttBtn.offsetWidth;
+        bttBtn.classList.add("is-speeding");
+      }
+      updateBg();
+    },
+    { passive: true }
+  );
   updateBg();
 })();

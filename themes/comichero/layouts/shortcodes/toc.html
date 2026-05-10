@@ -3,8 +3,13 @@
 {{ $tocEmpty := site.Params.comichero.labels.tocEmpty | default (i18n "no_toc" | default "Add headings to show a table of contents.") }}
 {{ with .Page.TableOfContents }}
 <div class="comic-toc comic-panel {{ $class }}" data-comic-toc>
-  <p class="comic-toc__label">{{ $tocTitle }}</p>
-  {{ . }}
+  <button class="comic-toc__toggle" type="button" data-toc-toggle aria-expanded="true">
+    <span>{{ $tocTitle }}</span>
+    <span aria-hidden="true">▾</span>
+  </button>
+  <div class="comic-toc__body" data-toc-body>
+    {{ . }}
+  </div>
 </div>
 {{ else }}
 <p class="comic-toc comic-toc--empty">{{ $tocEmpty }}</p>

@@ -28,6 +28,7 @@
     <a href="{{ $section.RelPermalink }}" class="comic-card comic-card--section">
       <span class="comic-card__tag">{{ $section.Section | humanize }}</span>
       <h2 class="comic-card__title">{{ $section.Title }}</h2>
+            {{ with $p.Params.tags }}<p class="comic-card__tags">{{ range first 3 . }}<span class="tag">{{ . }}</span>{{ end }}</p>{{ end }}
       {{ with $section.Description }}<p class="comic-card__desc">{{ . }}</p>{{ end }}
     </a>
     {{ end }}
@@ -42,7 +43,9 @@
   <ul class="comic-grid comic-grid--book" role="list">
     {{ range $p := $paginator.Pages }}
     <li>
-      <article class="comic-card comic-card--post">
+      {{ $isNew := gt $p.Date (now.AddDate 0 0 -14) }}
+      <article class="comic-card comic-card--post{{ if $isNew }} comic-card--new{{ end }}">
+        {{ if $isNew }}<span class="comic-card__sticker">New</span>{{ end }}
         <a href="{{ $p.RelPermalink }}" class="comic-card__link">
           {{ $thumb := $p.Params.image | default site.Params.comichero.media.defaultThumbnail | default site.Params.comichero.defaultThumbnail }}
           {{ with $thumb }}
@@ -53,7 +56,7 @@
           <div class="comic-card__thumb comic-card__thumb--placeholder" aria-hidden="true"></div>
           {{ end }}
           <div class="comic-card__body">
-            <span class="comic-card__meta">{{ $p.Date.Format "2006-01-02" }} · {{ $p.Section }}</span>
+            <span class="comic-card__meta">{{ $p.Date.Format "2006-01-02" }} · {{ $p.Section }} · {{ $p.ReadingTime }} min · {{ $p.WordCount }} words</span>
             <h2 class="comic-card__title">{{ $p.LinkTitle }}</h2>
             {{ with $p.Params.summary | default $p.Description | default $p.Summary }}
             {{ $txt := . | plainify }}
