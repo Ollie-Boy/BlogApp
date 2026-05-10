@@ -24,18 +24,6 @@
   </div>
 </section>
 
-{{ $featured := first 1 (where site.RegularPages "Type" "blog") }}
-{{ with index $featured 0 }}
-<section class="container section featured-post">
-  <article class="comic-panel featured-post__panel">
-    <p class="featured-post__eyebrow">Featured post</p>
-    <h2 class="featured-post__title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    <p class="featured-post__meta">{{ .Date.Format "2006-01-02" }} · {{ .ReadingTime }} min · {{ .WordCount }} words</p>
-    {{ with .Description | default .Summary }}<p>{{ . | plainify | truncate 190 }}</p>{{ end }}
-  </article>
-</section>
-{{ end }}
-
 <div class="container section">
   <h2 class="section-heading sfx-tilt">{{ site.Params.comichero.ui.latestHeading | default site.Params.comichero.latestHeading | default "Latest stories" }}</h2>
   <ul class="comic-grid comic-grid--home comic-grid--book" role="list">
@@ -45,7 +33,7 @@
     <li>
       {{ $isNew := gt $p.Date (now.AddDate 0 0 -14) }}
       <article class="comic-card comic-card--post{{ if $isNew }} comic-card--new{{ end }}">
-        {{ if $isNew }}<span class="comic-card__sticker">New</span>{{ end }}
+        {{ if $isNew }}<span class="comic-card__sticker">NEW!!!</span>{{ end }}
         <a href="{{ $p.RelPermalink }}" class="comic-card__link">
           {{ $thumb := $p.Params.image | default site.Params.comichero.media.defaultThumbnail | default site.Params.comichero.defaultThumbnail }}
           {{ with $thumb }}

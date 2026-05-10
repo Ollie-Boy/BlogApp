@@ -1,6 +1,5 @@
 (function () {
   var THEME_KEY = "comichero-theme";
-  var THEME_MODE_KEY = "comichero-theme-mode";
   var SFX_MUTE_KEY = "comichero-sfx-muted";
   var root = document.documentElement;
 
@@ -30,34 +29,18 @@
     return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
   }
 
-  function themeMode() {
-    return getStored(THEME_MODE_KEY) || "auto";
-  }
-
   function updateThemeToggleLabels() {
-    var mode = themeMode();
+    var theme = currentTheme();
     document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
-      var label = btn.querySelector("[data-theme-mode-label]");
-      if (label) label.textContent = mode === "auto" ? "Auto" : currentTheme();
-      btn.setAttribute("aria-label", "Theme mode: " + (mode === "auto" ? "Auto" : currentTheme()));
-      btn.setAttribute("title", "Theme mode: " + (mode === "auto" ? "Auto" : currentTheme()));
+      btn.setAttribute("aria-label", "Theme: " + theme + ". Click to switch.");
+      btn.setAttribute("title", "Theme: " + theme);
     });
   }
 
   function toggleTheme() {
-    var mode = themeMode();
-    if (mode === "auto") {
-      applyTheme("light");
-      setStored(THEME_KEY, "light");
-      setStored(THEME_MODE_KEY, "manual");
-    } else if (currentTheme() === "light") {
-      applyTheme("dark");
-      setStored(THEME_KEY, "dark");
-      setStored(THEME_MODE_KEY, "manual");
-    } else {
-      setStored(THEME_MODE_KEY, "auto");
-      applyTheme(localTimeTheme());
-    }
+    var next = currentTheme() === "light" ? "dark" : "light";
+    applyTheme(next);
+    setStored(THEME_KEY, next);
     updateThemeToggleLabels();
   }
 
@@ -74,19 +57,7 @@
     });
   }
 
-  function localTimeTheme() {
-    var hour = new Date().getHours();
-    return hour >= 19 || hour < 7 ? "dark" : "light";
-  }
-
-  function applyTimeThemeIfAuto() {
-    if (themeMode() === "manual") return;
-    applyTheme(localTimeTheme());
-    updateThemeToggleLabels();
-  }
-  applyTimeThemeIfAuto();
   updateThemeToggleLabels();
-  window.setInterval(applyTimeThemeIfAuto, 5 * 60 * 1000);
 
   /* Back to top */
   var btt = document.querySelector("[data-back-to-top]");
@@ -285,6 +256,9 @@
   });
 
   document.querySelectorAll(".hero__sfx").forEach(function (sfx) {
+    sfx.addEventListener("mousedown", function (e) {
+      e.preventDefault();
+    });
     sfx.addEventListener("click", function () {
       sfx.classList.remove("is-bursting");
       void sfx.offsetWidth;
@@ -510,19 +484,6 @@
       }
     });
     if (getStored(SFX_MUTE_KEY) === "1") board.setAttribute("data-sfx-muted", "1");
-  });
-
-  /* System-follow theme with manual override cycle */
-  document.querySelectorAll("[data-theme-toggle]").forEach(function (btn) {
-    btn.addEventListener("contextmenu", function (e) {
-      e.preventDefault();
-      try {
-        localStorage.removeItem(THEME_KEY);
-        localStorage.setItem(THEME_MODE_KEY, "auto");
-      } catch (err) {}
-      applyTheme(localTimeTheme());
-      updateThemeToggleLabels();
-    });
   });
 
   /* Global media mute memory */
@@ -798,4 +759,6 @@
     { passive: true }
   );
   updateBg();
+
+
 })();

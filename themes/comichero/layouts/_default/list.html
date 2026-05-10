@@ -28,7 +28,7 @@
     <a href="{{ $section.RelPermalink }}" class="comic-card comic-card--section">
       <span class="comic-card__tag">{{ $section.Section | humanize }}</span>
       <h2 class="comic-card__title">{{ $section.Title }}</h2>
-            {{ with $p.Params.tags }}<p class="comic-card__tags">{{ range first 3 . }}<span class="tag">{{ . }}</span>{{ end }}</p>{{ end }}
+            {{ with $section.Params.tags }}<p class="comic-card__tags">{{ range first 3 . }}<span class="tag">{{ . }}</span>{{ end }}</p>{{ end }}
       {{ with $section.Description }}<p class="comic-card__desc">{{ . }}</p>{{ end }}
     </a>
     {{ end }}
@@ -45,7 +45,7 @@
     <li>
       {{ $isNew := gt $p.Date (now.AddDate 0 0 -14) }}
       <article class="comic-card comic-card--post{{ if $isNew }} comic-card--new{{ end }}">
-        {{ if $isNew }}<span class="comic-card__sticker">New</span>{{ end }}
+        {{ if $isNew }}<span class="comic-card__sticker">NEW!!!</span>{{ end }}
         <a href="{{ $p.RelPermalink }}" class="comic-card__link">
           {{ $thumb := $p.Params.image | default site.Params.comichero.media.defaultThumbnail | default site.Params.comichero.defaultThumbnail }}
           {{ with $thumb }}

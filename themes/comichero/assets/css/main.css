@@ -426,6 +426,9 @@ body.comichero-body.site-shell {
   transform: rotate(-8deg);
   display: inline-block;
   animation: sfxPulse 1.8s ease-in-out infinite;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
 }
 
 @keyframes sfxPulse {
@@ -1353,10 +1356,12 @@ a.tag--series:focus-visible {
 .article-content table {
   width: 100%;
   margin: 1.5rem 0 2rem;
-  border-collapse: separate;
-  border-spacing: 0.7rem 0.55rem;
+  border-collapse: collapse;
+  border-spacing: 0;
   table-layout: auto;
   overflow-wrap: anywhere;
+  border-top: 3px solid var(--line);
+  border-bottom: 3px solid var(--line);
 }
 
 .prose th,
@@ -1365,16 +1370,18 @@ a.tag--series:focus-visible {
 .article-content td {
   min-width: 9rem;
   padding: 0.75rem 1.15rem;
-  border: 2px solid var(--line);
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 35%, transparent);
   vertical-align: top;
 }
 
 .prose th,
 .article-content th {
-  background: var(--accent-2);
-  color: #fff;
+  background: transparent;
+  color: var(--ink);
   font-weight: 800;
   text-align: left;
+  border-bottom: 2px solid var(--line);
 }
 
 .prose td,
@@ -1621,8 +1628,9 @@ pre.codesnippet code {
 }
 
 .doc-sidebar {
+  --doc-sidebar-top: 5.6rem;
   position: sticky;
-  top: 1rem;
+  top: var(--doc-sidebar-top);
   padding: 1rem;
   font-size: 0.95rem;
 }
@@ -1637,7 +1645,7 @@ pre.codesnippet code {
 }
 
 .doc-toc {
-  max-height: min(62vh, calc(100vh - 14rem));
+  max-height: calc(100vh - var(--doc-sidebar-top) - 6.25rem);
   overflow: auto;
   padding-right: 0.35rem;
   scrollbar-width: thin;
@@ -2479,8 +2487,8 @@ pre.codesnippet code {
 }
 
 .comic-stamp--info {
-  background: var(--accent-2);
-  color: #fff;
+  background: transparent;
+  color: var(--ink);
 }
 
 @keyframes stampWobble {
@@ -3498,7 +3506,7 @@ pre.codesnippet code {
 }
 
 .back-to-top:hover {
-  transform: translate(-3px, -3px) rotate(-6deg);
+  transform: translate(-3px, -3px);
   box-shadow: 8px 8px 0 var(--line);
 }
 
@@ -4038,19 +4046,6 @@ pre.code-enhanced > .code-collapse-btn,
   overflow: hidden;
 }
 
-.theme-toggle__mode {
-  position: absolute;
-  right: -0.45rem;
-  bottom: -0.45rem;
-  padding: 0.08rem 0.22rem;
-  border: 2px solid var(--line);
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.52rem;
-  font-weight: 800;
-  line-height: 1;
-  text-transform: uppercase;
-}
 
 .theme-transition .theme-toggle__icon {
   animation: themeSpin 320ms ease;
@@ -4158,7 +4153,34 @@ pre.code-enhanced > .code-collapse-btn,
   top: 0.75rem;
   left: 0.75rem;
   z-index: 3;
-  transform: rotate(-6deg);
+  transform: rotate(-8deg);
+  filter: drop-shadow(5px 5px 0 var(--line));
+  border: 0;
+  box-shadow: none;
+  clip-path: polygon(
+    50% 0%,
+    62% 16%,
+    80% 8%,
+    78% 28%,
+    98% 30%,
+    84% 46%,
+    100% 60%,
+    78% 66%,
+    86% 86%,
+    62% 80%,
+    50% 100%,
+    38% 80%,
+    14% 86%,
+    22% 66%,
+    0% 60%,
+    16% 46%,
+    2% 30%,
+    22% 28%,
+    20% 8%,
+    38% 16%
+  );
+  padding: 0.52rem 0.78rem;
+  line-height: 1;
 }
 
 .comic-card--post {
@@ -4286,9 +4308,7 @@ pre.code-enhanced > .code-collapse-btn,
   color: var(--muted);
 }
 
-[data-scroll-direction="down"] .back-to-top {
-  transform: translateY(8px) rotate(4deg);
-}
+[data-scroll-direction="down"] .back-to-top { transform: translateY(8px); }
 
 .comic-lightbox__caption {
   position: fixed;
