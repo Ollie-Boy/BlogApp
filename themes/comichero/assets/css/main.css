@@ -60,7 +60,6 @@
   --fusion-grid: rgba(69, 123, 157, 0.16);
 }
 
-
 [data-theme="dark"] {
   --ink: #f4f1ea;
   --paper: #12121a;
@@ -89,7 +88,6 @@
   --fusion-grid: rgba(116, 192, 252, 0.16);
 }
 
-
 *,
 *::before,
 *::after {
@@ -100,6 +98,11 @@ html {
   scroll-behavior: smooth;
   min-height: 100%;
   scrollbar-gutter: stable;
+  overscroll-behavior-y: none;
+}
+
+body {
+  overscroll-behavior-y: none;
 }
 
 html.theme-transition,
@@ -113,7 +116,6 @@ html.theme-transition body {
 body.comichero-body.site-shell {
   margin: 0;
   min-height: 100vh;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   font-family: var(--font-body);
@@ -122,8 +124,16 @@ body.comichero-body.site-shell {
   color: var(--ink);
   background-color: var(--paper);
   background-image:
-    radial-gradient(circle at 15% -10%, color-mix(in srgb, var(--fusion-neon) 22%, transparent), transparent 34%),
-    radial-gradient(circle at 90% 0%, color-mix(in srgb, var(--fusion-violet) 18%, transparent), transparent 30%);
+    radial-gradient(
+      circle at 15% -10%,
+      color-mix(in srgb, var(--fusion-neon) 22%, transparent),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 90% 0%,
+      color-mix(in srgb, var(--fusion-violet) 18%, transparent),
+      transparent 30%
+    );
   background-size: auto, auto;
   position: relative;
 }
@@ -1588,7 +1598,6 @@ pre.codesnippet code {
   color: var(--muted);
 }
 
-
 .doc-toc {
   max-height: min(62vh, calc(100vh - 14rem));
   overflow: auto;
@@ -1633,7 +1642,6 @@ pre.codesnippet code {
   color: var(--muted);
   font-size: 0.9rem;
 }
-
 
 .doc-toc-progress {
   height: 6px;
@@ -3602,17 +3610,85 @@ pre.codesnippet code {
 :root {
   --bg-x: 50%;
   --bg-y: 0%;
+  --bg-hue-1: 205;
+  --bg-hue-2: 255;
+  --bg-hue-3: 300;
+  --bg-glow-alpha: 0.38;
+  --bg-stop-1: 84%;
+  --bg-stop-2: 74%;
+  --bg-stop-3: 66%;
 }
+
 body {
   background-image:
     radial-gradient(
       circle at var(--bg-x) var(--bg-y),
-      color-mix(in srgb, var(--accent-2) 18%, transparent),
+      hsl(var(--bg-hue-3) 96% 72% / var(--bg-glow-alpha)),
       transparent 34%
     ),
-    linear-gradient(180deg, color-mix(in srgb, var(--paper) 95%, var(--accent) 5%), var(--paper));
-  background-attachment: fixed;
+    linear-gradient(
+      180deg,
+      hsl(var(--bg-hue-1) 100% var(--bg-stop-1)),
+      hsl(var(--bg-hue-2) 100% var(--bg-stop-2)),
+      hsl(var(--bg-hue-3) 98% var(--bg-stop-3))
+    );
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-size: 100% 180vh;
+  transition: background-image 0.35s linear;
 }
+
+.site-footer {
+  position: relative;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -72px;
+  height: 72px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--panel) 58%, transparent)
+  );
+}
+
+.comic-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.comic-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.065;
+  background-image: radial-gradient(circle at 1px 1px, rgb(0 0 0 / 0.26) 1px, transparent 0);
+  background-size: 5px 5px;
+  mix-blend-mode: multiply;
+}
+
+.back-to-top.is-speeding {
+  animation: btt-pulse 380ms ease-out;
+}
+
+@keyframes btt-pulse {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-2px, -2px) scale(1.06);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -3666,7 +3742,6 @@ pre.is-collapsed {
 .search-page__recommend ul {
   margin: 0.4rem 0 0;
 }
-
 
 .comic-thought-cloud__avatar {
   width: 44px;
@@ -3820,12 +3895,18 @@ pre.code-enhanced::before {
   pointer-events: none;
 }
 
-pre.code-enhanced .code-copy-btn {
+pre.code-enhanced > .code-copy-btn,
+.prose pre > .code-copy-btn {
   top: 2.15rem;
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  justify-content: center;
 }
 
-.prose pre .code-copy-btn {
+pre.code-enhanced > .code-copy-btn.code-collapse-btn {
   top: 2.15rem;
+  right: 6.05rem;
 }
 
 .comic-dialogue-ab [data-pick].is-active,

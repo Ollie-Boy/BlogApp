@@ -10,6 +10,6 @@ image: "/images/furry-god-thumb.svg"
 
 You made it to **issue 2**. Open the Series page to see the reading order and issue links.
 
-{{< chapter label="第 2 回" subtitle="Open **Series** in the nav to see every issue listed." >}}
+{{< chapter label="Issue 2" subtitle="Open **Series** in the nav to see every issue listed." >}}
 
 That is all for this demo arc.

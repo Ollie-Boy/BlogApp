@@ -10,7 +10,7 @@ image: "/images/furry-god-thumb.svg"
 
 Welcome to **issue 1**. Use the footer cards to jump to the next episode or a random post.
 
-{{< chapter label="第 1 回" volume="Vol. 1" subtitle="The theme boots without *drama*." >}}
+{{< chapter label="Issue 1" volume="Vol. 1" subtitle="The theme boots without *drama*." >}}
 
 {{< cast name="Editor" img="/images/furry-god-thumb.svg" >}}
 We print **loud** margins — theme toggle lives in the header too.
